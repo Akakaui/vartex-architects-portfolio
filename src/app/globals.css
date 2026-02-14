@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #292929;
+    --color-background-light: #ffffff;
+    --color-background-dark: #191919;
+
+    --color-neutral-100: #f5f5f5;
+    --color-neutral-200: #e5e5e5;
+    --color-neutral-300: #d4d4d4;
+    --color-neutral-800: #262626;
+
+    --color-border-light: #e5e5e5;
+    --color-border-dark: #262626;
+
+    --font-display: var(--font-inter), sans-serif;
+    --font-mono: var(--font-ibm-plex-mono), monospace;
+}
+
+:root {
+    --background: #ffffff;
+    --foreground: #292929;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #191919;
+        --foreground: #ffffff;
+    }
+}
+
+body {
+    color: var(--foreground);
+    background: var(--background);
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+}
+
+.mono-text {
+    font-family: var(--font-mono);
+}
+
+.axis-mark {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-color: #d1d5db;
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.axis-tl {
+    top: 20px;
+    left: 20px;
+    border-top: 1px solid;
+    border-left: 1px solid;
+}
+
+.axis-tr {
+    top: 20px;
+    right: 20px;
+    border-top: 1px solid;
+    border-right: 1px solid;
+}
+
+.axis-bl {
+    bottom: 20px;
+    left: 20px;
+    border-bottom: 1px solid;
+    border-left: 1px solid;
+}
+
+.axis-br {
+    bottom: 20px;
+    right: 20px;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+}
+
+/* Custom utilities for the technical grid look */
+.technical-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 1024px) {
+    .technical-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.technical-border-r {
+    border-right: 1px solid var(--color-border-light);
+}
+
+.dark .technical-border-r {
+    border-right: 1px solid var(--color-border-dark);
+}
+
+@media (max-width: 1023px) {
+    .technical-border-r {
+        border-right: none;
+    }
+}
+
+.grid-line-x {
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.grid-line-y {
+    border-right: 1px solid var(--color-border-light);
+}
+
+.dark .grid-line-x {
+    border-bottom: 1px solid var(--color-border-dark);
+}
+
+.dark .grid-line-y {
+    border-right: 1px solid var(--color-border-dark);
+}

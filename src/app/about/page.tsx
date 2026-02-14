@@ -1,0 +1,135 @@
+"use client";
+
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { useEffect, useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import gsap from "gsap";
+
+const AWARDS = [
+    { year: "2024", title: "AIA Excellence in Residential Design", project: "House Aries", status: "Winner" },
+    { year: "2023", title: "Dezeen Awards - Cultural Project", project: "The Void Pavilion", status: "Shortlist" },
+    { year: "2023", title: "World Architecture Festival (WAF)", project: "Monolith Office", status: "Finalist" },
+    { year: "2022", title: "Lagos Architecture Biennale", project: "Urban Infill", status: "Silver Medal" },
+];
+
+export default function About() {
+    const mainRef = useRef(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.from(".fade-in", {
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out",
+            });
+        });
+        return () => ctx.revert();
+    }, []);
+
+    return (
+        <div className="flex flex-col min-h-screen">
+            <Header />
+
+            <main ref={mainRef} className="flex-grow flex flex-col items-center relative architectural-grid bg-white dark:bg-background-dark overflow-hidden">
+                {/* Decorative Axis Lines */}
+                <div className="absolute inset-0 pointer-events-none z-0 opacity-10">
+                    <div className="absolute left-[15%] top-0 bottom-0 w-[1px] bg-primary dark:bg-white"></div>
+                    <div className="absolute right-[15%] top-0 bottom-0 w-[1px] bg-primary dark:bg-white"></div>
+                </div>
+
+                <div className="w-full max-w-[1400px] px-8 lg:px-24 py-24 lg:py-32 z-10 flex flex-col gap-32">
+
+                    {/* Founder Profile Section */}
+                    <section className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start fade-in">
+                        {/* Left Column: Portrait */}
+                        <div className="lg:col-span-12 xl:col-span-4 flex flex-col gap-8 relative group">
+                            <div className="relative aspect-[3/4] bg-neutral-100 grayscale overflow-hidden rounded-sm border border-neutral-100 dark:border-white/5">
+                                <Image
+                                    alt="Michael Mbah Profile"
+                                    fill
+                                    priority
+                                    className="object-cover object-center group-hover:scale-105 transition-transform duration-1000 ease-out"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxI3vH_f7I8OaG8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1"
+                                />
+                                {/* Technical Corner Overlay */}
+                                <div className="absolute bottom-4 left-4 p-4 bg-white/90 dark:bg-black/90 border border-neutral-100 dark:border-white/5 font-mono text-[9px] tracking-[0.4em] uppercase">
+                                    PRINCIPAL — ARCH. MBAH
+                                </div>
+                            </div>
+                            <div className="flex flex-col gap-2 border-t border-neutral-100 dark:border-white/5 pt-6 font-mono text-[10px] tracking-widest text-primary/40 dark:text-white/40 uppercase">
+                                <div className="flex justify-between">
+                                    <span>B.ARCH — UNEC</span>
+                                    <span>M.ARCH — UNILAG</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span>REGISTRATION</span>
+                                    <span className="text-primary dark:text-white">ARCON / RIBA INT.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Right Column: Bio */}
+                        <div className="lg:col-span-12 xl:col-span-7 xl:col-start-6 flex flex-col gap-12">
+                            <h1 className="text-5xl lg:text-7xl font-black tracking-tighter leading-[0.9] text-primary dark:text-white uppercase">
+                                Crafting clarity <br /> from complexity.
+                            </h1>
+                            <div className="flex flex-col gap-8 text-xl lg:text-2xl font-light leading-snug text-primary/80 dark:text-white/80 max-w-2xl italic">
+                                <p>
+                                    Our practice is founded on the belief that architecture is a dialogue between human ritual and environmental context. We strip away the noise to reveal the essential structure, finding beauty in geometric precision and material honesty.
+                                </p>
+                            </div>
+                            <div className="flex flex-col gap-6 text-base font-light leading-relaxed text-primary/60 dark:text-white/60 max-w-xl">
+                                <p>
+                                    Michael Mbah established VARTEX in 2018 after years of refining his craft in both commercial and residential sectors across West Africa. His approach is deeply mathematical, treating every project as an equation where light, volume, and budget are solved through architectural rigor.
+                                </p>
+                                <p>
+                                    Today, the studio operates as a multidisciplinary hub, collaborating with engineers, landscape architects, and digital fabricators to deliver projects that are as technically sound as they are aesthetically profound.
+                                </p>
+                            </div>
+                            <div className="pt-12">
+                                <Link href="/contact" className="bg-primary dark:bg-white text-white dark:text-primary px-12 py-5 rounded-sm font-bold uppercase tracking-[0.3em] text-[10px] hover:bg-black dark:hover:bg-neutral-200 transition-all shadow-lg active:scale-95">
+                                    START A PROJECT
+                                </Link>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* AWARDS & RECOGNITION */}
+                    <section className="flex flex-col gap-12 border-t border-neutral-100 dark:border-white/5 pt-24 fade-in">
+                        <div className="flex justify-between items-end">
+                            <div className="flex flex-col gap-2">
+                                <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">01 — ACCOLADES</span>
+                                <h2 className="text-4xl lg:text-6xl font-black uppercase tracking-tighter text-primary dark:text-white">Awards if any.</h2>
+                            </div>
+                            <span className="font-mono text-[9px] tracking-widest text-primary/20 dark:text-white/20 uppercase hidden sm:block">CURATED SELECTION — 2020/2025</span>
+                        </div>
+
+                        <div className="flex flex-col">
+                            {AWARDS.map((award, i) => (
+                                <div key={i} className="group grid grid-cols-1 md:grid-cols-12 py-8 border-b border-neutral-50 dark:border-white/5 hover:bg-neutral-50 dark:hover:bg-white/[0.02] transition-colors items-center px-4">
+                                    <span className="md:col-span-1 font-mono text-[10px] text-primary/40 dark:text-white/40">{award.year}</span>
+                                    <div className="md:col-span-6 flex flex-col">
+                                        <h4 className="text-lg font-bold text-primary dark:text-white group-hover:translate-x-2 transition-transform">{award.title}</h4>
+                                        <span className="font-mono text-[9px] tracking-widest text-primary/40 dark:text-white/40 uppercase">{award.project}</span>
+                                    </div>
+                                    <div className="md:col-span-5 flex justify-end">
+                                        <div className="border border-neutral-200 dark:border-white/10 px-4 py-2 rounded-full font-mono text-[9px] uppercase tracking-widest group-hover:border-primary dark:group-hover:border-white transition-colors">
+                                            {award.status}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+
+            <Footer />
+        </div>
+    );
+}
