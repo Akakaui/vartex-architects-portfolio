@@ -52,6 +52,7 @@ export default function About() {
                                     alt="Michael Mbah Profile"
                                     fill
                                     priority
+                                    sizes="(max-width: 1280px) 100vw, 400px"
                                     className="object-cover object-center group-hover:scale-105 transition-transform duration-1000 ease-out"
                                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxI3vH_f7I8OaG8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1"
                                 />

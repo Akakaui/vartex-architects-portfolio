@@ -7,6 +7,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { contactInquiryAction } from "./actions";
+import { CheckCircle, ChevronDown } from "lucide-react";
 
 const initialState = {
     message: "",
@@ -64,6 +65,7 @@ export default function Contact() {
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2v_j3m-nF6-W9C6yJEqg-Mhzm7Y7o-W1K-Y3v_0v-q_w-x-X-x-X-x-X-x-X-x-X-x-X-x-X-X-X-X-X-X-X-X-X-X-X-X-X-X"
                             alt="Blueprint Watermark"
                             fill
+                            sizes="(max-width: 1024px) 100vw, 45vw"
                             className="object-contain object-left-bottom grayscale invert dark:invert-0"
                         />
                     </div>
@@ -109,7 +111,7 @@ export default function Contact() {
 
                     {/* Success Message */}
                     <div className="hidden success-message absolute inset-0 bg-white dark:bg-background-dark p-8 lg:p-24 flex-col justify-center gap-8 items-center text-center z-20">
-                        <span className="material-symbols-outlined text-6xl text-primary dark:text-white">check_circle</span>
+                        <CheckCircle className="w-16 h-16 text-primary dark:text-white" />
                         <div className="flex flex-col gap-4">
                             <h2 className="text-4xl font-bold tracking-tighter text-primary dark:text-white uppercase">Inquiry Received.</h2>
                             <p className="text-primary/60 dark:text-white/60 font-mono text-[10px] tracking-widest uppercase max-w-sm">
@@ -150,7 +152,7 @@ export default function Contact() {
                                             <option value="urban">Urban Planning</option>
                                             <option value="interior">Interior</option>
                                         </select>
-                                        <span className="material-symbols-outlined absolute bottom-5 right-0 pointer-events-none opacity-40">expand_more</span>
+                                        <ChevronDown className="absolute bottom-5 right-0 pointer-events-none opacity-40 w-5 h-5" />
                                     </div>
                                 </div>
 
@@ -202,6 +204,7 @@ export default function Contact() {
                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSRU1-D_f7I8OaG8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1"
                                 alt="Studio Location Map"
                                 fill
+                                sizes="(max-width: 1024px) 100vw, 55vw"
                                 className="object-cover opacity-60 dark:opacity-40"
                             />
                             <div className="absolute bottom-4 left-4 p-4 bg-white/90 dark:bg-black/90 backdrop-blur-sm border border-neutral-100 dark:border-white/5">

@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
+import { ArrowRight } from "lucide-react";
 
 const JOURNAL_ENTRIES = [
     {
@@ -109,7 +110,7 @@ export default function Journal() {
                                     </p>
                                     <div className="flex items-center gap-4 mt-4 font-mono text-[9px] tracking-[0.3em] text-primary dark:text-white uppercase group-hover:translate-x-2 transition-transform">
                                         <span>READ ARTICLE</span>
-                                        <span className="material-symbols-outlined text-xs">arrow_forward</span>
+                                        <ArrowRight className="w-4 h-4" />
                                     </div>
                                 </div>
 
@@ -119,6 +120,7 @@ export default function Journal() {
                                         src={entry.image}
                                         alt={entry.title}
                                         fill
+                                        sizes="(max-width: 1024px) 100vw, 320px"
                                         className="object-cover scale-110 group-hover:scale-100 transition-transform duration-1000"
                                     />
                                     <div className="absolute top-4 right-4 bg-white/90 dark:bg-black/90 px-3 py-1 font-mono text-[8px] border border-neutral-100 dark:border-white/5 text-primary dark:text-white">

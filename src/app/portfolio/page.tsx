@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import gsap from "gsap";
+import { ArrowRight } from "lucide-react";
 
 const PROJECTS = [
     {
@@ -120,12 +121,13 @@ export default function Portfolio() {
                                     src={project.image}
                                     alt={project.title}
                                     fill
+                                    sizes="(max-width: 768px) 100vw, 50vw"
                                     className="object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-700 ease-out"
                                 />
                                 <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 border border-white/20"></div>
 
-                                <div className="absolute bottom-6 right-6 font-mono text-[10px] text-white opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500 tracking-widest">
-                                    VIEW SPECIFICATIONS {'->'}
+                                <div className="absolute bottom-6 right-6 font-mono text-[10px] text-white opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500 tracking-widest flex items-center gap-2">
+                                    VIEW SPECIFICATIONS <ArrowRight className="w-3 h-3" />
                                 </div>
                             </div>
 

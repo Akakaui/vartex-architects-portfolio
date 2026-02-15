@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Download, ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -155,11 +156,11 @@ export default function ProjectDetail() {
                         <div className="flex flex-col gap-4 pt-10 border-t border-neutral-100 dark:border-white/5">
                             <button className="group flex items-center justify-between w-full px-6 py-4 border border-primary dark:border-white hover:bg-primary dark:hover:bg-white text-primary dark:text-white hover:text-white dark:hover:text-primary transition-all duration-300 rounded-sm">
                                 <span className="font-bold tracking-widest text-xs uppercase">Download Blueprint</span>
-                                <span className="material-symbols-outlined text-sm">download</span>
+                                <Download className="w-4 h-4" />
                             </button>
                             <button className="group flex items-center justify-between w-full px-6 py-4 border border-primary/20 dark:border-white/20 hover:border-primary dark:hover:border-white text-primary dark:text-white transition-all duration-300 rounded-sm">
                                 <span className="font-bold tracking-widest text-xs uppercase">Next Project</span>
-                                <span className="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
+                                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                             </button>
                         </div>
                     </div>

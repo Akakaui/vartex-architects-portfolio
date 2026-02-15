@@ -147,6 +147,7 @@ export default function ProcessPage() {
                                     src={step.image}
                                     alt={step.title}
                                     fill
+                                    sizes="(max-width: 1024px) 100vw, 50vw"
                                     className="object-cover hover:scale-110 transition-transform duration-[2000ms] ease-out opacity-80"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>

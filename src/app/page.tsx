@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Home as HomeIcon, Building2, PenTool, TreePine, ArrowUpRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -83,6 +84,7 @@ export default function Home() {
                             alt="Minimalist Architecture"
                             fill
                             priority
+                            sizes="(max-width: 1024px) 100vw, 60vw"
                             className="object-cover grayscale transition-transform duration-700 hover:scale-105"
                         />
                         {/* Featured Tag */}
@@ -122,13 +124,14 @@ export default function Home() {
                         <Link href="/project/house-aries" aria-label="View House Aries project details" className="group flex flex-col gap-10 fade-in">
                             <div className="relative aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-neutral-900 rounded-sm">
                                 <Image
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2v_j3m-nF6-W9C6yJEqg-Mhzm7Y7o-W1K-Y3v_0v-q_w-x-X-x-X-x-X-x-X-x-X-x-X-x-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2v_j3m-nF6-W9C6yJEqg-Mhzm7Y7o-W1K-Y3v_0v-q_w-x-X-x-X-x-X-x-X-x-X-x-X-x-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X"
                                     className="object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
                                     alt="House Aries"
                                     fill
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
                                 />
-                                <div className="absolute top-6 right-6 p-4 bg-white/90 dark:bg-black/90 rounded-full opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
-                                    <span className="material-symbols-outlined text-sm">arrow_outward</span>
+                                <div className="absolute top-6 right-6 p-4 bg-white/90 dark:bg-black/90 rounded-full opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0 flex items-center justify-center">
+                                    <ArrowUpRight className="w-4 h-4 text-primary dark:text-white" />
                                 </div>
                             </div>
                             <div className="flex flex-col gap-6">
@@ -158,9 +161,10 @@ export default function Home() {
                                     className="object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
                                     alt="The Void Pavilion"
                                     fill
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
                                 />
-                                <div className="absolute top-6 right-6 p-4 bg-white/90 dark:bg-black/90 rounded-full opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
-                                    <span className="material-symbols-outlined text-sm">arrow_outward</span>
+                                <div className="absolute top-6 right-6 p-4 bg-white/90 dark:bg-black/90 rounded-full opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0 flex items-center justify-center">
+                                    <ArrowUpRight className="w-4 h-4 text-primary dark:text-white" />
                                 </div>
                             </div>
                             <div className="flex flex-col gap-6">
@@ -189,7 +193,7 @@ export default function Home() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-neutral-200 dark:bg-neutral-800">
                         {/* Item 1 */}
                         <div className="bg-white dark:bg-background-dark p-12 flex flex-col gap-8 group">
-                            <span className="material-symbols-outlined text-4xl text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500">home</span>
+                            <HomeIcon className="w-10 h-10 text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500" />
                             <div className="flex flex-col gap-4">
                                 <h4 className="text-xl font-bold uppercase tracking-tight text-primary dark:text-white">Residential Design</h4>
                                 <p className="text-xs text-primary/60 dark:text-white/60 leading-relaxed italic">Crafting intimate spaces that balance privacy with openness to nature.</p>
@@ -198,7 +202,7 @@ export default function Home() {
                         </div>
                         {/* Item 2 */}
                         <div className="bg-white dark:bg-background-dark p-12 flex flex-col gap-8 group">
-                            <span className="material-symbols-outlined text-4xl text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500">location_city</span>
+                            <Building2 className="w-10 h-10 text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500" />
                             <div className="flex flex-col gap-4">
                                 <h4 className="text-xl font-bold uppercase tracking-tight text-primary dark:text-white">Urban Planning</h4>
                                 <p className="text-xs text-primary/60 dark:text-white/60 leading-relaxed italic">Integrating structures into the city fabric with social and spatial awareness.</p>
@@ -207,7 +211,7 @@ export default function Home() {
                         </div>
                         {/* Item 3 */}
                         <div className="bg-white dark:bg-background-dark p-12 flex flex-col gap-8 group">
-                            <span className="material-symbols-outlined text-4xl text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500">architecture</span>
+                            <PenTool className="w-10 h-10 text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500" />
                             <div className="flex flex-col gap-4">
                                 <h4 className="text-xl font-bold uppercase tracking-tight text-primary dark:text-white">Interior Arch</h4>
                                 <p className="text-xs text-primary/60 dark:text-white/60 leading-relaxed italic">Holistic design where the interior shell informs the interior experience.</p>
@@ -216,7 +220,7 @@ export default function Home() {
                         </div>
                         {/* Item 4 */}
                         <div className="bg-white dark:bg-background-dark p-12 flex flex-col gap-8 group">
-                            <span className="material-symbols-outlined text-4xl text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500">park</span>
+                            <TreePine className="w-10 h-10 text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500" />
                             <div className="flex flex-col gap-4">
                                 <h4 className="text-xl font-bold uppercase tracking-tight text-primary dark:text-white">Landscape</h4>
                                 <p className="text-xs text-primary/60 dark:text-white/60 leading-relaxed italic">Blurring the boundaries between the built environment and the natural world.</p>
