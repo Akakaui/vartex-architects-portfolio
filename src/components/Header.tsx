@@ -79,44 +79,44 @@ export default function Header() {
                 {/* Mobile Menu Overlay */}
                 <div
                     className={cn(
-                        "fixed inset-0 bg-white dark:bg-background-dark z-40 transition-all duration-500 ease-in-out lg:hidden pt-32 px-8 flex flex-col gap-16",
+                        "fixed inset-0 bg-black z-40 transition-all duration-500 ease-in-out lg:hidden pt-40 px-8 flex flex-col gap-12",
                         isOpen
                             ? "translate-y-0 opacity-100"
                             : "translate-y-[-10px] opacity-0 pointer-events-none invisible"
                     )}
                 >
-                    <div className="flex flex-col gap-8">
+                    <div className="flex flex-col gap-6">
                         {navItems.map((item) => (
                             <Link
                                 key={item.name}
                                 href={item.href}
                                 className={cn(
-                                    "text-5xl font-black tracking-tighter flex items-center justify-between group",
-                                    pathname === item.href ? "text-primary dark:text-white" : "text-primary/20 dark:text-white/10"
+                                    "text-4xl font-black tracking-tighter flex items-center justify-between group",
+                                    pathname === item.href ? "text-white" : "text-white/30"
                                 )}
                             >
                                 {item.name}
                                 <ArrowRight className={cn(
-                                    "w-8 h-8 transition-transform group-hover:translate-x-2",
-                                    pathname === item.href ? "opacity-100" : "opacity-0"
+                                    "w-6 h-6 transition-all duration-300 group-hover:translate-x-2",
+                                    pathname === item.href ? "opacity-100" : "opacity-0 group-hover:opacity-100"
                                 )} />
                             </Link>
                         ))}
                     </div>
 
-                    <div className="mt-auto pb-12 flex flex-col gap-8">
+                    <div className="mt-auto pb-16 flex flex-col gap-10">
                         <Link
                             href="/contact"
-                            className="bg-primary dark:bg-white text-white dark:text-primary w-full py-6 text-center font-bold uppercase tracking-[0.3em] text-xs"
+                            className="bg-white text-black w-full py-5 text-center font-bold uppercase tracking-[0.4em] text-[10px] rounded-sm hover:bg-neutral-200 transition-colors"
                         >
                             START PROJECT
                         </Link>
 
-                        <div className="flex justify-between items-center border-t border-neutral-100 dark:border-white/5 pt-8">
-                            <span className="font-mono text-[9px] tracking-widest text-primary/40 dark:text-white/40 uppercase">© 2026 VARTEX ARCHITECTS</span>
-                            <div className="flex gap-4 font-mono text-[9px] text-primary dark:text-white uppercase tracking-widest">
-                                <span>IG</span>
-                                <span>LN</span>
+                        <div className="flex justify-between items-center border-t border-white/10 pt-10">
+                            <span className="font-mono text-[8px] tracking-[0.4em] text-white/30 uppercase">© 2026 VARTEX ARCHITECTS</span>
+                            <div className="flex gap-6 font-mono text-[8px] text-white/30 uppercase tracking-[0.4em]">
+                                <span className="hover:text-white transition-colors cursor-pointer">IG</span>
+                                <span className="hover:text-white transition-colors cursor-pointer">LN</span>
                             </div>
                         </div>
                     </div>
