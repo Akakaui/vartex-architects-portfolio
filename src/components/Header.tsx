@@ -79,8 +79,10 @@ export default function Header() {
                 {/* Mobile Menu Overlay */}
                 <div
                     className={cn(
-                        "fixed inset-0 bg-white dark:bg-background-dark z-40 transition-transform duration-500 ease-in-out lg:hidden pt-32 px-8 flex flex-col gap-16",
-                        isOpen ? "translate-y-0" : "translate-y-[-100%]"
+                        "fixed inset-0 bg-white dark:bg-background-dark z-40 transition-all duration-500 ease-in-out lg:hidden pt-32 px-8 flex flex-col gap-16",
+                        isOpen
+                            ? "translate-y-0 opacity-100"
+                            : "translate-y-[-10px] opacity-0 pointer-events-none invisible"
                     )}
                 >
                     <div className="flex flex-col gap-8">

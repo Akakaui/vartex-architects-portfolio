@@ -56,7 +56,7 @@ export default function Home() {
                 {/* HERO SECTION */}
                 <section className="relative flex flex-col lg:flex-row min-h-[90vh] border-b border-neutral-100 dark:border-white/5" aria-label="Welcome section">
                     {/* Left: Text Content */}
-                    <div className="w-full lg:w-[40%] p-8 lg:p-24 flex flex-col justify-center gap-12 lg:border-r border-neutral-100 dark:border-white/5 hero-text">
+                    <div className="w-full lg:w-[40%] p-8 md:p-16 lg:p-24 flex flex-col justify-center gap-12 lg:border-r border-neutral-100 dark:border-white/5 hero-text">
                         <div className="flex flex-col gap-6">
                             <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">00 — INTRO</span>
                             <h1 className="text-5xl lg:text-7xl font-black tracking-tighter leading-[0.9] text-primary dark:text-white">
@@ -78,7 +78,7 @@ export default function Home() {
                     </div>
 
                     {/* Right: Architectural Imagery */}
-                    <div className="w-full lg:w-[60%] relative overflow-hidden bg-neutral-100 dark:bg-neutral-900 hero-image">
+                    <div className="w-full lg:w-[60%] h-[50vh] lg:h-auto relative overflow-hidden bg-neutral-100 dark:bg-neutral-900 hero-image border-t lg:border-t-0 border-neutral-100 dark:border-white/5">
                         <Image
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxTU3eR0UFLAMqRe9RBZSNC5lzAcM6tXXsJAoBIW8lDGVX3PrbjJWngCvAnYGAQQa-YXzZxuNWV9ujAeY1OEIIKHS4MUmiBseqFxKTulkiqksxsLl4_r0D7k0uqQ9uogm9eXZghp0tYyzj46mmqohX4No4HbQ5HrYkBEQjuDyE_TdJ_8UCHrsCNnAuTi0eUA32o0B1sh373RkEHTB6SLClGbS-fDOFpiDilLbKVBb_8LPgsicpbXWKx2eq5W0MJsju4-7BoHE5"
                             alt="Minimalist Architecture"
@@ -88,10 +88,10 @@ export default function Home() {
                             className="object-cover grayscale transition-transform duration-700 hover:scale-105"
                         />
                         {/* Featured Tag */}
-                        <div className="absolute bottom-10 left-10 p-8 bg-white/95 dark:bg-background-dark/95 backdrop-blur-sm border border-neutral-100 dark:border-white/10 rounded-sm shadow-xl flex flex-col gap-2 min-w-[200px]">
-                            <span className="font-mono text-[9px] tracking-widest text-primary/40 dark:text-white/40 uppercase">FEATURED</span>
-                            <h3 className="text-lg font-bold tracking-tight text-primary dark:text-white">The Brutalist Library</h3>
-                            <p className="font-mono text-[9px] tracking-widest text-primary/40 dark:text-white/40 uppercase">LAGOS, NG — 2024</p>
+                        <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 p-4 md:p-8 bg-white/95 dark:bg-background-dark/95 backdrop-blur-sm border border-neutral-100 dark:border-white/10 rounded-sm shadow-xl flex flex-col gap-2 min-w-[160px] md:min-w-[200px]">
+                            <span className="font-mono text-[8px] md:text-[9px] tracking-widest text-primary/40 dark:text-white/40 uppercase">FEATURED</span>
+                            <h3 className="text-base md:text-lg font-bold tracking-tight text-primary dark:text-white">The Brutalist Library</h3>
+                            <p className="font-mono text-[8px] md:text-[9px] tracking-widest text-primary/40 dark:text-white/40 uppercase">LAGOS, NG — 2024</p>
                         </div>
                     </div>
                 </section>
