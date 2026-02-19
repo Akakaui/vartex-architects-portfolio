@@ -80,27 +80,26 @@ export default function Contact() {
                         <div className="flex flex-col gap-4">
                             <span className="font-mono text-[9px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">CONTACT</span>
                             <div className="flex flex-col gap-2">
-                                <a href="mailto:hello@vartexarchitects.com" aria-label="Email hello@vartexarchitects.com" className="text-xl lg:text-2xl font-bold text-primary dark:text-white hover:opacity-60 transition-opacity">hello@vartexarchitects.com</a>
-                                <a href="tel:+12125550198" aria-label="Call +1 212 555 0198" className="text-xl lg:text-2xl font-bold text-primary dark:text-white hover:opacity-60 transition-opacity">+1 (212) 555-0198</a>
+                                <a href="mailto:info@vartexarchitects.com" aria-label="Email info@vartexarchitects.com" className="text-xl lg:text-2xl font-bold text-primary dark:text-white hover:opacity-60 transition-opacity">info@vartexarchitects.com</a>
+                                <a href="tel:+2347032697179" aria-label="Call +234 703 269 7179" className="text-xl lg:text-2xl font-bold text-primary dark:text-white hover:opacity-60 transition-opacity">+234 703 269 7179</a>
                             </div>
                         </div>
 
                         <div className="flex flex-col gap-4">
                             <span className="font-mono text-[9px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">SOCIALS</span>
                             <div className="flex flex-wrap gap-6 font-mono text-[10px] uppercase tracking-[0.2em] text-primary dark:text-white">
-                                <a href="https://linkedin.com/company/vartex-architects" target="_blank" rel="noopener noreferrer" aria-label="Visit our LinkedIn profile" className="hover:opacity-40 transition-opacity">LinkedIn</a>
-                                <a href="https://instagram.com/vartex.architects" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="hover:opacity-40 transition-opacity">Instagram</a>
-                                <a href="https://behance.net/vartex" target="_blank" rel="noopener noreferrer" aria-label="View our Behance projects" className="hover:opacity-40 transition-opacity">Behance</a>
-                                <a href="https://pinterest.com/vartex" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Pinterest" className="hover:opacity-40 transition-opacity">Pinterest</a>
+                                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our LinkedIn profile" className="hover:opacity-40 transition-opacity">LinkedIn</a>
+                                <a href="https://instagram.com/vartex_architects" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="hover:opacity-40 transition-opacity">Instagram</a>
+                                <a href="https://x.com/VartexArchitect" target="_blank" rel="noopener noreferrer" aria-label="Follow us on X" className="hover:opacity-40 transition-opacity">X (Twitter)</a>
+                                <a href="https://wa.me/qr/2CY37ORA7HOII1" target="_blank" rel="noopener noreferrer" aria-label="Message us on WhatsApp" className="hover:opacity-40 transition-opacity">WhatsApp</a>
                             </div>
                         </div>
 
                         <div className="flex flex-col gap-4">
                             <span className="font-mono text-[9px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">OFFICE</span>
                             <div className="flex flex-col gap-1">
-                                <p className="text-xl font-bold text-primary dark:text-white uppercase leading-tight">123 Architecture Lane, Floor 4</p>
-                                <p className="text-xl font-bold text-primary dark:text-white uppercase leading-tight">New York, NY 10001</p>
-                                <p className="font-mono text-[9px] tracking-widest text-primary/40 dark:text-white/40 uppercase mt-2">40.7128° N, 74.0060° W</p>
+                                <p className="text-xl font-bold text-primary dark:text-white uppercase leading-tight">Global Studio</p>
+                                <p className="text-xl font-bold text-primary dark:text-white uppercase leading-tight">Available Worldwide</p>
                             </div>
                         </div>
                     </div>

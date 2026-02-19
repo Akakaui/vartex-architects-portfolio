@@ -47,17 +47,22 @@ export default function About() {
                     <section className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start fade-in">
                         {/* Left Column: Portrait */}
                         <div className="lg:col-span-12 xl:col-span-4 flex flex-col gap-8 relative group">
-                            <div className="relative aspect-[3/4] bg-neutral-100 grayscale overflow-hidden rounded-sm border border-neutral-100 dark:border-white/5">
+                            {/* Right Column: Hero Image */}
+                            <div className="w-full relative aspect-[3/4] bg-neutral-100 dark:bg-white/5 overflow-hidden">
                                 <Image
-                                    alt="Michael Mbah Profile"
+                                    src="/about-hero.webp"
+                                    alt="VARTEX Studio Philosophy"
                                     fill
                                     priority
-                                    sizes="(max-width: 1280px) 100vw, 400px"
-                                    className="object-cover object-center group-hover:scale-105 transition-transform duration-1000 ease-out"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxI3vH_f7I8OaG8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1"
+                                    className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                                    sizes="(max-width: 1024px) 100vw, 33vw"
                                 />
+
+                                {/* Overlay Texture */}
+                                <div className="absolute inset-0 bg-neutral-900/10 dark:bg-white/5 pointer-events-none"></div>
+
                                 {/* Technical Corner Overlay */}
-                                <div className="absolute bottom-4 left-4 p-4 bg-white/90 dark:bg-black/90 border border-neutral-100 dark:border-white/5 font-mono text-[9px] tracking-[0.4em] uppercase">
+                                <div className="absolute bottom-4 left-4 p-4 bg-white/90 dark:bg-black/90 border border-neutral-100 dark:border-white/5 font-mono text-[9px] tracking-[0.4em] uppercase z-10">
                                     PRINCIPAL — ARCH. MBAH
                                 </div>
                             </div>

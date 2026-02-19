@@ -80,7 +80,7 @@ export default function Home() {
                     {/* Right: Architectural Imagery */}
                     <div className="w-full lg:w-[60%] h-[50vh] lg:h-auto relative overflow-hidden bg-neutral-100 dark:bg-neutral-900 hero-image border-t lg:border-t-0 border-neutral-100 dark:border-white/5">
                         <Image
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxTU3eR0UFLAMqRe9RBZSNC5lzAcM6tXXsJAoBIW8lDGVX3PrbjJWngCvAnYGAQQa-YXzZxuNWV9ujAeY1OEIIKHS4MUmiBseqFxKTulkiqksxsLl4_r0D7k0uqQ9uogm9eXZghp0tYyzj46mmqohX4No4HbQ5HrYkBEQjuDyE_TdJ_8UCHrsCNnAuTi0eUA32o0B1sh373RkEHTB6SLClGbS-fDOFpiDilLbKVBb_8LPgsicpbXWKx2eq5W0MJsju4-7BoHE5"
+                            src="/hero.webp"
                             alt="Minimalist Architecture"
                             fill
                             priority

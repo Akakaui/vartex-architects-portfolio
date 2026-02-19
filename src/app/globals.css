@@ -117,14 +117,15 @@ body {
 
 .dark .grid-line-y {
     border-right: 1px solid var(--color-border-dark);
+}
 
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
 
-    .no-scrollbar {
-        -ms-overflow-style: none;
-        /* IE and Edge */
-        scrollbar-width: none;
-        /* Firefox */
-    }
+.no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}

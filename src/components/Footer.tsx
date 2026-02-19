@@ -17,7 +17,15 @@ export default function Footer() {
                 {/* Brand Column */}
                 <div className="lg:col-span-4 flex flex-col gap-8">
                     <div className="flex flex-col gap-0 items-start">
-                        <span className="text-3xl font-black tracking-[-0.05em] text-primary dark:text-white leading-none">VARTEX.</span>
+                        <div className="relative mb-6">
+                            <Image
+                                src="/brand-logo.png"
+                                alt="VARTEX Logo"
+                                width={120}
+                                height={120}
+                                className="w-auto h-24 object-contain object-left"
+                            />
+                        </div>
                         <span className="font-mono text-[9px] tracking-[0.5em] text-primary/40 dark:text-white/40 uppercase">ARCHITECTS — STUDIO HQ</span>
                     </div>
                     <p className="text-sm font-light text-primary/60 dark:text-white/60 max-w-xs leading-relaxed italic">
@@ -29,34 +37,24 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Links Column */}
+                {/* Social Column - Adjusted col-start to fill the gap left by Nav */}
                 <div className="lg:col-span-2 lg:col-start-6 flex flex-col gap-8">
-                    <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">NAVIGATION</span>
-                    <nav className="flex flex-col gap-4 font-bold text-xs uppercase tracking-widest text-primary dark:text-white">
-                        <Link href="/portfolio" className="hover:opacity-40 transition-opacity">Projects</Link>
-                        <Link href="/about" className="hover:opacity-40 transition-opacity">Studio</Link>
-                        <Link href="/contact" className="hover:opacity-40 transition-opacity">Inquiry</Link>
-                        <Link href="/journal" className="hover:opacity-40 transition-opacity">Journal</Link>
-                    </nav>
-                </div>
-
-                {/* Social Column */}
-                <div className="lg:col-span-2 flex flex-col gap-8">
                     <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">SOCIALS</span>
                     <nav className="flex flex-col gap-4 font-bold text-xs uppercase tracking-widest text-primary dark:text-white">
-                        <a href="https://instagram.com/vartex.architects" target="_blank" rel="noopener noreferrer" className="hover:opacity-40 transition-opacity">Instagram</a>
-                        <a href="https://linkedin.com/company/vartex-architects" target="_blank" rel="noopener noreferrer" className="hover:opacity-40 transition-opacity">LinkedIn</a>
-                        <a href="https://behance.net/vartex" target="_blank" rel="noopener noreferrer" className="hover:opacity-40 transition-opacity">Behance</a>
-                        <a href="https://pinterest.com/vartex" target="_blank" rel="noopener noreferrer" className="hover:opacity-40 transition-opacity">Pinterest</a>
+                        <a href="https://www.threads.net/@vartex_architects" target="_blank" rel="noopener noreferrer" className="hover:opacity-40 transition-opacity">Threads</a>
+                        <a href="https://wa.me/qr/2CY37ORA7HOII1" target="_blank" rel="noopener noreferrer" className="hover:opacity-40 transition-opacity">WhatsApp</a>
+                        <a href="https://x.com/VartexArchitect" target="_blank" rel="noopener noreferrer" className="hover:opacity-40 transition-opacity">X (Twitter)</a>
+                        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-40 transition-opacity">LinkedIn</a>
+                        <a href="https://www.instagram.com/vartex_architects?igsh=MWsxNDJqZmJ4aXEwNA==" target="_blank" rel="noopener noreferrer" className="hover:opacity-40 transition-opacity">Instagram</a>
                     </nav>
                 </div>
 
                 {/* Contact Quick Link */}
                 <div className="lg:col-span-3 flex flex-col gap-8">
-                    <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">HQ — NY</span>
+                    <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">HQ — GLOBAL</span>
                     <div className="flex flex-col gap-2">
-                        <p className="text-xl font-bold text-primary dark:text-white uppercase leading-tight">123 Architecture Lane, NY 10001</p>
-                        <a href="mailto:hello@vartexarchitects.com" className="text-xl font-bold text-primary dark:text-white hover:opacity-50 transition-opacity break-words">hello@vartexarchitects.com</a>
+                        <p className="text-xl font-bold text-primary dark:text-white uppercase leading-tight tracking-widest">+234 703 269 7179</p>
+                        <a href="mailto:info@vartexarchitects.com" className="text-xl font-bold text-primary dark:text-white hover:opacity-50 transition-opacity break-words">info@vartexarchitects.com</a>
                     </div>
                 </div>
 
