@@ -38,12 +38,22 @@ export default function Header() {
                 {/* Logo */}
                 <Link href="/" className="shrink-0 group flex items-center justify-center p-2" aria-label="VARTEX Architects Home">
                     <div className="relative flex items-center justify-center">
+                        {/* Light mode: black logo */}
                         <Image
-                            src="/brand-logo.png"
+                            src="/brand-logo-light-transparent.png"
                             alt="VARTEX Logo"
-                            width={64}
-                            height={64}
-                            className="w-auto h-16 object-contain"
+                            width={200}
+                            height={200}
+                            className="w-auto h-16 object-contain dark:hidden"
+                            priority
+                        />
+                        {/* Dark mode: white logo */}
+                        <Image
+                            src="/brand-logo-dark-transparent.png"
+                            alt="VARTEX Logo"
+                            width={200}
+                            height={200}
+                            className="w-auto h-16 object-contain hidden dark:block"
                             priority
                         />
                     </div>

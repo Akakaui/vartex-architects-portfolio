@@ -90,7 +90,7 @@ export default function ProcessPage() {
         <div className="flex flex-col min-h-screen bg-white dark:bg-background-dark">
             <Header />
 
-            <main ref={mainRef} className="flex-grow pt-32 pb-24 lg:pt-48 lg:pb-64 px-8 lg:px-24 flex flex-col gap-32 overflow-hidden">
+            <main ref={mainRef} className="flex-grow pt-24 pb-16 lg:pt-48 lg:pb-64 px-8 lg:px-24 flex flex-col gap-16 lg:gap-32 overflow-hidden">
 
                 {/* Intro Section */}
                 <div className="flex flex-col gap-12 max-w-5xl fade-in">
@@ -112,18 +112,18 @@ export default function ProcessPage() {
                 </div>
 
                 {/* Steps Section */}
-                <div className="flex flex-col gap-48 lg:gap-64 mt-24">
+                <div className="flex flex-col gap-16 lg:gap-64 mt-8 lg:mt-24">
                     {STEPS.map((step, i) => (
-                        <section key={step.id} className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start relative fade-in">
+                        <section key={step.id} className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-24 items-start relative fade-in">
 
                             {/* Step Numbering (Floating) */}
-                            <div className="lg:col-span-1 flex flex-col items-center gap-12 h-full">
-                                <span className="text-5xl lg:text-7xl font-black text-primary/10 dark:text-white/10 tracking-tighter">{step.id}</span>
-                                <div className="w-[1px] flex-grow bg-neutral-100 dark:bg-white/5 line-grow"></div>
+                            <div className="lg:col-span-1 flex flex-row lg:flex-col items-center gap-4 lg:gap-12 lg:h-full">
+                                <span className="text-3xl lg:text-7xl font-black text-primary/10 dark:text-white/10 tracking-tighter">{step.id}</span>
+                                <div className="hidden lg:block w-[1px] flex-grow bg-neutral-100 dark:bg-white/5 line-grow"></div>
                             </div>
 
                             {/* Text Content */}
-                            <div className="lg:col-span-5 flex flex-col gap-12 pt-4">
+                            <div className="lg:col-span-5 flex flex-col gap-6 lg:gap-12 pt-0 lg:pt-4">
                                 <div className="flex flex-col gap-4">
                                     <span className="font-mono text-[9px] tracking-[0.5em] text-primary/40 dark:text-white/40 uppercase">{step.subtitle}</span>
                                     <h2 className="text-4xl lg:text-6xl font-black tracking-tighter text-primary dark:text-white uppercase">{step.title}</h2>
@@ -131,7 +131,7 @@ export default function ProcessPage() {
                                 <p className="text-lg lg:text-xl font-light leading-relaxed text-primary/60 dark:text-white/60 max-w-lg italic">
                                     {step.description}
                                 </p>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 border-t border-neutral-100 dark:border-white/5 pt-12">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-8 border-t border-neutral-100 dark:border-white/5 pt-6 lg:pt-12">
                                     {step.details.map((detail, idx) => (
                                         <div key={idx} className="flex gap-4 items-start group">
                                             <span className="font-mono text-[8px] mt-1.5 text-primary/30 dark:text-white/30">0{idx + 1}</span>
@@ -142,7 +142,7 @@ export default function ProcessPage() {
                             </div>
 
                             {/* Imagery */}
-                            <div className="lg:col-span-6 relative aspect-[4/3] overflow-hidden grayscale bg-neutral-100 dark:bg-neutral-900 rounded-sm border border-neutral-100 dark:border-white/5 shadow-2xl">
+                            <div className="lg:col-span-6 relative aspect-[16/10] lg:aspect-[4/3] overflow-hidden grayscale bg-neutral-100 dark:bg-neutral-900 rounded-sm border border-neutral-100 dark:border-white/5 shadow-2xl">
                                 <Image
                                     src={step.image}
                                     alt={step.title}
@@ -157,7 +157,7 @@ export default function ProcessPage() {
                 </div>
 
                 {/* Closing Statement */}
-                <div className="mt-48 flex flex-col items-center text-center gap-16 py-32 border-t border-neutral-100 dark:border-white/5 fade-in">
+                <div className="mt-12 lg:mt-32 flex flex-col items-center text-center gap-6 lg:gap-12 py-8 lg:py-24 border-t border-neutral-100 dark:border-white/5 fade-in">
                     <div className="flex flex-col gap-4">
                         <span className="font-mono text-[10px] tracking-[0.5em] text-primary/30 dark:text-white/30 uppercase">THE RESULT</span>
                         <h3 className="text-4xl lg:text-7xl font-black tracking-tighter text-primary dark:text-white uppercase">Architectural Excellence.</h3>

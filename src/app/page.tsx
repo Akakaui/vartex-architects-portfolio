@@ -85,7 +85,7 @@ export default function Home() {
                             fill
                             priority
                             sizes="(max-width: 1024px) 100vw, 60vw"
-                            className="object-cover grayscale transition-transform duration-700 hover:scale-105"
+                            className="object-cover transition-transform duration-700 hover:scale-105"
                         />
                         {/* Featured Tag */}
                         <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 p-4 md:p-8 bg-white/95 dark:bg-background-dark/95 backdrop-blur-sm border border-neutral-100 dark:border-white/10 rounded-sm shadow-xl flex flex-col gap-2 min-w-[160px] md:min-w-[200px]">
