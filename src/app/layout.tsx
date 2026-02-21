@@ -4,7 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Preloader from "@/components/Preloader";
+
 
 const inter = Inter({
     variable: "--font-inter",
@@ -36,7 +36,7 @@ export default function RootLayout({
                 <div className="fixed bottom-5 left-5 w-5 h-5 border-b border-l border-gray-300 dark:border-gray-700 opacity-40 z-50 pointer-events-none"></div>
                 <div className="fixed bottom-5 right-5 w-5 h-5 border-b border-r border-gray-300 dark:border-gray-700 opacity-40 z-50 pointer-events-none"></div>
 
-                <Preloader />
+
                 <SmoothScroll>
                     <div className="flex flex-col min-h-screen">
                         {children}
