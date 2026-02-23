@@ -56,7 +56,7 @@ export default function Home() {
                 {/* HERO SECTION */}
                 <section className="relative flex flex-col lg:flex-row min-h-[90vh] border-b border-neutral-100 dark:border-white/5" aria-label="Welcome section">
                     {/* Left: Text Content */}
-                    <div className="w-full lg:w-[40%] p-8 md:p-16 lg:p-24 flex flex-col justify-center gap-12 lg:border-r border-neutral-100 dark:border-white/5 hero-text">
+                    <div className="w-full lg:w-[40%] p-8 pt-24 md:p-16 lg:p-24 flex flex-col justify-center gap-12 lg:border-r border-neutral-100 dark:border-white/5 hero-text">
                         <div className="flex flex-col gap-6">
                             <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">00 — INTRO</span>
                             <h1 className="text-5xl lg:text-7xl font-black tracking-tighter leading-[0.9] text-primary dark:text-white">
