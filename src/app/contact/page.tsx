@@ -71,7 +71,7 @@ export default function Contact() {
                         <div className="flex flex-col gap-4">
                             <h2 className="text-4xl font-bold tracking-tighter text-primary dark:text-white uppercase">Inquiry Received.</h2>
                             <p className="text-primary/60 dark:text-white/60 font-mono text-[10px] tracking-widest uppercase max-w-sm">
-                                OUR STUDIO TEAM WILL REVIEW YOUR PROJECT BRIEF AND RESPOND WITHIN 48 BUSINESS HOURS.
+                                A CONFIRMATION EMAIL HAS BEEN SENT TO YOUR INBOX. OUR STUDIO TEAM WILL RESPOND WITHIN 48 BUSINESS HOURS.
                             </p>
                         </div>
                         <button onClick={() => window.location.reload()} className="mt-8 border border-neutral-200 dark:border-white/10 px-8 py-4 font-mono text-[10px] uppercase tracking-widest hover:bg-neutral-50 dark:hover:bg-white/5 transition-colors">
@@ -83,6 +83,8 @@ export default function Contact() {
                         <span className="font-mono text-[9px] tracking-[0.4em] text-primary/30 dark:text-white/30 uppercase">PROJECT INQUIRY</span>
 
                         <form action={formAction} className="flex flex-col gap-10" aria-label="Send us an inquiry">
+
+                            {/* Row 1: Name + Email */}
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                                 <div className="flex flex-col gap-2">
                                     <label htmlFor="full-name" className="font-mono text-[9px] tracking-[0.2em] text-primary/40 dark:text-white/40 uppercase flex justify-between">
@@ -99,6 +101,40 @@ export default function Contact() {
                                         className={`bg-transparent border-b ${state.errors?.name ? 'border-red-500/50' : 'border-neutral-300 dark:border-white/10'} py-4 focus:border-primary dark:focus:border-white outline-none transition-colors text-xl font-light text-primary dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-600`}
                                     />
                                 </div>
+                                <div className="flex flex-col gap-2">
+                                    <label htmlFor="email" className="font-mono text-[9px] tracking-[0.2em] text-primary/40 dark:text-white/40 uppercase flex justify-between">
+                                        EMAIL ADDRESS
+                                        {state.errors?.email && <span className="text-red-500 lowercase tracking-normal italic opacity-100">{state.errors.email[0]}</span>}
+                                    </label>
+                                    <input
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        placeholder="you@example.com"
+                                        autoComplete="email"
+                                        required
+                                        className={`bg-transparent border-b ${state.errors?.email ? 'border-red-500/50' : 'border-neutral-300 dark:border-white/10'} py-4 focus:border-primary dark:focus:border-white outline-none transition-colors text-xl font-light text-primary dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-600`}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Row 2: Phone + Project Type */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+                                <div className="flex flex-col gap-2">
+                                    <label htmlFor="phone" className="font-mono text-[9px] tracking-[0.2em] text-primary/40 dark:text-white/40 uppercase flex justify-between">
+                                        PHONE NUMBER
+                                        {state.errors?.phone && <span className="text-red-500 lowercase tracking-normal italic opacity-100">{state.errors.phone[0]}</span>}
+                                    </label>
+                                    <input
+                                        id="phone"
+                                        name="phone"
+                                        type="tel"
+                                        placeholder="+234 800 000 0000"
+                                        autoComplete="tel"
+                                        required
+                                        className={`bg-transparent border-b ${state.errors?.phone ? 'border-red-500/50' : 'border-neutral-300 dark:border-white/10'} py-4 focus:border-primary dark:focus:border-white outline-none transition-colors text-xl font-light text-primary dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-600`}
+                                    />
+                                </div>
                                 <div className="flex flex-col gap-2 relative">
                                     <label htmlFor="project-type" className="font-mono text-[9px] tracking-[0.2em] text-primary/40 dark:text-white/40 uppercase">PROJECT TYPE</label>
                                     <select id="project-type" name="type" className="bg-transparent border-b border-neutral-300 dark:border-white/10 py-4 focus:border-primary dark:focus:border-white outline-none transition-colors text-xl font-light text-primary dark:text-white appearance-none cursor-pointer">
@@ -111,6 +147,7 @@ export default function Contact() {
                                 </div>
                             </div>
 
+                            {/* Row 3: Site Location */}
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="site-location" className="font-mono text-[9px] tracking-[0.2em] text-primary/40 dark:text-white/40 uppercase flex justify-between">
                                     SITE LOCATION
@@ -126,6 +163,7 @@ export default function Contact() {
                                 />
                             </div>
 
+                            {/* Row 4: Project Brief */}
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="project-brief" className="font-mono text-[9px] tracking-[0.2em] text-primary/40 dark:text-white/40 uppercase">PROJECT BRIEF</label>
                                 <textarea
@@ -137,6 +175,7 @@ export default function Contact() {
                                 ></textarea>
                             </div>
 
+                            {/* Submit */}
                             <div className="flex flex-col sm:flex-row justify-between items-center gap-8 pt-4">
                                 <p className="max-w-[300px] text-[8px] font-mono leading-relaxed text-primary/40 dark:text-white/40 uppercase tracking-widest text-center sm:text-left">
                                     BY SENDING THIS INQUIRY YOU AGREE TO OUR PRIVACY POLICY AND THE STORAGE OF YOUR DATA FOR ARCHITECTURAL CONSULTATION.

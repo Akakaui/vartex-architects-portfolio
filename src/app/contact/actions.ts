@@ -1,9 +1,12 @@
 "use server";
 
 import { z } from "zod";
+import { sendClientNotification, sendVisitorConfirmation } from "@/lib/email";
 
 const inquirySchema = z.object({
     name: z.string().min(2, "Name is required"),
+    email: z.string().email("Valid email is required"),
+    phone: z.string().min(6, "Phone number is required"),
     type: z.string(),
     location: z.string().min(2, "Location is required"),
     brief: z.string().optional(),
@@ -15,12 +18,26 @@ export type FormState = {
     success: boolean;
 };
 
-export async function contactInquiryAction(prevState: FormState, formData: FormData): Promise<FormState> {
-    // Simulate a delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+function generateRefNumber(): string {
+    return "REF-" + Math.floor(100000 + Math.random() * 900000).toString();
+}
 
+function formatSubmittedAt(): string {
+    return new Date().toLocaleDateString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+    });
+}
+
+export async function contactInquiryAction(prevState: FormState, formData: FormData): Promise<FormState> {
     const validatedFields = inquirySchema.safeParse({
         name: formData.get("name"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
         type: formData.get("type"),
         location: formData.get("location"),
         brief: formData.get("brief"),
@@ -34,12 +51,39 @@ export async function contactInquiryAction(prevState: FormState, formData: FormD
         };
     }
 
-    // LOG SUBMISSION (Ready for DB/Email integration)
-    console.log("NEW INQUIRY RECEIVED:", validatedFields.data);
+    const { name, email, phone, type, location, brief } = validatedFields.data;
+    const refNumber = generateRefNumber();
+    const submittedAt = formatSubmittedAt();
 
-    // In a real app, you would:
-    // 1. Save to database (e.g. Supabase)
-    // 2. Send email notification (e.g. Resend)
+    const inquiryData = {
+        name,
+        email,
+        phone,
+        type,
+        location,
+        brief: brief || "",
+        refNumber,
+        submittedAt,
+    };
+
+    // Log for debugging
+    console.log("NEW INQUIRY RECEIVED:", inquiryData);
+
+    // Send emails only if credentials are configured
+    if (process.env.ZOHO_USER && process.env.ZOHO_APP_PASSWORD) {
+        try {
+            await Promise.all([
+                sendClientNotification(inquiryData),
+                sendVisitorConfirmation(inquiryData),
+            ]);
+            console.log("✅ Both emails sent successfully");
+        } catch (error) {
+            console.error("❌ Email sending failed:", error);
+            // Still return success — the inquiry was received, even if email fails
+        }
+    } else {
+        console.log("⚠️ Email credentials not configured — skipping email send");
+    }
 
     return {
         success: true,
