@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { sendClientNotification, sendVisitorConfirmation } from "@/lib/email";
+import { logContactSubmission } from "@/lib/sheets";
 
 const inquirySchema = z.object({
     name: z.string().min(2, "Name is required"),
@@ -83,6 +84,14 @@ export async function contactInquiryAction(prevState: FormState, formData: FormD
         }
     } else {
         console.log("⚠️ Email credentials not configured — skipping email send");
+    }
+
+    // Log to Google Sheets
+    try {
+        await logContactSubmission(inquiryData);
+        console.log("✅ Contact inquiry logged to Google Sheets");
+    } catch (error) {
+        console.error("❌ Failed to log to Google Sheets:", error);
     }
 
     return {

@@ -87,11 +87,20 @@ export default function Home() {
                             sizes="(max-width: 1024px) 100vw, 60vw"
                             className="object-cover transition-transform duration-700 hover:scale-105"
                         />
-                        {/* Featured Tag */}
-                        <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 p-4 md:p-8 bg-white/95 dark:bg-background-dark/95 backdrop-blur-sm border border-neutral-100 dark:border-white/10 rounded-sm shadow-xl flex flex-col gap-2 min-w-[160px] md:min-w-[200px]">
-                            <span className="font-mono text-[8px] md:text-[9px] tracking-widest text-primary/40 dark:text-white/40 uppercase">FEATURED</span>
-                            <h3 className="text-base md:text-lg font-bold tracking-tight text-primary dark:text-white">The Brutalist Library</h3>
-                            <p className="font-mono text-[8px] md:text-[9px] tracking-widest text-primary/40 dark:text-white/40 uppercase">LAGOS, NG — 2024</p>
+                        {/* Featured Tag — Liquid Glass */}
+                        <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 p-4 md:p-8 backdrop-blur-xl bg-white/30 dark:bg-white/10 border border-white/40 dark:border-white/20 rounded-2xl shadow-2xl flex flex-col gap-2 min-w-[160px] md:min-w-[200px] overflow-hidden"
+                            style={{
+                                background: 'linear-gradient(135deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 50%, rgba(200,200,210,0.25) 100%)',
+                                boxShadow: '0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(255,255,255,0.1)',
+                            }}
+                        >
+                            {/* Metallic shimmer overlay */}
+                            <div className="absolute inset-0 pointer-events-none opacity-30" style={{
+                                background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.8) 45%, transparent 50%)',
+                            }} />
+                            <span className="font-mono text-[8px] md:text-[9px] tracking-widest text-neutral-800 dark:text-white/80 uppercase relative z-10 font-semibold drop-shadow-sm">FEATURED</span>
+                            <h3 className="text-base md:text-lg font-bold tracking-tight text-neutral-900 dark:text-white relative z-10 drop-shadow-sm">The Brutalist Library</h3>
+                            <p className="font-mono text-[8px] md:text-[9px] tracking-widest text-neutral-700 dark:text-white/70 uppercase relative z-10 drop-shadow-sm">LAGOS, NG — 2024</p>
                         </div>
                     </div>
                 </section>

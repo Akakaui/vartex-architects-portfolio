@@ -61,9 +61,18 @@ export default function About() {
                                 {/* Overlay Texture */}
                                 <div className="absolute inset-0 bg-neutral-900/10 dark:bg-white/5 pointer-events-none"></div>
 
-                                {/* Technical Corner Overlay */}
-                                <div className="absolute bottom-4 left-4 p-4 bg-white/90 dark:bg-black/90 border border-neutral-100 dark:border-white/5 font-mono text-[9px] tracking-[0.4em] uppercase z-10">
-                                    PRINCIPAL — ARCH. MBAH
+                                {/* Technical Corner Overlay — Liquid Glass */}
+                                <div className="absolute bottom-4 left-4 px-5 py-3 backdrop-blur-xl border border-white/40 dark:border-white/20 rounded-xl font-mono text-[9px] tracking-[0.4em] uppercase z-10 overflow-hidden"
+                                    style={{
+                                        background: 'linear-gradient(135deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 50%, rgba(200,200,210,0.25) 100%)',
+                                        boxShadow: '0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(255,255,255,0.1)',
+                                    }}
+                                >
+                                    {/* Metallic shimmer overlay */}
+                                    <div className="absolute inset-0 pointer-events-none opacity-30" style={{
+                                        background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.8) 45%, transparent 50%)',
+                                    }} />
+                                    <span className="relative z-10 text-neutral-900 dark:text-white font-semibold drop-shadow-sm">PRINCIPAL — ARCH. MBAH</span>
                                 </div>
                             </div>
                             <div className="flex flex-col gap-2 border-t border-neutral-100 dark:border-white/5 pt-6 font-mono text-[10px] tracking-widest text-primary/40 dark:text-white/40 uppercase">

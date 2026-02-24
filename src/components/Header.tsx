@@ -91,14 +91,14 @@ export default function Header() {
                     className="lg:hidden text-primary dark:text-white z-[1000] p-2 relative"
                     aria-label={isOpen ? "Close menu" : "Open menu"}
                 >
-                    {isOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6" />}
+                    {isOpen ? <X className="w-6 h-6 text-primary dark:text-white" /> : <Menu className="w-6 h-6" />}
                 </button>
             </nav>
 
             {/* Mobile Menu Overlay */}
             <div
                 className={cn(
-                    "fixed inset-0 bg-black z-[950] transition-all duration-300 ease-in-out lg:hidden flex flex-col justify-center items-center text-center px-8 h-dvh",
+                    "fixed inset-0 bg-white dark:bg-black z-[950] transition-all duration-300 ease-in-out lg:hidden flex flex-col justify-center items-center text-center px-8 h-dvh",
                     isOpen
                         ? "opacity-100 pointer-events-auto"
                         : "opacity-0 pointer-events-none"
@@ -111,7 +111,9 @@ export default function Header() {
                             href={item.href}
                             className={cn(
                                 "text-4xl md:text-5xl font-black tracking-tighter transition-all duration-300",
-                                pathname === item.href ? "text-white" : "text-white/40 hover:text-white"
+                                pathname === item.href
+                                    ? "text-primary dark:text-white"
+                                    : "text-primary/40 dark:text-white/40 hover:text-primary dark:hover:text-white"
                             )}
                         >
                             {item.name}
@@ -122,17 +124,17 @@ export default function Header() {
                 <div className="w-full max-w-sm flex flex-col gap-8">
                     <Link
                         href="/contact"
-                        className="bg-white text-black w-full py-5 md:py-6 text-center font-bold uppercase tracking-[0.4em] text-[10px] rounded-sm hover:bg-neutral-200 transition-colors"
+                        className="bg-primary dark:bg-white text-white dark:text-primary w-full py-5 md:py-6 text-center font-bold uppercase tracking-[0.4em] text-[10px] rounded-sm hover:opacity-80 transition-colors"
                     >
                         START PROJECT
                     </Link>
 
-                    <div className="pt-12 border-t border-white/10 flex flex-col gap-6">
-                        <div className="flex justify-center gap-12 font-mono text-[9px] text-white/40 uppercase tracking-[0.5em]">
-                            <span className="hover:text-white transition-colors cursor-pointer">INSTAGRAM</span>
-                            <span className="hover:text-white transition-colors cursor-pointer">LINKEDIN</span>
-                        </div>
-                        <span className="font-mono text-[9px] tracking-[0.5em] text-white/20 uppercase">© 2026 VARTEX ARCHITECTS</span>
+                    <div className="pt-12 border-t border-neutral-200 dark:border-white/10 flex flex-col gap-6">
+                        <nav className="flex justify-center gap-12 font-mono text-[9px] text-primary/40 dark:text-white/40 uppercase tracking-[0.4em]">
+                            <a href="https://x.com/VartexArchitect" target="_blank" rel="noopener noreferrer" className="hover:text-primary dark:hover:text-white transition-colors">X</a>
+                            <a href="https://www.linkedin.com/company/vartex-architects" target="_blank" rel="noopener noreferrer" className="hover:text-primary dark:hover:text-white transition-colors">LINKEDIN</a>
+                        </nav>
+                        <span className="font-mono text-[9px] tracking-[0.5em] text-primary/20 dark:text-white/20 uppercase">© 2026 VARTEX ARCHITECTS</span>
                     </div>
                 </div>
             </div>
