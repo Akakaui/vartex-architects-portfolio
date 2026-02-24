@@ -89,12 +89,13 @@ export default function JournalPost() {
                         sizes="100vw"
                         priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
 
                     {/* Back Button */}
                     <Link
                         href="/journal"
-                        className="absolute top-24 lg:top-32 left-8 lg:left-24 flex items-center gap-2 text-white/80 hover:text-white transition-colors duration-300 z-10"
+                        className="absolute top-24 lg:top-32 left-8 lg:left-24 flex items-center gap-2 text-white/90 hover:text-white transition-colors duration-300 z-10"
+                        style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}
                     >
                         <ArrowLeft size={14} />
                         <span className="font-mono text-[10px] tracking-[0.3em] uppercase">Back to Journal</span>
@@ -104,20 +105,23 @@ export default function JournalPost() {
                     <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-24">
                         <div className="max-w-4xl">
                             <div className="flex items-center gap-4 mb-6">
-                                <span className="font-mono text-[10px] tracking-[0.3em] text-white/60 uppercase">
+                                <span className="font-mono text-[10px] tracking-[0.3em] text-white/80 uppercase" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>
                                     {post.category}
                                 </span>
-                                <span className="w-1 h-1 rounded-full bg-white/30" />
-                                <span className="font-mono text-[10px] tracking-[0.3em] text-white/60 uppercase">
+                                <span className="w-1 h-1 rounded-full bg-white/50" />
+                                <span className="font-mono text-[10px] tracking-[0.3em] text-white/80 uppercase" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>
                                     {formatDate(post.date)}
                                 </span>
-                                <span className="w-1 h-1 rounded-full bg-white/30" />
-                                <div className="flex items-center gap-1.5 text-white/60">
+                                <span className="w-1 h-1 rounded-full bg-white/50" />
+                                <div className="flex items-center gap-1.5 text-white/80" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>
                                     <Clock size={11} />
                                     <span className="font-mono text-[10px] tracking-wider uppercase">{post.readTime}</span>
                                 </div>
                             </div>
-                            <h1 className="text-3xl lg:text-5xl xl:text-6xl font-black tracking-tight leading-[1.05] text-white">
+                            <h1
+                                className="text-3xl lg:text-5xl xl:text-6xl font-black tracking-tight leading-[1.05] text-white"
+                                style={{ textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}
+                            >
                                 {post.title}
                             </h1>
                         </div>

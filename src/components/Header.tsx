@@ -131,7 +131,7 @@ export default function Header() {
 
                     <div className="pt-12 border-t border-neutral-200 dark:border-white/10 flex flex-col gap-6">
                         <nav className="flex justify-center gap-12 font-mono text-[9px] text-primary/40 dark:text-white/40 uppercase tracking-[0.4em]">
-                            <a href="https://x.com/VartexArchitect" target="_blank" rel="noopener noreferrer" className="hover:text-primary dark:hover:text-white transition-colors">X</a>
+                            <a href="https://www.instagram.com/vartex_architects" target="_blank" rel="noopener noreferrer" className="hover:text-primary dark:hover:text-white transition-colors">INSTAGRAM</a>
                             <a href="https://www.linkedin.com/company/vartex-architects" target="_blank" rel="noopener noreferrer" className="hover:text-primary dark:hover:text-white transition-colors">LINKEDIN</a>
                         </nav>
                         <span className="font-mono text-[9px] tracking-[0.5em] text-primary/20 dark:text-white/20 uppercase">© 2026 VARTEX ARCHITECTS</span>
