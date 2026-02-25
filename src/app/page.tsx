@@ -46,6 +46,27 @@ export default function Home() {
                 duration: 1.5,
                 ease: "power4.out"
             });
+
+            // Process Steps Animation
+            const processTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".process-steps-container",
+                    start: "top 80%",
+                    end: "top 20%",
+                    scrub: 1,
+                }
+            });
+
+            processTl.to(".progress-line", { scaleX: 1, duration: 1, ease: "none" });
+
+            const dots = gsap.utils.toArray(".process-dot");
+            const fills = gsap.utils.toArray(".dot-fill");
+
+            dots.forEach((dot: any, i: number) => {
+                const stepTime = i / (dots.length - 1);
+                processTl.to(fills[i], { scale: 1, duration: 0.1 }, stepTime);
+                processTl.to(dot, { borderColor: "currentColor", duration: 0.1 }, stepTime);
+            });
         }, mainRef);
 
         return () => ctx.revert();
@@ -128,7 +149,7 @@ export default function Home() {
                         </div>
 
                         {/* Navigation Arrows */}
-                        <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="absolute inset-y-0 left-0 right-0 hidden lg:flex items-center justify-between px-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <button onClick={prevSlide} className="p-3 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white hover:bg-white/20 transition-all">
                                 <ChevronLeft size={20} />
                             </button>
@@ -143,9 +164,10 @@ export default function Home() {
                             className="absolute bottom-6 left-6 md:bottom-10 md:left-10 p-6 md:p-8 backdrop-blur-xl border border-white/40 dark:border-white/20 rounded-2xl shadow-2xl flex flex-col gap-2 min-w-[200px] md:min-w-[280px] overflow-hidden z-20 group/tag transition-all hover:scale-[1.02]"
                             style={{
                                 background: currentSlide === 1
-                                    ? 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%)'
-                                    : 'linear-gradient(135deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 50%, rgba(200,200,210,0.25) 100%)',
-                                boxShadow: '0 8px 32px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.4)',
+                                    ? 'linear-gradient(135deg, rgba(30,30,35,0.4) 0%, rgba(10,10,15,0.2) 100%)'
+                                    : 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 50%, rgba(200,200,210,0.05) 100%)',
+                                boxShadow: '0 8px 32px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.1)',
+                                border: currentSlide === 1 ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(255,255,255,0.2)',
                             }}
                         >
                             {/* Metallic shimmer overlay */}
@@ -317,13 +339,17 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-16 lg:gap-24 relative">
-                        {/* Connection Line */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-16 lg:gap-24 relative process-steps-container">
+                        {/* Connection Line — Base */}
                         <div className="absolute top-4 left-0 w-full h-[1px] bg-neutral-100 dark:bg-white/5 hidden md:block"></div>
+                        {/* Connection Line — Progress Fill */}
+                        <div className="absolute top-4 left-0 w-full h-[1px] bg-primary dark:bg-white hidden md:block origin-left scale-x-0 progress-line"></div>
 
                         {/* Step 01 */}
-                        <div className="flex flex-col gap-8 relative fade-in">
-                            <div className="w-8 h-8 bg-primary dark:bg-white rounded-full flex items-center justify-center text-white dark:text-primary font-bold text-xs z-10"></div>
+                        <div className="flex flex-col gap-8 relative">
+                            <div className="w-8 h-8 rounded-full border-2 border-primary dark:border-white bg-white dark:bg-background-dark flex items-center justify-center z-10 process-dot overflow-hidden">
+                                <div className="w-full h-full bg-primary dark:bg-white scale-0 dot-fill"></div>
+                            </div>
                             <div className="flex flex-col gap-4">
                                 <span className="font-mono text-[10px] tracking-widest text-primary/40 dark:text-white/40 uppercase">STEP 01</span>
                                 <h4 className="text-2xl font-bold tracking-tight text-primary dark:text-white">Conception</h4>
@@ -334,8 +360,10 @@ export default function Home() {
                         </div>
 
                         {/* Step 02 */}
-                        <div className="flex flex-col gap-8 relative fade-in">
-                            <div className="w-8 h-8 border-2 border-primary dark:border-white rounded-full bg-white dark:bg-background-dark z-10 transition-colors duration-500 hover:bg-primary dark:hover:bg-white"></div>
+                        <div className="flex flex-col gap-8 relative">
+                            <div className="w-8 h-8 rounded-full border-2 border-neutral-200 dark:border-white/10 bg-white dark:bg-background-dark flex items-center justify-center z-10 process-dot overflow-hidden">
+                                <div className="w-full h-full bg-primary dark:bg-white scale-0 dot-fill"></div>
+                            </div>
                             <div className="flex flex-col gap-4">
                                 <span className="font-mono text-[10px] tracking-widest text-primary/40 dark:text-white/40 uppercase">STEP 02</span>
                                 <h4 className="text-2xl font-bold tracking-tight text-primary dark:text-white">Schematic Design</h4>
@@ -346,8 +374,10 @@ export default function Home() {
                         </div>
 
                         {/* Step 03 */}
-                        <div className="flex flex-col gap-8 relative fade-in">
-                            <div className="w-8 h-8 border-2 border-neutral-200 dark:border-white/10 rounded-full bg-white dark:bg-background-dark z-10"></div>
+                        <div className="flex flex-col gap-8 relative">
+                            <div className="w-8 h-8 rounded-full border-2 border-neutral-200 dark:border-white/10 bg-white dark:bg-background-dark flex items-center justify-center z-10 process-dot overflow-hidden">
+                                <div className="w-full h-full bg-primary dark:bg-white scale-0 dot-fill"></div>
+                            </div>
                             <div className="flex flex-col gap-4">
                                 <span className="font-mono text-[10px] tracking-widest text-primary/40 dark:text-white/40 uppercase">STEP 03</span>
                                 <h4 className="text-2xl font-bold tracking-tight text-primary dark:text-white">Realization</h4>
