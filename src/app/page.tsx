@@ -116,7 +116,10 @@ export default function Home() {
                     </div>
 
                     {/* Right: Architectural Imagery Carousel */}
-                    <div className="w-full lg:w-[60%] h-[60vh] lg:h-auto relative overflow-hidden bg-neutral-900 hero-image-container border-t lg:border-t-0 border-neutral-100 dark:border-white/5 group">
+                    <div
+                        className="w-full lg:w-[60%] h-[60vh] lg:h-auto relative overflow-hidden bg-neutral-900 hero-image-container border-t lg:border-t-0 border-neutral-100 dark:border-white/5 group cursor-pointer lg:cursor-default"
+                        onClick={nextSlide}
+                    >
                         {projects.slice(0, 5).map((project, index) => (
                             <div
                                 key={project.id}
@@ -137,7 +140,7 @@ export default function Home() {
                         ))}
 
                         {/* Slide Indicators */}
-                        <div className="absolute top-8 right-8 z-20 flex gap-2">
+                        <div className="absolute top-8 right-8 z-20 flex gap-2" onClick={(e) => e.stopPropagation()}>
                             {projects.slice(0, 5).map((_, index) => (
                                 <button
                                     key={index}
@@ -149,7 +152,10 @@ export default function Home() {
                         </div>
 
                         {/* Navigation Arrows */}
-                        <div className="absolute inset-y-0 left-0 right-0 hidden lg:flex items-center justify-between px-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div
+                            className="absolute inset-y-0 left-0 right-0 hidden lg:flex items-center justify-between px-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                            onClick={(e) => e.stopPropagation()}
+                        >
                             <button onClick={prevSlide} className="p-3 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white hover:bg-white/20 transition-all">
                                 <ChevronLeft size={20} />
                             </button>
@@ -161,6 +167,7 @@ export default function Home() {
                         {/* Featured Tag — Liquid Glass / See-through */}
                         <Link
                             href={`/portfolio`}
+                            onClick={(e) => e.stopPropagation()}
                             className="absolute bottom-6 left-6 md:bottom-10 md:left-10 p-6 md:p-8 backdrop-blur-xl border border-white/40 dark:border-white/20 rounded-2xl shadow-2xl flex flex-col gap-2 min-w-[200px] md:min-w-[280px] overflow-hidden z-20 group/tag transition-all hover:scale-[1.02]"
                             style={{
                                 background: currentSlide === 1
@@ -406,9 +413,6 @@ export default function Home() {
                     <div className="relative z-10 flex flex-col items-center text-center gap-12 max-w-4xl mx-auto">
                         <h2 className="text-7xl lg:text-[10rem] font-black uppercase tracking-tighter leading-none">LET'S BUILD.</h2>
                         <div className="flex flex-col gap-6 max-w-2xl">
-                            <p className="text-xl lg:text-3xl font-light leading-relaxed text-white/80">
-                                Have a project in mind? We are currently accepting commissions for late 2024 and beyond.
-                            </p>
                             <div className="pt-8 flex justify-center">
                                 <Link href="/contact" aria-label="Contact us to start a conversation" className="bg-white text-primary px-12 py-6 rounded-sm font-bold uppercase tracking-[0.3em] text-sm hover:bg-neutral-100 transition-all duration-300">
                                     START A CONVERSATION
