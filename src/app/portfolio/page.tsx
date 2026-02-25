@@ -122,7 +122,7 @@ export default function Portfolio() {
                                     alt={project.title}
                                     fill
                                     sizes="(max-width: 768px) 100vw, 50vw"
-                                    className="object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-700 ease-out"
+                                    className="object-cover lg:grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-700 ease-out"
                                 />
                                 <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 border border-white/20"></div>
 

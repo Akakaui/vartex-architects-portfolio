@@ -71,10 +71,7 @@ export default function Footer() {
                     </nav>
                 </div>
 
-                {/* Newsletter Column */}
-                <div className="lg:col-span-3 lg:col-start-7 flex flex-col gap-4 lg:gap-8">
-                    <NewsletterSignup />
-                </div>
+
 
                 {/* Contact Column */}
                 <div className="lg:col-span-3 lg:col-start-10 flex flex-col gap-4 lg:gap-8 lg:text-right">

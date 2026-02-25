@@ -88,8 +88,8 @@ export default function Journal() {
                                 role="tab"
                                 aria-selected={activeCategory === cat}
                                 className={`font-mono text-[10px] tracking-[0.3em] uppercase py-2 border-b-2 transition-all duration-300 ${activeCategory === cat
-                                        ? "border-primary dark:border-white text-primary dark:text-white"
-                                        : "border-transparent text-primary/40 dark:text-white/40 hover:text-primary/70 dark:hover:text-white/70"
+                                    ? "border-primary dark:border-white text-primary dark:text-white"
+                                    : "border-transparent text-primary/40 dark:text-white/40 hover:text-primary/70 dark:hover:text-white/70"
                                     }`}
                             >
                                 {cat}
@@ -107,7 +107,7 @@ export default function Journal() {
                                     src={featuredPost.image}
                                     alt={featuredPost.title}
                                     fill
-                                    className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                                    className="object-cover lg:grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                                     sizes="(max-width: 1024px) 100vw, 50vw"
                                 />
                                 <div className="absolute top-6 left-6">
@@ -165,7 +165,7 @@ export default function Journal() {
                                         src={post.image}
                                         alt={post.title}
                                         fill
-                                        className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                                        className="object-cover lg:grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                     />
                                 </div>

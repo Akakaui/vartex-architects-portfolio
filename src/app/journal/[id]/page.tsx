@@ -210,7 +210,7 @@ export default function JournalPost() {
                                             src={related.image}
                                             alt={related.title}
                                             fill
-                                            className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                                            className="object-cover lg:grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                                             sizes="(max-width: 768px) 100vw, 50vw"
                                         />
                                     </div>

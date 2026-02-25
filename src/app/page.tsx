@@ -1,18 +1,22 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Home as HomeIcon, Building2, PenTool, TreePine, ArrowUpRight } from "lucide-react";
+import { Home as HomeIcon, Building2, PenTool, TreePine, ArrowUpRight, ChevronLeft, ChevronRight, Clock } from "lucide-react";
+import { projects } from "@/data/projects";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
     const mainRef = useRef(null);
+
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const carouselRef = useRef(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -36,7 +40,7 @@ export default function Home() {
                 duration: 1.5,
                 ease: "power4.out"
             });
-            gsap.from(".hero-image", {
+            gsap.from(".hero-image-container", {
                 x: 50,
                 opacity: 0,
                 duration: 1.5,
@@ -46,6 +50,19 @@ export default function Home() {
 
         return () => ctx.revert();
     }, []);
+
+    // Carousel Auto-Scroll
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % projects.slice(0, 5).length);
+        }, 6000);
+        return () => clearInterval(timer);
+    }, []);
+
+    const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % projects.slice(0, 5).length);
+    const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + projects.slice(0, 5).length) % projects.slice(0, 5).length);
+
+    const activeProject = projects[currentSlide];
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -77,31 +94,80 @@ export default function Home() {
                         </div>
                     </div>
 
-                    {/* Right: Architectural Imagery */}
-                    <div className="w-full lg:w-[60%] h-[50vh] lg:h-auto relative overflow-hidden bg-neutral-100 dark:bg-neutral-900 hero-image border-t lg:border-t-0 border-neutral-100 dark:border-white/5">
-                        <Image
-                            src="/hero.webp"
-                            alt="Minimalist Architecture"
-                            fill
-                            priority
-                            sizes="(max-width: 1024px) 100vw, 60vw"
-                            className="object-cover transition-transform duration-700 hover:scale-105"
-                        />
-                        {/* Featured Tag — Liquid Glass */}
-                        <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 p-4 md:p-8 backdrop-blur-xl bg-white/30 dark:bg-white/10 border border-white/40 dark:border-white/20 rounded-2xl shadow-2xl flex flex-col gap-2 min-w-[160px] md:min-w-[200px] overflow-hidden"
+                    {/* Right: Architectural Imagery Carousel */}
+                    <div className="w-full lg:w-[60%] h-[60vh] lg:h-auto relative overflow-hidden bg-neutral-900 hero-image-container border-t lg:border-t-0 border-neutral-100 dark:border-white/5 group">
+                        {projects.slice(0, 5).map((project, index) => (
+                            <div
+                                key={project.id}
+                                className={`absolute inset-0 transition-all duration-1000 ease-in-out ${index === currentSlide ? "opacity-100 scale-100 z-10" : "opacity-0 scale-110 z-0"
+                                    }`}
+                            >
+                                <Image
+                                    src={project.image}
+                                    alt={project.title}
+                                    fill
+                                    priority={index === 0}
+                                    sizes="(max-width: 1024px) 100vw, 60vw"
+                                    className="object-cover"
+                                />
+                                {/* Gradient for text visibility */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+                            </div>
+                        ))}
+
+                        {/* Slide Indicators */}
+                        <div className="absolute top-8 right-8 z-20 flex gap-2">
+                            {projects.slice(0, 5).map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setCurrentSlide(index)}
+                                    className={`h-1 transition-all duration-500 rounded-full ${index === currentSlide ? "w-8 bg-white" : "w-2 bg-white/20 hover:bg-white/40"
+                                        }`}
+                                />
+                            ))}
+                        </div>
+
+                        {/* Navigation Arrows */}
+                        <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button onClick={prevSlide} className="p-3 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white hover:bg-white/20 transition-all">
+                                <ChevronLeft size={20} />
+                            </button>
+                            <button onClick={nextSlide} className="p-3 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white hover:bg-white/20 transition-all">
+                                <ChevronRight size={20} />
+                            </button>
+                        </div>
+
+                        {/* Featured Tag — Liquid Glass / See-through */}
+                        <Link
+                            href={`/portfolio`}
+                            className="absolute bottom-6 left-6 md:bottom-10 md:left-10 p-6 md:p-8 backdrop-blur-xl border border-white/40 dark:border-white/20 rounded-2xl shadow-2xl flex flex-col gap-2 min-w-[200px] md:min-w-[280px] overflow-hidden z-20 group/tag transition-all hover:scale-[1.02]"
                             style={{
-                                background: 'linear-gradient(135deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 50%, rgba(200,200,210,0.25) 100%)',
-                                boxShadow: '0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(255,255,255,0.1)',
+                                background: currentSlide === 1
+                                    ? 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%)'
+                                    : 'linear-gradient(135deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 50%, rgba(200,200,210,0.25) 100%)',
+                                boxShadow: '0 8px 32px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.4)',
                             }}
                         >
                             {/* Metallic shimmer overlay */}
-                            <div className="absolute inset-0 pointer-events-none opacity-30" style={{
-                                background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.8) 45%, transparent 50%)',
+                            <div className="absolute inset-0 pointer-events-none opacity-20" style={{
+                                background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.6) 45%, transparent 50%)',
                             }} />
-                            <span className="font-mono text-[8px] md:text-[9px] tracking-widest text-neutral-800 dark:text-white/80 uppercase relative z-10 font-semibold drop-shadow-sm">FEATURED</span>
-                            <h3 className="text-base md:text-lg font-bold tracking-tight text-neutral-900 dark:text-white relative z-10 drop-shadow-sm">The Brutalist Library</h3>
-                            <p className="font-mono text-[8px] md:text-[9px] tracking-widest text-neutral-700 dark:text-white/70 uppercase relative z-10 drop-shadow-sm">LAGOS, NG — 2024</p>
-                        </div>
+
+                            <div className="flex items-center justify-between mb-1">
+                                <span className="font-mono text-[9px] tracking-widest text-white/90 uppercase relative z-10 font-bold drop-shadow-sm flex items-center gap-2">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                                    Featured Project
+                                </span>
+                                <ArrowUpRight className="w-4 h-4 text-white/60 group-hover/tag:text-white transition-colors" />
+                            </div>
+
+                            <h3 className="text-xl md:text-2xl font-black tracking-tight text-white relative z-10 drop-shadow-md">
+                                {activeProject.title}
+                            </h3>
+                            <p className="font-mono text-[9px] tracking-widest text-white/70 uppercase relative z-10 drop-shadow-sm font-semibold">
+                                {activeProject.location} — {activeProject.year}
+                            </p>
+                        </Link>
                     </div>
                 </section>
 
