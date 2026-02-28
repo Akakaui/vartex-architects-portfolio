@@ -1,62 +1,53 @@
-export const projects = [
+export interface Project {
+    id: string;
+    title: string;
+    category: string;
+    location: string;
+    year: string;
+    image: string;
+    description: string;
+    tags: string[];
+}
+
+export const projects: Project[] = [
     {
-        id: "1",
-        title: "The Void Pavilion",
-        category: "Cultural",
-        location: "Lagos, Nigeria",
-        year: "2023",
-        image: "/projects/project-1.webp",
-        description: "A cultural center designed to explore the relationship between negative space and community gathering.",
-        tags: ["Cultural", "Public Space", "Concrete"],
+        id: "nka-na-uzu",
+        title: "Nka na Uzu",
+        category: "Institutional",
+        location: "Enugu, Nigeria",
+        year: "2026",
+        image: "/projects/nkanazu/PROJECT6-2Picture13.webp",
+        description: "A sustainable, Afrocentric vocational training center inspired by traditional Igbo craftsmanship.",
+        tags: ["Sustainable", "Clay Brick", "Afrocentric"]
     },
     {
-        id: "2",
-        title: "Monolith Office",
+        id: "the-vartex-hub",
+        title: "The Vartex Hub",
         category: "Commercial",
+        location: "Lagos, Nigeria",
+        year: "2025",
+        image: "/projects/nkanazu/PROJECT6-9Picture21.webp",
+        description: "A high-performance corporate headquarters designed for modern architectural dialogue.",
+        tags: ["Glass Facade", "Atrium", "Corporate"]
+    },
+    {
+        id: "zenith-residence",
+        title: "Zenith Residence",
+        category: "Residential",
         location: "Abuja, Nigeria",
         year: "2024",
-        image: "/projects/project-2.webp",
-        description: "A corporate headquarters that redefines the vertical office through sustainable brutalism.",
-        tags: ["Commercial", "Office", "Sustainable"],
+        image: "/projects/nkanazu/PROJECT6-14Picture28.webp",
+        description: "A luxury villa blending classical proportions with contemporary concrete and glass.",
+        tags: ["Luxury", "Contemporary", "Villa"]
     },
     {
-        id: "3",
-        title: "House Aries",
-        category: "Residential",
-        location: "Accra, Ghana",
-        year: "2023",
-        image: "/projects/project-3.webp",
-        description: "A private residence exploring privacy and openness in a dense urban fabric.",
-        tags: ["Residential", "Private", "Luxury"],
-    },
-    {
-        id: "4",
-        title: "Urban Infill 04",
-        category: "Urban",
-        location: "Nairobi, Kenya",
-        year: "2022",
-        image: "/projects/project-4.webp",
-        description: "An adaptive reuse project transforming a derelict warehouse into a mixed-use creative hub.",
-        tags: ["Urban", "Adaptive Reuse", "Mixed-Use"],
-    },
-    {
-        id: "5",
-        title: "Serenity Spa",
-        category: "Hospitality",
-        location: "Cape Town, SA",
-        year: "2023",
-        image: "/projects/project-5.webp",
-        description: "A wellness retreat integrated into the natural landscape, focusing on sensory architecture.",
-        tags: ["Hospitality", "Wellness", "Landscape"],
-    },
-    {
-        id: "6",
-        title: "Tech Hub X",
-        category: "Institutional",
-        location: "Kigali, Rwanda",
-        year: "2024",
-        image: "/projects/project-6.webp",
-        description: "An innovation center designed to foster collaboration through flexible, modular spaces.",
-        tags: ["Institutional", "Education", "Tech"],
-    },
+        id: "urban-echoes",
+        title: "Urban Echoes",
+        category: "Urban Planning",
+        location: "Lagos, Nigeria",
+        year: "2025",
+        image: "/projects/nkanazu/PROJECT6-18Picture30.webp",
+        description: "A masterplan for a sustainable urban district focusing on walkability and green space.",
+        tags: ["Masterplanning", "Sustainable", "Urban"]
+    }
 ];
