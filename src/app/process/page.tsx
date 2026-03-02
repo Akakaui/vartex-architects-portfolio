@@ -142,13 +142,13 @@ export default function ProcessPage() {
                             </div>
 
                             {/* Imagery */}
-                            <div className="lg:col-span-6 relative aspect-[16/10] lg:aspect-[4/3] overflow-hidden grayscale bg-neutral-100 dark:bg-neutral-900 rounded-sm border border-neutral-100 dark:border-white/5 shadow-2xl">
+                            <div className="lg:col-span-6 relative aspect-[16/10] lg:aspect-[4/3] overflow-hidden bg-neutral-100 dark:bg-neutral-900 rounded-sm border border-neutral-100 dark:border-white/5 shadow-2xl">
                                 <Image
                                     src={step.image}
                                     alt={step.title}
                                     fill
                                     sizes="(max-width: 1024px) 100vw, 50vw"
-                                    className="object-cover hover:scale-110 transition-transform duration-[2000ms] ease-out opacity-80"
+                                    className="object-cover hover:scale-110 transition-transform duration-[2000ms] ease-out"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
                             </div>

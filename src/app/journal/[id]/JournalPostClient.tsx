@@ -137,7 +137,7 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
 
                         {/* Lead paragraph / excerpt */}
                         {post.excerpt && (
-                            <p className="text-xl lg:text-3xl font-normal leading-relaxed text-primary/80 dark:text-white/80 mb-12 content-para">
+                            <p className="text-xl lg:text-3xl font-bold leading-relaxed text-primary/90 dark:text-white/90 mb-12 content-para">
                                 {post.excerpt}
                             </p>
                         )}
@@ -145,14 +145,14 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
                         {/* Body content (Portable Text for Sanity, Array for legacy) */}
                         <div className="prose prose-xl lg:prose-2xl dark:prose-invert max-w-none">
                             {post.body ? (
-                                <div className="text-primary/80 dark:text-white/75 font-normal leading-relaxed">
+                                <div className="text-primary/90 dark:text-white/80 font-medium leading-relaxed">
                                     <PortableText value={post.body} />
                                 </div>
                             ) : (
                                 post.content?.map((paragraph, i) => (
                                     <p
                                         key={i}
-                                        className="text-lg lg:text-xl leading-[1.8] text-primary/80 dark:text-white/75 font-normal mb-10 content-para"
+                                        className="text-lg lg:text-2xl leading-[1.8] text-primary/90 dark:text-white/80 font-medium mb-10 content-para"
                                     >
                                         {paragraph}
                                     </p>
@@ -211,7 +211,7 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
                                             src={related.image}
                                             alt={related.title}
                                             fill
-                                            className="object-cover lg:grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                                            className="object-cover group-hover:scale-105 transition-all duration-700"
                                             sizes="(max-width: 768px) 100vw, 50vw"
                                         />
                                     </div>

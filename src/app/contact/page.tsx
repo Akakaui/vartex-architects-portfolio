@@ -33,19 +33,44 @@ export default function Contact() {
 
     useEffect(() => {
         if (state.success) {
+            // Hide form
             gsap.to(".form-container", {
                 opacity: 0,
                 y: -20,
                 duration: 0.5,
                 display: "none"
             });
-            gsap.from(".success-message", {
-                opacity: 0,
-                y: 20,
-                duration: 0.5,
-                delay: 0.5,
-                display: "flex"
-            });
+            // Show success
+            gsap.fromTo(".success-message",
+                { opacity: 0, y: 20, display: "none" },
+                { opacity: 1, y: 0, duration: 0.5, delay: 0.5, display: "flex" }
+            );
+
+            // Auto-reset after 4 seconds
+            const timer = setTimeout(() => {
+                // Hide success
+                gsap.to(".success-message", {
+                    opacity: 0,
+                    y: -20,
+                    duration: 0.5,
+                    display: "none",
+                    onComplete: () => {
+                        // Reset form state/location if needed, but for now just show form
+                        gsap.set(".form-container", { display: "flex", opacity: 0, y: 20 });
+                        gsap.to(".form-container", {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.5
+                        });
+                        // We rely on the fact that 'state.success' will likely need a real reset 
+                        // but since it's from useActionState, a simple client-side toggle works for UX
+                        // or we can refresh. Let's do a soft reset for the UI.
+                        window.location.reload();
+                    }
+                });
+            }, 4000);
+
+            return () => clearTimeout(timer);
         }
     }, [state.success]);
 
@@ -69,14 +94,11 @@ export default function Contact() {
                     <div className="hidden success-message absolute inset-0 bg-white dark:bg-background-dark p-8 lg:p-24 flex-col justify-center gap-8 items-center text-center z-20">
                         <CheckCircle className="w-16 h-16 text-primary dark:text-white" />
                         <div className="flex flex-col gap-4">
-                            <h2 className="text-4xl font-bold tracking-tighter text-primary dark:text-white uppercase">Inquiry Received.</h2>
-                            <p className="text-primary/60 dark:text-white/60 font-mono text-[10px] tracking-widest uppercase max-w-sm">
+                            <h2 className="text-4xl lg:text-6xl font-black tracking-tighter text-primary dark:text-white uppercase leading-none">Inquiry Received.</h2>
+                            <p className="text-primary/70 dark:text-white/70 font-mono text-[10px] lg:text-xs tracking-widest uppercase max-w-sm mx-auto leading-relaxed">
                                 A CONFIRMATION EMAIL HAS BEEN SENT TO YOUR INBOX. OUR STUDIO TEAM WILL RESPOND WITHIN 48 BUSINESS HOURS.
                             </p>
                         </div>
-                        <button onClick={() => window.location.reload()} className="mt-8 border border-neutral-200 dark:border-white/10 px-8 py-4 font-mono text-[10px] uppercase tracking-widest hover:bg-neutral-50 dark:hover:bg-white/5 transition-colors">
-                            SEND ANOTHER INQUIRY
-                        </button>
                     </div>
 
                     <div className="form-container max-w-3xl flex flex-col gap-12 fade-in">
