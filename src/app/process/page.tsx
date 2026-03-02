@@ -82,6 +82,24 @@ export default function ProcessPage() {
                 ease: "power2.out",
                 stagger: 0.3
             });
+
+            // Step numbers light up on scroll
+            gsap.utils.toArray<HTMLElement>(".step-number-container").forEach((container) => {
+                const num = container.querySelector(".step-number");
+                gsap.fromTo(num,
+                    { opacity: 0.1 },
+                    {
+                        opacity: 1,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: container,
+                            start: "top 80%",
+                            end: "top 40%",
+                            scrub: true,
+                        }
+                    }
+                );
+            });
         });
         return () => ctx.revert();
     }, []);
@@ -117,8 +135,8 @@ export default function ProcessPage() {
                         <section key={step.id} className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-24 items-start relative fade-in">
 
                             {/* Step Numbering (Floating) */}
-                            <div className="lg:col-span-1 flex flex-row lg:flex-col items-center gap-4 lg:gap-12 lg:h-full">
-                                <span className="text-3xl lg:text-7xl font-black text-primary/10 dark:text-white/10 tracking-tighter">{step.id}</span>
+                            <div className="lg:col-span-1 flex flex-row lg:flex-col items-center gap-4 lg:gap-12 lg:h-full step-number-container">
+                                <span className="text-3xl lg:text-7xl font-black text-primary dark:text-white opacity-10 tracking-tighter step-number transition-opacity duration-500">{step.id}</span>
                                 <div className="hidden lg:block w-[1px] flex-grow bg-neutral-100 dark:bg-white/5 line-grow"></div>
                             </div>
 

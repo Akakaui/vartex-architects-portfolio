@@ -336,7 +336,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                 {/* SPECIALIZATIONS */}
                 <section className="px-8 lg:px-24 py-24 lg:py-40 bg-neutral-50 dark:bg-neutral-900/10 border-y border-neutral-100 dark:border-white/5" aria-label="Core architectural specializations">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-neutral-200 dark:bg-neutral-800">
-                        {/* Item 1 */}
+                        {/* Item 1: Architectural Design */}
                         <div className="bg-white dark:bg-background-dark p-12 flex flex-col gap-8 group service-card">
                             <HomeIcon className="w-10 h-10 text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500 icon-layer" />
                             <div className="flex flex-col gap-4">
@@ -345,30 +345,30 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                             </div>
                             <span className="font-mono text-[9px] text-primary/20 dark:text-white/20">01</span>
                         </div>
-                        {/* Item 2 */}
+                        {/* Item 2: Interior Design */}
+                        <div className="bg-white dark:bg-background-dark p-12 flex flex-col gap-8 group service-card">
+                            <Sofa className="w-10 h-10 text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500 icon-layer" />
+                            <div className="flex flex-col gap-4">
+                                <h4 className="text-xl font-bold uppercase tracking-tight text-primary dark:text-white transition-colors duration-500 title-layer">Interior Design</h4>
+                                <p className="text-xs text-primary/60 dark:text-white/60 leading-relaxed italic transition-colors duration-500 text-layer">Curating the inner volume through materiality, light, and proportion.</p>
+                            </div>
+                            <span className="font-mono text-[9px] text-primary/20 dark:text-white/20">02</span>
+                        </div>
+                        {/* Item 3: Landscaping */}
+                        <div className="bg-white dark:bg-background-dark p-12 flex flex-col gap-8 group service-card">
+                            <Trees className="w-10 h-10 text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500 icon-layer" />
+                            <div className="flex flex-col gap-4">
+                                <h4 className="text-xl font-bold uppercase tracking-tight text-primary dark:text-white transition-colors duration-500 title-layer">Landscaping</h4>
+                                <p className="text-xs text-primary/60 dark:text-white/60 leading-relaxed italic transition-colors duration-500 text-layer">Blurring the boundary between the built form and its organic surroundings.</p>
+                            </div>
+                            <span className="font-mono text-[9px] text-primary/20 dark:text-white/20">03</span>
+                        </div>
+                        {/* Item 4: Urban Planning */}
                         <div className="bg-white dark:bg-background-dark p-12 flex flex-col gap-8 group service-card">
                             <Building2 className="w-10 h-10 text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500 icon-layer" />
                             <div className="flex flex-col gap-4">
                                 <h4 className="text-xl font-bold uppercase tracking-tight text-primary dark:text-white transition-colors duration-500 title-layer">Urban Planning</h4>
                                 <p className="text-xs text-primary/60 dark:text-white/60 leading-relaxed italic transition-colors duration-500 text-layer">Integrating structures into the city fabric with social and spatial awareness.</p>
-                            </div>
-                            <span className="font-mono text-[9px] text-primary/20 dark:text-white/20">02</span>
-                        </div>
-                        {/* Item 3 */}
-                        <div className="bg-white dark:bg-background-dark p-12 flex flex-col gap-8 group service-card">
-                            <Sofa className="w-10 h-10 text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500 icon-layer" />
-                            <div className="flex flex-col gap-4">
-                                <h4 className="text-xl font-bold uppercase tracking-tight text-primary dark:text-white transition-colors duration-500 title-layer">Interior Architecture</h4>
-                                <p className="text-xs text-primary/60 dark:text-white/60 leading-relaxed italic transition-colors duration-500 text-layer">Curating the inner volume through materiality, light, and proportion.</p>
-                            </div>
-                            <span className="font-mono text-[9px] text-primary/20 dark:text-white/20">03</span>
-                        </div>
-                        {/* Item 4 */}
-                        <div className="bg-white dark:bg-background-dark p-12 flex flex-col gap-8 group service-card">
-                            <Trees className="w-10 h-10 text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500 icon-layer" />
-                            <div className="flex flex-col gap-4">
-                                <h4 className="text-xl font-bold uppercase tracking-tight text-primary dark:text-white transition-colors duration-500 title-layer">Landscape</h4>
-                                <p className="text-xs text-primary/60 dark:text-white/60 leading-relaxed italic transition-colors duration-500 text-layer">Blurring the boundary between the built form and its organic surroundings.</p>
                             </div>
                             <span className="font-mono text-[9px] text-primary/20 dark:text-white/20">04</span>
                         </div>

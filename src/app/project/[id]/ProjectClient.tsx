@@ -97,15 +97,14 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
                         <div className="absolute inset-0"></div>
                     </div>
 
-                    {/* Top Info and Back Button */}
+                    {/* Breadcrumb Navigation */}
                     <div className="relative z-10 mb-8 flex justify-between items-center w-full">
-                        <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-white/40">PROJECT ARCHIVE // {project.id || project.slug}</span>
                         <Link
                             href="/portfolio"
-                            className="flex items-center gap-2 text-white/60 hover:text-white transition-colors duration-300"
+                            className="flex items-center gap-2 text-white/40 hover:text-white transition-colors duration-300 group"
                         >
-                            <ArrowLeft size={14} />
-                            <span className="font-mono text-[10px] tracking-[0.3em] uppercase">Back to Archive</span>
+                            <ArrowLeft size={12} className="group-hover:-translate-x-1 transition-transform" />
+                            <span className="font-mono text-[10px] tracking-[0.4em] uppercase">PROJECT ARCHIVE // {project.id || project.slug}</span>
                         </Link>
                     </div>
 

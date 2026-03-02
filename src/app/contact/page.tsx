@@ -48,24 +48,17 @@ export default function Contact() {
 
             // Auto-reset after 4 seconds
             const timer = setTimeout(() => {
-                // Hide success
+                // Smooth transition back
                 gsap.to(".success-message", {
                     opacity: 0,
                     y: -20,
-                    duration: 0.5,
-                    display: "none",
+                    duration: 0.6,
+                    ease: "power2.inOut",
                     onComplete: () => {
-                        // Reset form state/location if needed, but for now just show form
-                        gsap.set(".form-container", { display: "flex", opacity: 0, y: 20 });
-                        gsap.to(".form-container", {
-                            opacity: 1,
-                            y: 0,
-                            duration: 0.5
-                        });
-                        // We rely on the fact that 'state.success' will likely need a real reset 
-                        // but since it's from useActionState, a simple client-side toggle works for UX
-                        // or we can refresh. Let's do a soft reset for the UI.
-                        window.location.reload();
+                        // Small delay before reload to let the opacity settle
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 100);
                     }
                 });
             }, 4000);
@@ -160,10 +153,10 @@ export default function Contact() {
                                 <div className="flex flex-col gap-2 relative">
                                     <label htmlFor="project-type" className="font-mono text-[9px] tracking-[0.2em] text-primary/40 dark:text-white/40 uppercase">PROJECT TYPE</label>
                                     <select id="project-type" name="type" className="bg-transparent border-b border-neutral-300 dark:border-white/10 py-4 focus:border-primary dark:focus:border-white outline-none transition-colors text-xl font-light text-primary dark:text-white appearance-none cursor-pointer">
-                                        <option value="architectural" className="bg-white dark:bg-neutral-900 text-primary dark:text-white">Architectural</option>
-                                        <option value="commercial" className="bg-white dark:bg-neutral-900 text-primary dark:text-white">Commercial</option>
+                                        <option value="architectural" className="bg-white dark:bg-neutral-900 text-primary dark:text-white">Architectural Design</option>
+                                        <option value="interior" className="bg-white dark:bg-neutral-900 text-primary dark:text-white">Interior Design</option>
+                                        <option value="landscaping" className="bg-white dark:bg-neutral-900 text-primary dark:text-white">Landscaping</option>
                                         <option value="urban" className="bg-white dark:bg-neutral-900 text-primary dark:text-white">Urban Planning</option>
-                                        <option value="interior" className="bg-white dark:bg-neutral-900 text-primary dark:text-white">Interior</option>
                                     </select>
                                     <ChevronDown className="absolute bottom-5 right-0 pointer-events-none opacity-40 w-5 h-5" />
                                 </div>

@@ -199,14 +199,14 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
                 {relatedPosts.length > 0 && (
                     <section className="px-8 lg:px-24 py-16 lg:py-24 border-t border-neutral-100 dark:border-white/5">
                         <h3 className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase mb-12">Related Articles</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
                             {relatedPosts.slice(0, 3).map((related, index) => (
                                 <Link
                                     key={related.id || related.slug}
                                     href={`/journal/${related.id || related.slug}`}
                                     className={`group flex-col ${index === 2 ? 'hidden lg:flex' : 'flex'}`}
                                 >
-                                    <div className="relative aspect-[3/2] overflow-hidden mb-6">
+                                    <div className="relative aspect-[3/2] overflow-hidden mb-8 rounded-sm">
                                         <Image
                                             src={related.image}
                                             alt={related.title}

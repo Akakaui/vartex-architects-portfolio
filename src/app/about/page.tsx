@@ -84,7 +84,7 @@ export default function About() {
 
                                 {/* Technical Corner Overlay — Solid Black */}
                                 <div className="absolute bottom-4 left-4 px-5 py-3 bg-black border border-white/10 font-mono text-[9px] tracking-[0.4em] uppercase z-10 transition-colors">
-                                    <span className="relative z-10 text-white font-semibold">PRINCIPAL — ARCH. MBAH</span>
+                                    <span className="relative z-10 text-white font-semibold">PRINCIPAL — MICHAEL MBAH</span>
                                 </div>
                             </div>
                             <div className="flex flex-col gap-2 border-t border-neutral-100 dark:border-white/5 pt-6 font-mono text-[10px] tracking-widest text-primary/40 dark:text-white/40 uppercase">
@@ -94,7 +94,7 @@ export default function About() {
                                 </div>
                                 <div className="flex justify-between">
                                     <span>REGISTRATION</span>
-                                    <span className="text-primary dark:text-white">ARCON / RIBA INT.</span>
+                                    <span className="text-primary dark:text-white">IN VIEW</span>
                                 </div>
                             </div>
                         </div>
@@ -106,12 +106,12 @@ export default function About() {
                             </h1>
                             <div className="flex flex-col gap-8 text-xl lg:text-2xl font-light leading-snug text-primary/80 dark:text-white/80 max-w-2xl italic">
                                 <p>
-                                    Our practice is founded on the belief that architecture is a dialogue between human ritual and environmental context. We strip away the noise to reveal the essential structure, finding beauty in geometric precision and material honesty.
+                                    Our practice is founded on the belief that architecture is a dialogue between cultural context and environmental awareness. We strip away the noise to reveal the essential structure, finding beauty in geometric precision, material authenticity and structural integrity.
                                 </p>
                             </div>
                             <div className="flex flex-col gap-6 text-base font-light leading-relaxed text-primary/60 dark:text-white/60 max-w-xl">
                                 <p>
-                                    Michael Mbah established VARTEX in 2018 after years of refining his craft in both commercial and residential sectors across West Africa. His approach is deeply mathematical, treating every project as an equation where light, volume, and budget are solved through architectural rigor.
+                                    Michael Mbah established VARTEX in 2025 after years of refining his craft in both commercial and residential sectors across Nigeria. His approach is deeply mathematical, treating every project as an equation where light, volume, and budget are solved through architectural rigor.
                                 </p>
                                 <p>
                                     Today, the studio operates as a multidisciplinary hub, collaborating with engineers, landscape architects, and digital fabricators to deliver projects that are as technically sound as they are aesthetically profound.
