@@ -8,7 +8,7 @@ export const featuredProjectsQuery = groq`
     title,
     location,
     year,
-    category,
+    "categories": categories[]->title,
     "image": mainImage.asset->url,
     "images": [mainImage.asset->url],
     description
@@ -23,7 +23,7 @@ export const selectedWorksQuery = groq`
     title,
     location,
     year,
-    category,
+    "categories": categories[]->title,
     "image": mainImage.asset->url,
     "images": [mainImage.asset->url],
     description
@@ -38,7 +38,7 @@ export const allProjectsQuery = groq`
     title,
     location,
     year,
-    category,
+    "categories": categories[]->title,
     "image": mainImage.asset->url,
     "images": [mainImage.asset->url],
   }
@@ -54,7 +54,7 @@ export const projectBySlugQuery = groq`
     location,
     year,
     area,
-    category,
+    "categories": categories[]->title,
     description,
     "images": [mainImage.asset->url] + gallery[].asset->url,
     "mainImage": mainImage.asset->url,

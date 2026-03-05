@@ -1,14 +1,14 @@
 export const PROJECT_DETAILS = {
     "nka-na-uzu": {
         id: "nka-na-uzu",
-        title: "Nka na Uzu.",
-        client: "Design Competition",
-        location: "Enugu, Nigeria",
+        title: "NKA NA UZU",
+        client: "Competition",
+        location: "Enugu, NG",
         year: "2026",
-        area: "Vocational Center",
-        duration: "18 Months",
-        category: "Institutional",
-        description: "Nka na Uzu is a sustainable, Afrocentric vocational training center situated in Enugu. Inspired by the traditional Igbo courtyard (Etiti Ulo), the building creates a serene, cave-like environment where comfort breeds collaboration. Its facade is constructed entirely from local burnt clay brick, resonating deeply with cultural identity.",
+        area: "14,403 m²",
+        duration: "Design Proposal",
+        category: "Architectural Design",
+        description: "NKA NA UZU is a sustainable, Afrocentric vocational training center situated in Enugu. Inspired by the traditional Igbo courtyard (Etiti Ulo), the building creates a serene, cave-like environment where comfort breeds collaboration.",
         images: [
             "/projects/nkanazu/PROJECT6-2Picture13.webp",
             "/projects/nkanazu/PROJECT6-1Picture12.webp",
@@ -17,61 +17,81 @@ export const PROJECT_DETAILS = {
             "/projects/nkanazu/PROJECT6-5Picture15.webp",
             "/projects/nkanazu/PROJECT6-6Picture16.webp",
         ],
-        materiality: "Local Burnt Clay Brick",
-        sustainability: "Passive Solar Design, Rainwater Harvesting"
+        sustainability: "Daylight Optimization, Local Materials, Natural Ventilation, Rainwater Harvesting, Solar shading, Thermal Mass.",
+        materiality: "Aluminum, Clay, Stone, Terracotta, Terrazzo, Timber."
     },
-    "the-vartex-hub": {
-        id: "the-vartex-hub",
-        title: "The Vartex Hub.",
-        client: "VARTEX Studio",
-        location: "Lagos, Nigeria",
+    "clergy-office-house": {
+        id: "clergy-office-house",
+        title: "CLERGY OFFICE/ HOUSE",
+        client: "Catholic Archdiocese of Ibadan",
+        location: "Oyo, NG",
         year: "2025",
-        area: "5,400 sqm",
-        duration: "24 Months",
-        category: "Commercial",
-        description: "A state-of-the-art commercial headquarters that redefines the corporate workspace in Lagos. The building features a triple-height atrium and a high-performance facade designed to minimize solar gain while maximizing transparency and views of the Atlantic.",
+        area: "N/A",
+        duration: "Construction Completed",
+        category: "Architectural Design",
+        description: "Clergy office and residence project for the Catholic Archdiocese of Ibadan, focusing on natural light and ventilation.",
         images: [
             "/projects/nkanazu/PROJECT6-9Picture21.webp",
             "/projects/nkanazu/PROJECT6-10Picture20.webp",
             "/projects/nkanazu/PROJECT6-11Picture23.webp",
         ],
-        materiality: "Double-Skin Ventilated Wall",
-        sustainability: "LEED Platinum Target"
+        sustainability: "Daylight Optimization, Natural Ventilation.",
+        materiality: "N/A"
     },
-    "zenith-residence": {
-        id: "zenith-residence",
-        title: "Zenith Residence.",
-        client: "Private Client",
-        location: "Abuja, Nigeria",
-        year: "2024",
-        area: "1,200 sqm",
-        duration: "14 Months",
-        category: "Residential",
-        description: "A luxury villa in Abuja that blends classical proportions with contemporary structural glass and concrete. The residence is organized around a private infinity pool and features extensive cantilevered terraces that provide shade and outdoor living space.",
+    "the-corinthian": {
+        id: "the-corinthian",
+        title: "THE CORINTHIAN",
+        client: "Private Residence",
+        location: "Anambra, NG",
+        year: "2025",
+        area: "1,156 m²",
+        duration: "Design Proposal",
+        category: "Residential Design",
+        description: "The Corinthian is a private residence project in Anambra, embodying elegance and modern living.",
         images: [
             "/projects/nkanazu/PROJECT6-14Picture28.webp",
             "/projects/nkanazu/PROJECT6-15Picture29.webp",
             "/projects/nkanazu/PROJECT6-16Picture33.webp",
         ],
-        materiality: "Post-Tensioned Concrete, Acoustic Glass",
-        sustainability: "Integrated Xeriscaping"
+        sustainability: "Daylight Optimization, Natural Ventilation.",
+        materiality: "N/A"
     },
-    "urban-echoes": {
-        id: "urban-echoes",
-        title: "Urban Echoes.",
-        client: "City Planning Authority",
-        location: "Lagos, Nigeria",
+    "house-aries": {
+        id: "house-aries",
+        title: "HOUSE ARIES",
+        client: "Private Residence",
+        location: "Lagos, NG",
         year: "2025",
-        area: "Urban District",
-        duration: "Ongoing",
-        category: "Urban Planning",
-        description: "A masterplan for a sustainable urban district in Lagos. The project focuses on walkability, public green space, and integrated transit-oriented development to create a resilient and connected urban fabric.",
+        area: "426 m²",
+        duration: "Design Proposal",
+        category: "Residential Design",
+        description: "House Aries is a compact, sustainable private residence in Lagos.",
         images: [
             "/projects/nkanazu/PROJECT6-18Picture30.webp",
             "/projects/nkanazu/PROJECT6-19Picture32.webp",
         ],
-        materiality: "Pedestrian-First Infrastructure",
-        sustainability: "Stormwater Management Park"
+        sustainability: "Daylight Optimization, Natural Ventilation.",
+        materiality: "N/A"
+    },
+    "portfolio": {
+        id: "portfolio",
+        title: "PORTFOLIO",
+        client: "Selected Works",
+        location: "N/A",
+        year: "2025",
+        area: "N/A",
+        duration: "N/A",
+        category: "Portfolio",
+        description: "A curated selection of architectural works and visions.",
+        images: [
+            "/projects/nkanazu/PROJECT6-1Picture12.webp",
+            "/projects/nkanazu/PROJECT6-2Picture13.webp",
+            "/projects/nkanazu/PROJECT6-9Picture21.webp",
+            "/projects/nkanazu/PROJECT6-14Picture28.webp",
+            "/projects/nkanazu/PROJECT6-18Picture30.webp",
+        ],
+        sustainability: "N/A",
+        materiality: "N/A"
     }
 };
 

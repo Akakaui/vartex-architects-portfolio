@@ -40,7 +40,7 @@ export default function JournalClient({ initialPosts }: JournalClientProps) {
         ? initialPosts
         : initialPosts.filter(p => p.category === activeCategory);
 
-    const featuredPost = initialPosts.find(p => p.featured) || initialPosts[0];
+    const featuredPost = initialPosts[0];
     const regularPosts = filteredPosts.filter(p =>
         (p.id || p.slug) !== (featuredPost?.id || featuredPost?.slug) || activeCategory !== "All"
     );

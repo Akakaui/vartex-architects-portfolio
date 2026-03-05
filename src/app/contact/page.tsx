@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { contactInquiryAction } from "./actions";
@@ -193,7 +194,7 @@ export default function Contact() {
                             {/* Submit */}
                             <div className="flex flex-col sm:flex-row justify-between items-center gap-8 pt-4">
                                 <p className="max-w-[300px] text-[8px] font-mono leading-relaxed text-primary/40 dark:text-white/40 uppercase tracking-widest text-center sm:text-left">
-                                    BY SENDING THIS INQUIRY YOU AGREE TO OUR PRIVACY POLICY AND THE STORAGE OF YOUR DATA FOR ARCHITECTURAL CONSULTATION.
+                                    BY SENDING THIS INQUIRY YOU AGREE TO OUR <Link href="/privacy" className="underline hover:text-primary dark:hover:text-white transition-colors">PRIVACY POLICY</Link> AND THE STORAGE OF YOUR DATA FOR ARCHITECTURAL CONSULTATION.
                                 </p>
                                 <button
                                     type="submit"

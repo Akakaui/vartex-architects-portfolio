@@ -12,42 +12,52 @@ export interface Project {
 export const projects: Project[] = [
     {
         id: "nka-na-uzu",
-        title: "Nka na Uzu",
-        category: "Institutional",
-        location: "Enugu, Nigeria",
+        title: "NKA NA UZU",
+        category: "Architectural Design",
+        location: "Enugu, NG",
         year: "2026",
         image: "/projects/nkanazu/PROJECT6-2Picture13.webp",
-        description: "A sustainable, Afrocentric vocational training center inspired by traditional Igbo craftsmanship.",
-        tags: ["Sustainable", "Clay Brick", "Afrocentric"]
+        description: "A sustainable, Afrocentric vocational training center situated in Enugu.",
+        tags: ["Clay", "Stone", "Terracotta"]
     },
     {
-        id: "the-vartex-hub",
-        title: "The Vartex Hub",
-        category: "Commercial",
-        location: "Lagos, Nigeria",
+        id: "clergy-office-house",
+        title: "CLERGY OFFICE/ HOUSE",
+        category: "Architectural Design",
+        location: "Oyo, NG",
         year: "2025",
         image: "/projects/nkanazu/PROJECT6-9Picture21.webp",
-        description: "A high-performance corporate headquarters designed for modern architectural dialogue.",
-        tags: ["Glass Facade", "Atrium", "Corporate"]
+        description: "Clergy office and residence for the Catholic Archdiocese of Ibadan.",
+        tags: ["Office", "Residence", "Completed"]
     },
     {
-        id: "zenith-residence",
-        title: "Zenith Residence",
-        category: "Residential",
-        location: "Abuja, Nigeria",
-        year: "2024",
+        id: "the-corinthian",
+        title: "THE CORINTHIAN",
+        category: "Residential Design",
+        location: "Anambra, NG",
+        year: "2025",
         image: "/projects/nkanazu/PROJECT6-14Picture28.webp",
-        description: "A luxury villa blending classical proportions with contemporary concrete and glass.",
-        tags: ["Luxury", "Contemporary", "Villa"]
+        description: "A private residence project in Anambra.",
+        tags: ["Private", "Residency", "Design Proposal"]
     },
     {
-        id: "urban-echoes",
-        title: "Urban Echoes",
-        category: "Urban Planning",
-        location: "Lagos, Nigeria",
+        id: "house-aries",
+        title: "HOUSE ARIES",
+        category: "Residential Design",
+        location: "Lagos, NG",
         year: "2025",
         image: "/projects/nkanazu/PROJECT6-18Picture30.webp",
-        description: "A masterplan for a sustainable urban district focusing on walkability and green space.",
-        tags: ["Masterplanning", "Sustainable", "Urban"]
+        description: "A private residence project in Lagos.",
+        tags: ["Private", "Lagos", "Design Proposal"]
+    },
+    {
+        id: "portfolio",
+        title: "PORTFOLIO",
+        category: "Portfolio",
+        location: "N/A",
+        year: "2025",
+        image: "/projects/nkanazu/PROJECT6-1Picture12.webp",
+        description: "A curated selection of works.",
+        tags: ["Selected Works", "Gallery"]
     }
 ];

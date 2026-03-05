@@ -27,7 +27,7 @@ interface Project {
     duration?: string;
     materiality?: string;
     sustainability?: string;
-    category?: string;
+    categories?: string[];
     description: string;
     images: string[];
 }
@@ -110,18 +110,13 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
 
                     {/* Main Title Area */}
                     <div className="hero-content relative z-10 w-full mb-16">
-                        <h1 className="text-7xl md:text-9xl lg:text-[13rem] font-black leading-[0.8] tracking-tighter uppercase flex flex-col">
-                            <span className="flex flex-wrap items-center gap-x-8 lg:gap-x-12">
-                                <span className="text-white">{project.title?.split(' ')[0]}</span>
-                                {project.title?.split(' ')[1] && (
-                                    <span
-                                        className="text-transparent"
-                                        style={{ WebkitTextStroke: '1.5px rgba(255,255,255,1)' }}
-                                    >
-                                        {project.title.split(' ')[1]}
-                                    </span>
-                                )}
-                            </span>
+                        <h1 className="text-7xl md:text-9xl lg:text-[11rem] xl:text-[13rem] font-black leading-[0.8] tracking-tighter uppercase flex flex-wrap items-baseline gap-x-4 md:gap-x-8 lg:gap-x-12">
+                            <span className="text-white">{project.title?.split(' ')[0]}</span>
+                            {project.title?.split(' ')[1] && (
+                                <span className="text-white/20">
+                                    {project.title.split(' ')[1]}
+                                </span>
+                            )}
                             <span className="text-white">
                                 {project.title?.split(' ').slice(2).join(' ')}
                             </span>
@@ -137,14 +132,13 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
 
                     {/* Project Metadata Row */}
                     <div className="relative z-10 w-full border-t border-white/10 pt-12 pb-8">
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-12 gap-y-16 max-w-[1700px]">
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-12 gap-y-16 max-w-[1700px]">
                             {[
                                 { label: "CLIENT", value: project.client || "VARTEX" },
                                 { label: "LOCATION", value: project.location || "Enugu, Nigeria" },
                                 { label: "YEAR", value: project.year },
                                 { label: "AREA", value: project.area || "Architecture" },
-                                { label: "DURATION", value: project.duration || "N/A" },
-                                { label: "MATERIALITY", value: "Custom Architecture" }
+                                { label: "STATUS", value: project.duration || "N/A" },
                             ].map((item, i) => (
                                 <div key={i} className="flex flex-col gap-4">
                                     <span className="font-mono text-[9px] uppercase text-white/30 tracking-[0.2em]">{item.label}</span>
@@ -195,7 +189,6 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
                                 {[
                                     { label: "Materiality", value: project.materiality },
                                     { label: "Sustainability", value: project.sustainability },
-                                    { label: "Duration", value: project.duration }
                                 ].map((spec, i) => (
                                     spec.value && (
                                         <div key={i} className="flex flex-col md:flex-row md:items-start gap-2 md:gap-24 w-full pb-6 border-b border-neutral-200 dark:border-white/10">
@@ -217,7 +210,7 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
                                 href={`/project/${prevProject.id || prevProject.slug}`}
                                 className="group p-8 lg:p-16 border-b md:border-b-0 md:border-r border-neutral-100 dark:border-white/5 hover:bg-neutral-50 dark:hover:bg-white/[0.02] transition-colors duration-300"
                             >
-                                <span className="font-mono text-[9px] tracking-[0.3em] text-primary/40 dark:text-white/40 uppercase mb-4 block">← Previous Architecture</span>
+                                <span className="font-mono text-[9px] tracking-[0.3em] text-primary/40 dark:text-white/40 uppercase mb-4 block">← Previous Project</span>
                                 <h4 className="text-2xl lg:text-3xl font-black uppercase tracking-tighter text-primary dark:text-white group-hover:text-primary/70 dark:group-hover:text-white/70 transition-colors">
                                     {prevProject.title}
                                 </h4>
@@ -231,7 +224,7 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
                                 href={`/project/${nextProject.id || nextProject.slug}`}
                                 className="group p-8 lg:p-16 text-right hover:bg-neutral-50 dark:hover:bg-white/[0.02] transition-colors duration-300"
                             >
-                                <span className="font-mono text-[9px] tracking-[0.3em] text-primary/40 dark:text-white/40 uppercase mb-4 block">Next Build →</span>
+                                <span className="font-mono text-[9px] tracking-[0.3em] text-primary/40 dark:text-white/40 uppercase mb-4 block">Next Project →</span>
                                 <h4 className="text-2xl lg:text-3xl font-black uppercase tracking-tighter text-primary dark:text-white group-hover:text-primary/70 dark:group-hover:text-white/70 transition-colors">
                                     {nextProject.title}
                                 </h4>
@@ -289,7 +282,7 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <span className="font-mono text-[9px] tracking-[0.3em] text-primary/40 dark:text-white/40 uppercase">
-                                        {work.category} // {work.year}
+                                        {work.categories?.join(' // ') || "Architecture"} // {work.year}
                                     </span>
                                     <h4 className="text-xl font-black uppercase tracking-tight text-primary dark:text-white group-hover:text-primary/70 dark:group-hover:text-white/70 transition-colors">
                                         {work.title}

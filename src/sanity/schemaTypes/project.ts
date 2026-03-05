@@ -17,7 +17,7 @@ export default {
             name: 'title',
             title: 'Project Title',
             type: 'string',
-            validation: (Rule) => Rule.required(),
+            validation: (Rule: any) => Rule.required(),
         },
         {
             name: 'slug',
@@ -27,7 +27,7 @@ export default {
                 source: 'title',
                 maxLength: 96,
             },
-            validation: (Rule) => Rule.required(),
+            validation: (Rule: any) => Rule.required(),
         },
         {
             name: 'featured',
@@ -44,10 +44,11 @@ export default {
             initialValue: false,
         },
         {
-            name: 'category',
-            title: 'Category',
-            description: 'Type any category (e.g., Residential, Commercial, Institutional, Urban Planning, Landscape, or any custom category).',
-            type: 'string',
+            name: 'categories',
+            title: 'Categories',
+            description: 'Select one or more categories for this project.',
+            type: 'array',
+            of: [{ type: 'reference', to: [{ type: 'category' }] }],
         },
         {
             name: 'client',
@@ -75,7 +76,8 @@ export default {
         },
         {
             name: 'duration',
-            title: 'Duration',
+            title: 'Status',
+            description: 'Current status of the project (e.g., In View, Completed, On-going).',
             type: 'string',
             group: 'specs',
         },
@@ -99,7 +101,7 @@ export default {
             options: {
                 hotspot: true,
             },
-            validation: (Rule) => Rule.required(),
+            validation: (Rule: any) => Rule.required(),
         },
         {
             name: 'gallery',

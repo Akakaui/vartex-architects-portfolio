@@ -19,7 +19,7 @@ const STEPS = [
             "Feasibility Studies",
             "Project Brief Development"
         ],
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuB2v_j3m-nF6-W9C6yJEqg-Mhzm7Y7o-W1K-Y3v_0v-q_w-x-X-x-X-x-X-x-X-x-X-x-X-x-X-X-X-X-X-X-X-X-X-X-X-X-X-X"
+        image: "https://images.unsplash.com/photo-1503387762-592dea58ef21?q=80&w=2000&auto=format&fit=crop" // Conception/Sketching
     },
     {
         id: "02",
@@ -32,7 +32,7 @@ const STEPS = [
             "Floor Plan Optimization",
             "Structural Coordination"
         ],
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBZodjKOy4XxkOUPno-_MhkVaQDXqXpxTR-4GXlwu9mBScxBFRIXhRs1HtLVWibQlfUQcdZOW4OCec4RqsPyiib4PbJjMph-Ty27Iig5Ed9Ac2vRjgmDquX31ACFwVebusSYI_ofRZ54Q10MmymqF5nvxqnFA6ndwHOJPebAy-P1tdVxdlX1cNHpwWtUIuA0u3msVJsgHLaqwlNuOCk_u6bfT9lMduz3Ts6EMDnQvNDIegrPAz26ahk3MasiF6AnMQUtamypZ32"
+        image: "https://images.unsplash.com/photo-1502005075199-511a103d3963?q=80&w=2000&auto=format&fit=crop" // Schematic/Modeling
     },
     {
         id: "03",
@@ -45,7 +45,7 @@ const STEPS = [
             "Specification Writing",
             "Permit Documentation"
         ],
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBxI3vH_f7I8OaG8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1"
+        image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop" // Technical/Blueprint
     },
     {
         id: "04",
@@ -58,7 +58,7 @@ const STEPS = [
             "Finish & Fixture Selection",
             "Final Project Delivery"
         ],
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBSRU1-D_f7I8OaG8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1-q8T1"
+        image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000&auto=format&fit=crop" // Realization/Build
     }
 ];
 
