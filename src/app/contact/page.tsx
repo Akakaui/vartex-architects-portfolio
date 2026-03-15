@@ -82,7 +82,7 @@ export default function Contact() {
                 </div>
 
                 {/* Form Section — Full Width */}
-                <div className="px-8 lg:px-24 pb-24 lg:pb-32 relative">
+                <div className="px-8 lg:px-24 pb-24 lg:pb-32 relative bg-primary dark:bg-neutral-900/50 py-24">
 
                     {/* Success Message */}
                     <div className="hidden success-message absolute inset-0 bg-white dark:bg-background-dark p-8 lg:p-24 flex-col justify-center gap-8 items-center text-center z-20">
@@ -96,14 +96,14 @@ export default function Contact() {
                     </div>
 
                     <div className="form-container max-w-3xl flex flex-col gap-12 fade-in">
-                        <span className="font-mono text-[9px] tracking-[0.4em] text-primary/30 dark:text-white/30 uppercase">PROJECT INQUIRY</span>
+                        <span className="font-mono text-[9px] tracking-[0.4em] text-white/30 uppercase">PROJECT INQUIRY</span>
 
                         <form action={formAction} className="flex flex-col gap-10" aria-label="Send us an inquiry">
 
                             {/* Row 1: Name + Email */}
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                                 <div className="flex flex-col gap-2">
-                                    <label htmlFor="full-name" className="font-mono text-[9px] tracking-[0.2em] text-primary/40 dark:text-white/40 uppercase flex justify-between">
+                                    <label htmlFor="full-name" className="font-mono text-[9px] tracking-[0.2em] text-white uppercase flex justify-between">
                                         FULL NAME
                                         {state.errors?.name && <span className="text-red-500 lowercase tracking-normal italic opacity-100">{state.errors.name[0]}</span>}
                                     </label>
@@ -114,11 +114,11 @@ export default function Contact() {
                                         placeholder="John Doe"
                                         autoComplete="name"
                                         required
-                                        className={`bg-transparent border-b ${state.errors?.name ? 'border-red-500/50' : 'border-neutral-300 dark:border-white/10'} py-4 focus:border-primary dark:focus:border-white outline-none transition-colors text-xl font-light text-primary dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-600`}
+                                        className={`bg-transparent border-b ${state.errors?.name ? 'border-red-500/50' : 'border-white/10'} py-4 focus:border-white outline-none transition-colors text-xl font-light text-white placeholder:text-white/20`}
                                     />
                                 </div>
                                 <div className="flex flex-col gap-2">
-                                    <label htmlFor="email" className="font-mono text-[9px] tracking-[0.2em] text-primary/40 dark:text-white/40 uppercase flex justify-between">
+                                    <label htmlFor="email" className="font-mono text-[9px] tracking-[0.2em] text-white uppercase flex justify-between">
                                         EMAIL ADDRESS
                                         {state.errors?.email && <span className="text-red-500 lowercase tracking-normal italic opacity-100">{state.errors.email[0]}</span>}
                                     </label>
@@ -129,7 +129,7 @@ export default function Contact() {
                                         placeholder="you@example.com"
                                         autoComplete="email"
                                         required
-                                        className={`bg-transparent border-b ${state.errors?.email ? 'border-red-500/50' : 'border-neutral-300 dark:border-white/10'} py-4 focus:border-primary dark:focus:border-white outline-none transition-colors text-xl font-light text-primary dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-600`}
+                                        className={`bg-transparent border-b ${state.errors?.email ? 'border-red-500/50' : 'border-white/10'} py-4 focus:border-white outline-none transition-colors text-xl font-light text-white placeholder:text-white/20`}
                                     />
                                 </div>
                             </div>
@@ -137,7 +137,7 @@ export default function Contact() {
                             {/* Row 2: Phone + Project Type */}
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                                 <div className="flex flex-col gap-2">
-                                    <label htmlFor="phone" className="font-mono text-[9px] tracking-[0.2em] text-primary/40 dark:text-white/40 uppercase flex justify-between">
+                                    <label htmlFor="phone" className="font-mono text-[9px] tracking-[0.2em] text-white uppercase flex justify-between">
                                         PHONE NUMBER
                                         {state.errors?.phone && <span className="text-red-500 lowercase tracking-normal italic opacity-100">{state.errors.phone[0]}</span>}
                                     </label>
@@ -148,24 +148,24 @@ export default function Contact() {
                                         placeholder="+234 800 000 0000"
                                         autoComplete="tel"
                                         required
-                                        className={`bg-transparent border-b ${state.errors?.phone ? 'border-red-500/50' : 'border-neutral-300 dark:border-white/10'} py-4 focus:border-primary dark:focus:border-white outline-none transition-colors text-xl font-light text-primary dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-600`}
+                                        className={`bg-transparent border-b ${state.errors?.phone ? 'border-red-500/50' : 'border-white/10'} py-4 focus:border-white outline-none transition-colors text-xl font-light text-white placeholder:text-white/20`}
                                     />
                                 </div>
                                 <div className="flex flex-col gap-2 relative">
-                                    <label htmlFor="project-type" className="font-mono text-[9px] tracking-[0.2em] text-primary/40 dark:text-white/40 uppercase">PROJECT TYPE</label>
-                                    <select id="project-type" name="type" className="bg-transparent border-b border-neutral-300 dark:border-white/10 py-4 focus:border-primary dark:focus:border-white outline-none transition-colors text-xl font-light text-primary dark:text-white appearance-none cursor-pointer">
-                                        <option value="architectural" className="bg-white dark:bg-neutral-900 text-primary dark:text-white">Architectural Design</option>
-                                        <option value="interior" className="bg-white dark:bg-neutral-900 text-primary dark:text-white">Interior Design</option>
-                                        <option value="landscaping" className="bg-white dark:bg-neutral-900 text-primary dark:text-white">Landscaping</option>
-                                        <option value="urban" className="bg-white dark:bg-neutral-900 text-primary dark:text-white">Urban Planning</option>
+                                    <label htmlFor="project-type" className="font-mono text-[9px] tracking-[0.2em] text-white uppercase">PROJECT TYPE</label>
+                                    <select id="project-type" name="type" className="bg-transparent border-b border-white/10 py-4 focus:border-white outline-none transition-colors text-xl font-light text-white appearance-none cursor-pointer">
+                                        <option value="architectural" className="bg-primary text-white">Architectural Design</option>
+                                        <option value="interior" className="bg-primary text-white">Interior Design</option>
+                                        <option value="landscaping" className="bg-primary text-white">Landscaping</option>
+                                        <option value="urban" className="bg-primary text-white">Urban Planning</option>
                                     </select>
-                                    <ChevronDown className="absolute bottom-5 right-0 pointer-events-none opacity-40 w-5 h-5" />
+                                    <ChevronDown className="absolute bottom-5 right-0 pointer-events-none opacity-40 w-5 h-5 text-white" />
                                 </div>
                             </div>
 
                             {/* Row 3: Site Location */}
                             <div className="flex flex-col gap-2">
-                                <label htmlFor="site-location" className="font-mono text-[9px] tracking-[0.2em] text-primary/40 dark:text-white/40 uppercase flex justify-between">
+                                <label htmlFor="site-location" className="font-mono text-[9px] tracking-[0.2em] text-white uppercase flex justify-between">
                                     SITE LOCATION
                                     {state.errors?.location && <span className="text-red-500 lowercase tracking-normal italic opacity-100">{state.errors.location[0]}</span>}
                                 </label>
@@ -175,32 +175,32 @@ export default function Contact() {
                                     type="text"
                                     placeholder="City, Country"
                                     required
-                                    className={`bg-transparent border-b ${state.errors?.location ? 'border-red-500/50' : 'border-neutral-300 dark:border-white/10'} py-4 focus:border-primary dark:focus:border-white outline-none transition-colors text-xl font-light text-primary dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-600`}
+                                    className={`bg-transparent border-b ${state.errors?.location ? 'border-red-500/50' : 'border-white/10'} py-4 focus:border-white outline-none transition-colors text-xl font-light text-white placeholder:text-white/20`}
                                 />
                             </div>
 
                             {/* Row 4: Project Brief */}
                             <div className="flex flex-col gap-2">
-                                <label htmlFor="project-brief" className="font-mono text-[9px] tracking-[0.2em] text-primary/40 dark:text-white/40 uppercase">PROJECT BRIEF</label>
+                                <label htmlFor="project-brief" className="font-mono text-[9px] tracking-[0.2em] text-white uppercase">PROJECT BRIEF</label>
                                 <textarea
                                     id="project-brief"
                                     name="brief"
                                     rows={2}
                                     placeholder="Describe your vision and requirements..."
-                                    className="bg-transparent border-b border-neutral-300 dark:border-white/10 py-4 focus:border-primary dark:focus:border-white outline-none transition-colors text-xl font-light text-primary dark:text-white resize-none placeholder:text-neutral-400 dark:placeholder:text-neutral-600"
+                                    className="bg-transparent border-b border-white/10 py-4 focus:border-white outline-none transition-colors text-xl font-light text-white resize-none placeholder:text-white/20"
                                 ></textarea>
                             </div>
 
                             {/* Submit */}
                             <div className="flex flex-col sm:flex-row justify-between items-center gap-8 pt-4">
-                                <p className="max-w-[300px] text-[8px] font-mono leading-relaxed text-primary/40 dark:text-white/40 uppercase tracking-widest text-center sm:text-left">
-                                    BY SENDING THIS INQUIRY YOU AGREE TO OUR <Link href="/privacy" className="underline hover:text-primary dark:hover:text-white transition-colors">PRIVACY POLICY</Link> AND THE STORAGE OF YOUR DATA FOR ARCHITECTURAL CONSULTATION.
+                                <p className="max-w-[300px] text-[8px] font-mono leading-relaxed text-white/40 uppercase tracking-widest text-center sm:text-left">
+                                    BY SENDING THIS INQUIRY YOU AGREE TO OUR <Link href="/privacy" className="underline hover:text-white transition-colors">PRIVACY POLICY</Link> AND THE STORAGE OF YOUR DATA FOR ARCHITECTURAL CONSULTATION.
                                 </p>
                                 <button
                                     type="submit"
                                     disabled={isPending}
                                     aria-label="Submit inquiry form"
-                                    className="bg-primary dark:bg-white text-white dark:text-primary px-12 py-5 font-bold uppercase tracking-[0.3em] text-[10px] hover:bg-black dark:hover:bg-neutral-200 transition-all rounded-sm disabled:opacity-50 disabled:cursor-not-allowed min-w-[200px]"
+                                    className="bg-white text-primary px-12 py-5 font-bold uppercase tracking-[0.3em] text-[10px] hover:bg-neutral-200 transition-all rounded-sm disabled:opacity-50 disabled:cursor-not-allowed min-w-[200px]"
                                 >
                                     {isPending ? "PROCESSING..." : "SEND INQUIRY"}
                                 </button>

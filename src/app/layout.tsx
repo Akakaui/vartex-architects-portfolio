@@ -18,11 +18,25 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "VARTEX Architects",
-    description: "Architecture shaped by idea, context, and precision.",
+    title: {
+        default: "VARTEX Architects — Architecture shaped by idea, context, and precision.",
+        template: "%s | VARTEX Architects"
+    },
+    description: "VARTEX Architects is an award-winning architectural studio specializing in sustainable, context-driven design. We blend functional rigor with artistic intuition to define the modern landscape.",
+    keywords: ["Architecture", "Sustainable Design", "VARTEX Architects", "Modern Architecture", "Industrial Design", "Residential Architecture", "Enugu Architects", "Lagos Architects"],
+    authors: [{ name: "VARTEX Studio" }],
+    creator: "VARTEX Studio",
+    publisher: "VARTEX Studio",
+    formatDetection: {
+        email: false,
+        address: false,
+        telephone: false,
+    },
     openGraph: {
         title: "VARTEX Architects",
         description: "Architecture shaped by idea, context, and precision.",
+        url: 'https://vartex.pro',
+        siteName: 'VARTEX Architects',
         images: [
             {
                 url: "/og-image.png",
@@ -31,6 +45,7 @@ export const metadata: Metadata = {
                 alt: "VARTEX Architects Logo",
             },
         ],
+        locale: 'en_US',
         type: "website",
     },
     twitter: {
@@ -38,6 +53,17 @@ export const metadata: Metadata = {
         title: "VARTEX Architects",
         description: "Architecture shaped by idea, context, and precision.",
         images: ["/og-image.png"],
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+        },
     },
 };
 

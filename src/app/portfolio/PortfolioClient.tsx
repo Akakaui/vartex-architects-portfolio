@@ -14,10 +14,13 @@ interface Project {
     id?: string;
     slug?: string;
     title: string;
-    category?: string;
+    category?: string | string[];
     location?: string;
     year: string;
     image: string;
+    area?: string;
+    duration?: string;
+    client?: string;
     dimensions?: string;
 }
 
@@ -29,13 +32,19 @@ export default function PortfolioClient({ projects }: PortfolioClientProps) {
     const [filter, setFilter] = useState("All");
     const [currentPage, setCurrentPage] = useState(1);
     const containerRef = useRef(null);
-    const itemsPerPage = 6;
+    const itemsPerPage = 4;
 
-    const categories = ["All", ...Array.from(new Set(projects.map(p => p.category).filter(Boolean)))];
+    const categories = ["All", ...Array.from(new Set(projects.flatMap(p => {
+        const cats = (p as any).categories || (p.category ? (Array.isArray(p.category) ? p.category : [p.category]) : []);
+        return cats;
+    })))];
 
     const filteredProjects = filter === "All"
         ? projects
-        : projects.filter(p => p.category === filter);
+        : projects.filter(p => {
+            const projectCats = (p as any).categories || (p.category ? (Array.isArray(p.category) ? p.category : [p.category]) : []);
+            return projectCats.includes(filter);
+        });
 
     const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
     const currentProjects = filteredProjects.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -114,13 +123,19 @@ export default function PortfolioClient({ projects }: PortfolioClientProps) {
                                     <div className="absolute top-0 left-4 h-full w-[1px] bg-white"></div>
                                 </div>
 
-                                <Image
-                                    src={project.image}
-                                    alt={project.title}
-                                    fill
-                                    sizes="(max-width: 768px) 100vw, 50vw"
-                                    className="object-cover brightness-100 group-hover:brightness-110 group-hover:scale-105 transition-all duration-700 ease-out"
-                                />
+                                {project.image ? (
+                                    <Image
+                                        src={project.image}
+                                        alt={project.title}
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, 50vw"
+                                        className="object-cover brightness-100 group-hover:brightness-110 group-hover:scale-105 transition-all duration-700 ease-out"
+                                    />
+                                ) : (
+                                    <div className="flex items-center justify-center w-full h-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-white/5">
+                                        <span className="font-mono text-[10px] tracking-widest text-primary/20 dark:text-white/20 uppercase">Image Pending</span>
+                                    </div>
+                                )}
                                 <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 border border-white/20"></div>
 
                                 <div className="absolute bottom-6 right-6 font-mono text-[10px] text-white opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500 tracking-widest flex items-center gap-2">
@@ -128,17 +143,28 @@ export default function PortfolioClient({ projects }: PortfolioClientProps) {
                                 </div>
                             </div>
 
-                            <div className="flex flex-col gap-2">
-                                <div className="flex justify-between items-baseline">
-                                    <h3 className="text-2xl font-bold uppercase tracking-tight text-primary dark:text-white group-hover:translate-x-2 transition-transform duration-500">{project.title}</h3>
-                                    <span className="font-mono text-[10px] text-primary/40 dark:text-white/40">{index + 1}.0</span>
-                                </div>
-                                <div className="flex items-center gap-6 font-mono text-[10px] tracking-widest text-primary/60 dark:text-white/60">
-                                    <span>{project.category}</span>
-                                    <div className="w-1 h-1 bg-neutral-300 dark:bg-neutral-700 rounded-full"></div>
-                                    <span>{project.dimensions || "TECHNICAL DATA"}</span>
-                                    <div className="w-1 h-1 bg-neutral-300 dark:bg-neutral-700 rounded-full"></div>
-                                    <span>{project.location}</span>
+                            <div className="flex flex-col gap-6">
+                                <h3 className="text-2xl font-bold uppercase tracking-tight text-primary dark:text-white group-hover:translate-x-2 transition-transform duration-500">
+                                    {project.title}
+                                </h3>
+                                <div className="grid grid-cols-3 border-t border-neutral-100 dark:border-white/5 pt-6 font-mono text-[9px] uppercase tracking-widest text-primary/40 dark:text-white/40">
+                                    <div className="flex flex-col gap-2">
+                                        <span>LOCATION</span>
+                                        <span className="text-primary dark:text-white text-[10px] font-bold uppercase">{project.location}</span>
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <span>YEAR</span>
+                                        <span className="text-primary dark:text-white text-[10px] font-bold">{project.year}</span>
+                                    </div>
+                                    <div className="flex flex-col gap-2 text-right md:text-left">
+                                        <span>TYPE</span>
+                                        <span className="text-primary dark:text-white text-[10px] font-bold uppercase">
+                                            {(() => {
+                                                const cats = (project as any).categories || (project.category ? (Array.isArray(project.category) ? project.category : [project.category]) : []);
+                                                return cats.length > 0 ? cats[0] : "ARCHITECTURE";
+                                            })()}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </Link>
@@ -147,19 +173,37 @@ export default function PortfolioClient({ projects }: PortfolioClientProps) {
 
                 {/* Pagination Controls */}
                 {totalPages > 1 && (
-                    <section className="px-8 lg:px-24 pb-24 flex justify-center gap-2">
-                        {Array.from({ length: totalPages }).map((_, i) => (
-                            <button
-                                key={i}
-                                onClick={() => paginate(i + 1)}
-                                className={`w-8 h-8 rounded-full font-mono text-xs transition-colors duration-300 ${currentPage === i + 1
-                                    ? "bg-primary text-white dark:bg-white dark:text-primary"
-                                    : "bg-neutral-100 text-primary dark:bg-neutral-800 dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-700"
-                                    }`}
-                            >
-                                {i + 1}
-                            </button>
-                        ))}
+                    <section className="px-8 lg:px-24 pb-24 flex justify-center items-center gap-4 lg:gap-8">
+                        <button
+                            onClick={() => paginate(Math.max(1, currentPage - 1))}
+                            disabled={currentPage === 1}
+                            className="font-mono text-[10px] tracking-[0.3em] uppercase transition-colors disabled:opacity-20 hover:text-primary dark:hover:text-white"
+                        >
+                            [ PREV ]
+                        </button>
+
+                        <div className="flex gap-2">
+                            {Array.from({ length: totalPages }).map((_, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => paginate(i + 1)}
+                                    className={`w-8 h-8 flex items-center justify-center font-mono text-xs transition-colors duration-300 ${currentPage === i + 1
+                                        ? "bg-primary text-white dark:bg-white dark:text-primary"
+                                        : "bg-neutral-50 text-primary/40 dark:bg-neutral-900 dark:text-white/40 hover:bg-neutral-100 dark:hover:bg-white/5"
+                                        }`}
+                                >
+                                    {i + 1}
+                                </button>
+                            ))}
+                        </div>
+
+                        <button
+                            onClick={() => paginate(Math.min(totalPages, currentPage + 1))}
+                            disabled={currentPage === totalPages}
+                            className="font-mono text-[10px] tracking-[0.3em] uppercase transition-colors disabled:opacity-20 hover:text-primary dark:hover:text-white"
+                        >
+                            [ NEXT ]
+                        </button>
                     </section>
                 )}
 

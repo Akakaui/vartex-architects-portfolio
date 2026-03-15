@@ -33,6 +33,9 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
 
     const [currentSlide, setCurrentSlide] = useState(0);
 
+    // Filter projects to ensure they have valid images to prevent preloading errors
+    const validFeaturedProjects = featuredProjects.filter(p => p.image && p.image.length > 0);
+
     useEffect(() => {
         const ctx = gsap.context(() => {
             // General Fade In
@@ -79,7 +82,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
 
             dots.forEach((dot: any, i: number) => {
                 const stepTime = i / (dots.length - 1);
-                processTl.to(fills[i], { scale: 1, duration: 0.1 }, stepTime);
+                processTl.to(fills[i] as any, { scale: 1, duration: 0.1 }, stepTime);
                 processTl.to(dot, { borderColor: "currentColor", duration: 0.1 }, stepTime);
             });
 
@@ -144,17 +147,17 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
 
     // Carousel Auto-Scroll
     useEffect(() => {
-        if (featuredProjects.length === 0) return;
+        if (validFeaturedProjects.length === 0) return;
         const timer = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % featuredProjects.length);
+            setCurrentSlide((prev) => (prev + 1) % validFeaturedProjects.length);
         }, 6000);
         return () => clearInterval(timer);
-    }, [featuredProjects.length]);
+    }, [validFeaturedProjects.length]);
 
-    const nextSlide = () => featuredProjects.length > 0 && setCurrentSlide((prev) => (prev + 1) % featuredProjects.length);
-    const prevSlide = () => featuredProjects.length > 0 && setCurrentSlide((prev) => (prev - 1 + featuredProjects.length) % featuredProjects.length);
+    const nextSlide = () => validFeaturedProjects.length > 0 && setCurrentSlide((prev) => (prev + 1) % validFeaturedProjects.length);
+    const prevSlide = () => validFeaturedProjects.length > 0 && setCurrentSlide((prev) => (prev - 1 + validFeaturedProjects.length) % validFeaturedProjects.length);
 
-    const activeProject = featuredProjects[currentSlide];
+    const activeProject = validFeaturedProjects[currentSlide];
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -191,7 +194,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                         className="w-full lg:w-[60%] h-[60vh] lg:h-auto relative overflow-hidden bg-neutral-900 hero-image-container border-t lg:border-t-0 border-neutral-100 dark:border-white/5 group cursor-pointer lg:cursor-default"
                         onClick={nextSlide}
                     >
-                        {featuredProjects.map((project, index) => (
+                        {validFeaturedProjects.map((project, index) => (
                             <div
                                 key={project.id || project.slug}
                                 className={`absolute inset-0 transition-all duration-1000 ease-in-out ${index === currentSlide ? "opacity-100 scale-100 z-10" : "opacity-0 scale-110 z-0"
@@ -212,7 +215,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
 
                         {/* Slide Indicators */}
                         <div className="absolute top-8 right-8 z-20 flex gap-2" onClick={(e) => e.stopPropagation()}>
-                            {featuredProjects.map((_, index) => (
+                            {validFeaturedProjects.map((_, index) => (
                                 <button
                                     key={index}
                                     onClick={() => setCurrentSlide(index)}
@@ -242,11 +245,9 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                                 onClick={(e) => e.stopPropagation()}
                                 className="absolute bottom-4 left-4 md:bottom-10 md:left-10 p-4 md:p-8 backdrop-blur-xl border border-white/40 dark:border-white/20 rounded-xl md:rounded-2xl shadow-2xl flex flex-col gap-1 md:gap-2 min-w-[160px] md:min-w-[280px] overflow-hidden z-20 group/tag transition-all hover:scale-[1.02]"
                                 style={{
-                                    background: currentSlide === 1
-                                        ? 'linear-gradient(135deg, rgba(30,30,35,0.4) 0%, rgba(10,10,15,0.2) 100%)'
-                                        : 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 50%, rgba(200,200,210,0.05) 100%)',
+                                    background: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 50%, rgba(200,200,210,0.05) 100%)',
                                     boxShadow: '0 8px 32px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.1)',
-                                    border: currentSlide === 1 ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(255,255,255,0.2)',
+                                    border: '1px solid rgba(255,255,255,0.2)',
                                 }}
                             >
                                 {/* Metallic shimmer overlay */}
@@ -324,7 +325,12 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                                         </div>
                                         <div className="flex flex-col gap-2">
                                             <span>TYPE</span>
-                                            <span className="text-primary dark:text-white text-[10px] font-bold uppercase">{project.category}</span>
+                                            <span className="text-primary dark:text-white text-[10px] font-bold uppercase">
+                                                {(() => {
+                                                    const cats = (project as any).categories || (project.category ? (Array.isArray(project.category) ? project.category : [project.category]) : []);
+                                                    return cats.length > 0 ? cats[0] : "ARCHITECTURE";
+                                                })()}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -394,25 +400,25 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                         <div className="absolute top-4 left-0 w-full h-[1px] bg-primary dark:bg-white hidden md:block origin-left scale-x-0 progress-line"></div>
 
                         {/* Step 01 */}
-                        <div className="flex flex-col gap-8 relative process-step">
+                        <div className="flex flex-col gap-8 relative process-step group/step">
                             <div className="w-8 h-8 rounded-full border-2 border-primary dark:border-white bg-white dark:bg-background-dark flex items-center justify-center z-10 process-dot overflow-hidden">
                                 <div className="w-full h-full bg-primary dark:bg-white scale-0 dot-fill"></div>
                             </div>
-                            <div className="flex flex-col gap-4">
+                            <div className="flex flex-col gap-4 text-content">
                                 <span className="font-mono text-[10px] tracking-widest text-primary/40 dark:text-white/40 uppercase step-number">STEP 01</span>
                                 <h4 className="text-2xl font-bold tracking-tight text-primary dark:text-white">Conception</h4>
                                 <p className="text-sm text-primary/60 dark:text-white/60 leading-relaxed max-w-xs italic">
-                                    We begin by understanding the site's unique constraints and the client's vision, sketching initial frames that respect the context.
+                                    We begin by understanding the site&apos;s unique constraints and the client&apos;s vision, sketching initial frames that respect the context.
                                 </p>
                             </div>
                         </div>
 
                         {/* Step 02 */}
-                        <div className="flex flex-col gap-8 relative process-step">
+                        <div className="flex flex-col gap-8 relative process-step group/step">
                             <div className="w-8 h-8 rounded-full border-2 border-neutral-200 dark:border-white/10 bg-white dark:bg-background-dark flex items-center justify-center z-10 process-dot overflow-hidden">
                                 <div className="w-full h-full bg-primary dark:bg-white scale-0 dot-fill"></div>
                             </div>
-                            <div className="flex flex-col gap-4">
+                            <div className="flex flex-col gap-4 text-content">
                                 <span className="font-mono text-[10px] tracking-widest text-primary/40 dark:text-white/40 uppercase step-number">STEP 02</span>
                                 <h4 className="text-2xl font-bold tracking-tight text-primary dark:text-white">Schematic Design</h4>
                                 <p className="text-sm text-primary/60 dark:text-white/60 leading-relaxed max-w-xs italic">
@@ -422,11 +428,11 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                         </div>
 
                         {/* Step 03 */}
-                        <div className="flex flex-col gap-8 relative process-step">
+                        <div className="flex flex-col gap-8 relative process-step group/step">
                             <div className="w-8 h-8 rounded-full border-2 border-neutral-200 dark:border-white/10 bg-white dark:bg-background-dark flex items-center justify-center z-10 process-dot overflow-hidden">
                                 <div className="w-full h-full bg-primary dark:bg-white scale-0 dot-fill"></div>
                             </div>
-                            <div className="flex flex-col gap-4">
+                            <div className="flex flex-col gap-4 text-content">
                                 <span className="font-mono text-[10px] tracking-widest text-primary/40 dark:text-white/40 uppercase step-number">STEP 03</span>
                                 <h4 className="text-2xl font-bold tracking-tight text-primary dark:text-white">Realization</h4>
                                 <p className="text-sm text-primary/60 dark:text-white/60 leading-relaxed max-w-xs italic">

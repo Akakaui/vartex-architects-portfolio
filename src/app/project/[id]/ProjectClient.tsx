@@ -98,13 +98,13 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
                     </div>
 
                     {/* Breadcrumb Navigation */}
-                    <div className="relative z-10 mb-8 flex justify-between items-center w-full">
+                    <div className="relative z-10 mb-8 w-full">
                         <Link
                             href="/portfolio"
-                            className="flex items-center gap-2 text-white/40 hover:text-white transition-colors duration-300 group"
+                            className="inline-flex items-center gap-3 text-white/40 hover:text-white transition-all duration-300 group px-4 py-2 border border-white/10 rounded-sm hover:border-white/40"
                         >
-                            <ArrowLeft size={12} className="group-hover:-translate-x-1 transition-transform" />
-                            <span className="font-mono text-[10px] tracking-[0.4em] uppercase">PROJECT ARCHIVE // {project.id || project.slug}</span>
+                            <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+                            <span className="font-mono text-[10px] tracking-[0.4em] uppercase">BACK TO PROJECT ARCHIVE</span>
                         </Link>
                     </div>
 
@@ -113,7 +113,7 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
                         <h1 className="text-7xl md:text-9xl lg:text-[11rem] xl:text-[13rem] font-black leading-[0.8] tracking-tighter uppercase flex flex-wrap items-baseline gap-x-4 md:gap-x-8 lg:gap-x-12">
                             <span className="text-white">{project.title?.split(' ')[0]}</span>
                             {project.title?.split(' ')[1] && (
-                                <span className="text-white/20">
+                                <span className="text-outline">
                                     {project.title.split(' ')[1]}
                                 </span>
                             )}

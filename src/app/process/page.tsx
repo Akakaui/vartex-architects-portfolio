@@ -10,7 +10,7 @@ import gsap from "gsap";
 const STEPS = [
     {
         id: "01",
-        title: "Conception & Strategy",
+        title: "Conception & Strategy.",
         subtitle: "DEFINING THE ARCHITECTURAL DNA",
         description: "Every project begins as a dialogue. We work closely with our clients to define the core DNA of the structure, considering site constraints, cultural context, and functional requirements.",
         details: [
@@ -19,11 +19,11 @@ const STEPS = [
             "Feasibility Studies",
             "Project Brief Development"
         ],
-        image: "https://images.unsplash.com/photo-1503387762-592dea58ef21?q=80&w=2000&auto=format&fit=crop" // Conception/Sketching
+        image: "/images/process/conception.png"
     },
     {
         id: "02",
-        title: "Schematic Design",
+        title: "Design Development.",
         subtitle: "TRANSFORMATION INTO FORM",
         description: "In this phase, sketches evolve into rigorous technical drawings and 3D models. We refine the geometry, light penetration, and structural logic of the building.",
         details: [
@@ -32,11 +32,11 @@ const STEPS = [
             "Floor Plan Optimization",
             "Structural Coordination"
         ],
-        image: "https://images.unsplash.com/photo-1502005075199-511a103d3963?q=80&w=2000&auto=format&fit=crop" // Schematic/Modeling
+        image: "/images/process/design.png"
     },
     {
         id: "03",
-        title: "Technical Documentation",
+        title: "Technical Documentation.",
         subtitle: "THE BLUEPRINT FOR REALITY",
         description: "Precision is paramount. We produce exhaustive construction documents that guide the builders, ensuring every joint, surface, and system is executed according to the vision.",
         details: [
@@ -45,11 +45,11 @@ const STEPS = [
             "Specification Writing",
             "Permit Documentation"
         ],
-        image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop" // Technical/Blueprint
+        image: "/images/process/documentation.png"
     },
     {
         id: "04",
-        title: "Realization & Oversight",
+        title: "Realization & Oversight.",
         subtitle: "FROM VISION TO STONE",
         description: "The final phase involves on-site management and meticulous quality control. We oversee the construction to ensure the purity of the design is maintained through every stage of build.",
         details: [
@@ -58,7 +58,7 @@ const STEPS = [
             "Finish & Fixture Selection",
             "Final Project Delivery"
         ],
-        image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000&auto=format&fit=crop" // Realization/Build
+        image: "/images/process/realization.png"
     }
 ];
 
@@ -84,8 +84,11 @@ export default function ProcessPage() {
             });
 
             // Step numbers light up on scroll
-            gsap.utils.toArray<HTMLElement>(".step-number-container").forEach((container) => {
+            gsap.utils.toArray<HTMLElement>(".step-container").forEach((container) => {
                 const num = container.querySelector(".step-number");
+                const img = container.querySelector(".process-image");
+                const text = container.querySelector(".text-content");
+
                 gsap.fromTo(num,
                     { opacity: 0.1 },
                     {
@@ -99,6 +102,27 @@ export default function ProcessPage() {
                         }
                     }
                 );
+
+                gsap.from(img, {
+                    clipPath: "inset(100% 0 0 0)",
+                    duration: 1.5,
+                    ease: "power4.out",
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top 70%",
+                    }
+                });
+
+                gsap.from(text, {
+                    x: -50,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top 70%",
+                    }
+                });
             });
         });
         return () => ctx.revert();
@@ -132,7 +156,7 @@ export default function ProcessPage() {
                 {/* Steps Section */}
                 <div className="flex flex-col gap-16 lg:gap-64 mt-8 lg:mt-24">
                     {STEPS.map((step, i) => (
-                        <section key={step.id} className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-24 items-start relative fade-in">
+                        <section key={step.id} className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-24 items-start relative fade-in step-container">
 
                             {/* Step Numbering (Floating) */}
                             <div className="lg:col-span-1 flex flex-row lg:flex-col items-center gap-4 lg:gap-12 lg:h-full step-number-container">
@@ -141,7 +165,7 @@ export default function ProcessPage() {
                             </div>
 
                             {/* Text Content */}
-                            <div className="lg:col-span-5 flex flex-col gap-6 lg:gap-12 pt-0 lg:pt-4">
+                            <div className="lg:col-span-5 flex flex-col gap-6 lg:gap-12 pt-0 lg:pt-4 text-content">
                                 <div className="flex flex-col gap-4">
                                     <span className="font-mono text-[9px] tracking-[0.5em] text-primary/40 dark:text-white/40 uppercase">{step.subtitle}</span>
                                     <h2 className="text-4xl lg:text-6xl font-black tracking-tighter text-primary dark:text-white uppercase">{step.title}</h2>
@@ -160,7 +184,7 @@ export default function ProcessPage() {
                             </div>
 
                             {/* Imagery */}
-                            <div className="lg:col-span-6 relative aspect-[16/10] lg:aspect-[4/3] overflow-hidden bg-neutral-100 dark:bg-neutral-900 rounded-sm border border-neutral-100 dark:border-white/5 shadow-2xl">
+                            <div className="lg:col-span-6 relative aspect-[16/10] lg:aspect-[4/3] overflow-hidden bg-neutral-100 dark:bg-neutral-900 rounded-sm border border-neutral-100 dark:border-white/5 shadow-2xl process-image">
                                 <Image
                                     src={step.image}
                                     alt={step.title}
