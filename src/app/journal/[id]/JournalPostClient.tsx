@@ -64,6 +64,76 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
         });
     };
 
+    const getEmbedUrl = (url: string) => {
+        if (!url) return "";
+        
+        // YouTube
+        const ytMatch = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
+        if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}`;
+        
+        // Vimeo
+        const vimeoMatch = url.match(/vimeo\.com\/(?:video\/)?([0-9]+)/i);
+        if (vimeoMatch) return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+        
+        return url;
+    };
+
+    const ptComponents = {
+        types: {
+            youtube: ({ value }: any) => {
+                const { url, html, videoType } = value;
+                
+                if (videoType === 'html' && html) {
+                    return (
+                        <div 
+                            className="my-12 aspect-video w-full overflow-hidden rounded-sm bg-neutral-900 flex items-center justify-center video-embed-container"
+                            dangerouslySetInnerHTML={{ 
+                                __html: html.replace(/<iframe/g, '<iframe style="width:100%; height:100%; border:0;"') 
+                            }}
+                        />
+                    );
+                }
+                
+                if (url) {
+                    const embedUrl = getEmbedUrl(url);
+                    return (
+                        <div className="my-12 aspect-video w-full overflow-hidden rounded-sm bg-neutral-100 dark:bg-neutral-900">
+                            <iframe
+                                src={embedUrl}
+                                className="w-full h-full border-0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            />
+                        </div>
+                    );
+                }
+
+                return null;
+            },
+            image: ({ value }: any) => {
+                // If you want custom image rendering in blog posts
+                return (
+                    <div className="my-12 relative aspect-video w-full overflow-hidden rounded-sm">
+                        {/* You would typically use urlFor(value).url() here if using sanity image-url */}
+                        {/* For now, we'll let the user handle image insertion or add a basic placeholder */}
+                        <div className="w-full h-full bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center">
+                            <span className="font-mono text-[10px] opacity-20 uppercase">Blog Image Block</span>
+                        </div>
+                    </div>
+                );
+            }
+        },
+        block: {
+            h2: ({ children }: any) => <h2 className="text-3xl lg:text-4xl font-black tracking-tight mt-16 mb-6 text-primary dark:text-white uppercase">{children}</h2>,
+            h3: ({ children }: any) => <h3 className="text-2xl lg:text-3xl font-bold tracking-tight mt-12 mb-4 text-primary dark:text-white uppercase">{children}</h3>,
+            blockquote: ({ children }: any) => (
+                <blockquote className="border-l-4 border-primary/20 dark:border-white/20 pl-8 my-12 italic text-2xl lg:text-3xl font-medium text-primary/60 dark:text-white/60">
+                    {children}
+                </blockquote>
+            ),
+        }
+    };
+
     return (
         <div className="flex flex-col min-h-screen bg-white dark:bg-background-dark">
             <Header />
@@ -153,8 +223,8 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
                         {/* Body content (Portable Text for Sanity, Array for legacy) */}
                         <div className="prose prose-xl lg:prose-2xl dark:prose-invert max-w-none">
                             {post.body ? (
-                                <div className="text-primary/90 dark:text-white/80 font-medium leading-relaxed">
-                                    <PortableText value={post.body} />
+                                <div className="text-primary/90 dark:text-white/80 font-medium leading-relaxed journal-portable-text">
+                                    <PortableText value={post.body} components={ptComponents} />
                                 </div>
                             ) : (
                                 post.content?.map((paragraph, i) => (
