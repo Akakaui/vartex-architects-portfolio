@@ -2,7 +2,7 @@ import { groq } from 'next-sanity'
 
 // Fetch all featured projects for the Home Hero
 export const featuredProjectsQuery = groq`
-  *[_type == "project" && featured == true] | order(year desc, _createdAt desc) {
+  *[_type == "project" && featured == true] | order(coalesce(order, 0) asc, year desc, _createdAt desc) {
     id,
     "slug": slug.current,
     title,
