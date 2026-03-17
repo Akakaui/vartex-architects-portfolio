@@ -2,7 +2,7 @@ import { groq } from 'next-sanity'
 
 // Fetch all featured projects for the Home Hero
 export const featuredProjectsQuery = groq`
-  *[_type == "project" && featured == true] | order(year desc) {
+  *[_type == "project" && featured == true] | order(year desc, _createdAt desc) {
     id,
     "slug": slug.current,
     title,
@@ -18,7 +18,7 @@ export const featuredProjectsQuery = groq`
 
 // Fetch projects marked as Selected Works for homepage
 export const selectedWorksQuery = groq`
-  *[_type == "project" && (selectedWork == true || "Selected Works" in categories[]->title)] | order(year desc) [0...2] {
+  *[_type == "project" && (selectedWork == true || "Selected Works" in categories[]->title)] | order(year desc, _createdAt desc) [0...2] {
     id,
     "slug": slug.current,
     title,
@@ -34,7 +34,7 @@ export const selectedWorksQuery = groq`
 
 // Fetch all projects for the Archive
 export const allProjectsQuery = groq`
-  *[_type == "project"] | order(year desc) {
+  *[_type == "project"] | order(year desc, _createdAt desc) {
     id,
     "slug": slug.current,
     title,

@@ -102,10 +102,10 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
                     <div className="relative z-10 mb-8 w-full">
                         <Link
                             href="/portfolio"
-                            className="inline-flex items-center gap-3 text-white/60 hover:text-white transition-all duration-300 group cursor-pointer"
+                            className="inline-flex items-center gap-3 text-white/60 hover:text-white transition-all duration-300 group cursor-pointer relative z-30 py-2"
                         >
-                            <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform shrink-0" />
-                            <span className="font-mono text-[10px] tracking-[0.4em] uppercase hover:underline underline-offset-4">← PROJECT ARCHIVE // {project.title}</span>
+                            <ArrowLeft size={14} className="group-hover:-translate-x-1.5 transition-transform duration-300 shrink-0 text-white/40 group-hover:text-white" />
+                            <span className="font-mono text-[10px] tracking-[0.4em] uppercase hover:underline underline-offset-4 decoration-white/20 hover:decoration-white transition-all">PROJECT ARCHIVE // {project.title}</span>
                         </Link>
                     </div>
 
@@ -128,10 +128,10 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-12 gap-y-16 max-w-[1700px]">
                             {[
                                 { label: "CLIENT", value: project.client || "VARTEX" },
-                                { label: "LOCATION", value: project.location || "N/A" },
+                                { label: "LOCATION", value: project.location || "NA" },
                                 { label: "YEAR", value: project.year || "2025" },
-                                { label: "AREA", value: project.area || "ARCHITECTURE" },
-                                { label: "STATUS", value: project.duration || "COMPLETED" },
+                                { label: "AREA", value: project.area || "NA" },
+                                { label: "STATUS", value: project.duration || "NA" },
                             ].map((item, i) => (
                                 <div key={i} className="flex flex-col gap-4">
                                     <span className="font-mono text-[9px] uppercase text-white/30 tracking-[0.2em]">{item.label}</span>
@@ -180,15 +180,13 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
 
                             <div className="flex flex-col gap-6 md:gap-8 w-full border-t border-neutral-200 dark:border-white/10 pt-8">
                                 {[
-                                    { label: "Materiality", value: project.materiality },
-                                    { label: "Sustainability", value: project.sustainability },
+                                    { label: "Materiality", value: project.materiality || "NA" },
+                                    { label: "Sustainability", value: project.sustainability || "NA" },
                                 ].map((spec, i) => (
-                                    spec.value && (
-                                        <div key={i} className="flex flex-col md:flex-row md:items-start gap-2 md:gap-24 w-full pb-6 border-b border-neutral-200 dark:border-white/10">
-                                            <span className="font-medium text-sm md:text-base opacity-60 w-32 shrink-0">{spec.label}</span>
-                                            <span className="font-semibold text-lg md:text-xl tracking-tight leading-snug">{spec.value}</span>
-                                        </div>
-                                    )
+                                    <div key={i} className="flex flex-col md:flex-row md:items-start gap-2 md:gap-24 w-full pb-6 border-b border-neutral-200 dark:border-white/10">
+                                        <span className="font-medium text-sm md:text-base opacity-60 w-32 shrink-0">{spec.label}</span>
+                                        <span className="font-semibold text-lg md:text-xl tracking-tight leading-snug">{spec.value}</span>
+                                    </div>
                                 ))}
                             </div>
                         </div>
@@ -281,7 +279,7 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
                                     <span className="font-mono text-[9px] tracking-[0.3em] text-primary/40 dark:text-white/40 uppercase">
                                         {(() => {
                                             const projectCats = work.categories || (work.category ? [work.category] : []);
-                                            return projectCats.length > 0 ? projectCats.join(' // ') : "ARCHITECTURE";
+                                            return projectCats.length > 0 ? projectCats.join(' // ') : "NA";
                                         })()} // {work.year || "2025"}
                                     </span>
                                     <h4 className="text-xl font-black uppercase tracking-tight text-primary dark:text-white group-hover:text-primary/70 dark:group-hover:text-white/70 transition-colors">

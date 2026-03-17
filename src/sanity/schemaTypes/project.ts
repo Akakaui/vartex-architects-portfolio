@@ -7,10 +7,6 @@ export default {
             name: 'basic',
             title: 'Basic Info',
         },
-        {
-            name: 'specs',
-            title: 'Specifications',
-        },
     ],
     fields: [
         {
@@ -86,19 +82,19 @@ export default {
             title: 'Status',
             description: 'Current status of the project (e.g., In View, Completed, On-going).',
             type: 'string',
-            group: 'specs',
+            group: 'basic',
         },
         {
             name: 'materiality',
             title: 'Materiality',
             type: 'string',
-            group: 'specs',
+            group: 'basic',
         },
         {
             name: 'sustainability',
             title: 'Sustainability',
             type: 'string',
-            group: 'specs',
+            group: 'basic',
         },
         {
             name: 'mainImage',
@@ -125,36 +121,6 @@ export default {
             title: 'Project Description',
             type: 'text',
             rows: 5,
-        },
-        {
-            name: 'specs',
-            title: 'Technical Specifications',
-            description: 'Add technical specs like Structure, Glazing, Landscape, etc.',
-            type: 'array',
-            group: 'specs',
-            of: [
-                {
-                    type: 'object',
-                    fields: [
-                        {
-                            name: 'label',
-                            title: 'Label',
-                            type: 'string',
-                        },
-                        {
-                            name: 'value',
-                            title: 'Value',
-                            type: 'string',
-                        },
-                    ],
-                    preview: {
-                        select: {
-                            title: 'label',
-                            subtitle: 'value',
-                        },
-                    },
-                },
-            ],
         },
     ],
     preview: {

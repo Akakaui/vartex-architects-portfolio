@@ -19,30 +19,30 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
     title: {
-        default: "VARTEX Architects — Architecture shaped by idea, context, and precision.",
-        template: "%s | VARTEX Architects"
+        default: "Vartex Architects | Architecture, Interior Design & 3D Visualization",
+        template: "%s | Vartex Architects"
     },
-    description: "VARTEX Architects is an award-winning architectural studio specializing in sustainable, context-driven design. We blend functional rigor with artistic intuition to define the modern landscape.",
-    keywords: ["Architecture", "Sustainable Design", "VARTEX Architects", "Modern Architecture", "Industrial Design", "Residential Architecture", "Enugu Architects", "Lagos Architects"],
-    authors: [{ name: "VARTEX Studio" }],
-    creator: "VARTEX Studio",
-    publisher: "VARTEX Studio",
+    description: "Shaping the modern landscape through mathematical rigor and artistic intuition.",
+    keywords: ["Architecture", "Sustainable Design", "Vartex Architects", "Modern Architecture", "Industrial Design", "Residential Architecture", "Enugu Architects", "Lagos Architects"],
+    authors: [{ name: "Vartex Studio" }],
+    creator: "Vartex Studio",
+    publisher: "Vartex Studio",
     formatDetection: {
         email: false,
         address: false,
         telephone: false,
     },
     openGraph: {
-        title: "VARTEX Architects",
+        title: "Vartex Architects",
         description: "Architecture shaped by idea, context, and precision.",
         url: 'https://vartex.pro',
-        siteName: 'VARTEX Architects',
+        siteName: 'Vartex Architects',
         images: [
             {
-                url: "/og-image.png",
+                url: "/og-image.jpg",
                 width: 1200,
                 height: 630,
-                alt: "VARTEX Architects Logo",
+                alt: "Vartex Architects Logo",
             },
         ],
         locale: 'en_US',
@@ -50,9 +50,9 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "VARTEX Architects",
+        title: "Vartex Architects",
         description: "Architecture shaped by idea, context, and precision.",
-        images: ["/og-image.png"],
+        images: ["/og-image.jpg"],
     },
     robots: {
         index: true,
