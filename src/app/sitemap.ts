@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next'
 import { getAllProjects } from '@/sanity/lib/service'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://vartex.pro'
-  
+  const baseUrl = 'https://vartexarchitects.com'
+
   // Static routes
   const routes = [
     '',
@@ -27,7 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }))
-    
+
     return [...routes, ...projectRoutes]
   } catch (error) {
     return routes
