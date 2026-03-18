@@ -18,6 +18,9 @@ export async function logContactSubmission(data: {
         return;
     }
 
+    // Log partial URL for debugging (obfuscated)
+    console.log(`📡 Sending to Webhook: ${webhookUrl.substring(0, 30)}...`);
+
     try {
         const payload = {
             ...data,
@@ -27,10 +30,16 @@ export async function logContactSubmission(data: {
         const response = await fetch(webhookUrl, {
             method: "POST",
             headers: {
-                "Content-Type": "text/plain;charset=utf-8",
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(payload),
+            redirect: "follow",
         });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP Error ${response.status}: ${errorText}`);
+        }
 
         const result = await response.json();
 
@@ -40,6 +49,6 @@ export async function logContactSubmission(data: {
             console.error("❌ Google Sheets Webhook returned error:", result.error);
         }
     } catch (error) {
-        console.error("❌ Google Sheets Contact Webhook fetch failed:", error);
+        console.error("❌ Google Sheets Contact Webhook failed:", error);
     }
 }
