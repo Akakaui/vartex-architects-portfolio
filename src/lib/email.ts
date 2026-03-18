@@ -33,7 +33,7 @@ export async function sendClientNotification(data: InquiryData) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body style="margin:0; padding:0; background-color:#f0ebe7; font-family: Georgia, 'Times New Roman', serif;">
+    <body style="margin:0; padding:0; background-color:#f0ebe7; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
         <table width="100%" cellpadding="0" cellspacing="0" style="background:#f0ebe7; padding:40px 20px;">
             <tr>
                 <td align="center">
@@ -42,7 +42,7 @@ export async function sendClientNotification(data: InquiryData) {
                         <!-- Header -->
                         <tr>
                             <td style="background:${BRAND}; padding:28px 40px; text-align:center;">
-                                <h1 style="color:#ffffff; font-size:14px; letter-spacing:6px; margin:0; font-weight:400; font-family: Georgia, serif;">VARTEX ARCHITECTS</h1>
+                                <h1 style="color:#ffffff; font-size:14px; letter-spacing:6px; margin:0; font-weight:400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">VARTEX ARCHITECTS</h1>
                                 <p style="color:rgba(255,255,255,0.6); font-size:9px; letter-spacing:2px; margin:8px 0 0 0; font-family: Arial, sans-serif;">Creating Functional, Timeless and Sustainable design solutions</p>
                             </td>
                         </tr>
@@ -165,7 +165,7 @@ export async function sendVisitorConfirmation(data: InquiryData) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body style="margin:0; padding:0; background-color:#f0ebe7; font-family: Georgia, 'Times New Roman', serif;">
+    <body style="margin:0; padding:0; background-color:#f0ebe7; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
         <table width="100%" cellpadding="0" cellspacing="0" style="background:#f0ebe7; padding:40px 20px;">
             <tr>
                 <td align="center">
@@ -174,7 +174,7 @@ export async function sendVisitorConfirmation(data: InquiryData) {
                         <!-- Header -->
                         <tr>
                             <td style="background:${BRAND}; padding:28px 40px; text-align:center;">
-                                <h1 style="color:#ffffff; font-size:14px; letter-spacing:6px; margin:0; font-weight:400; font-family: Georgia, serif;">VARTEX ARCHITECTS</h1>
+                                <h1 style="color:#ffffff; font-size:14px; letter-spacing:6px; margin:0; font-weight:400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">VARTEX ARCHITECTS</h1>
                                 <p style="color:rgba(255,255,255,0.6); font-size:9px; letter-spacing:2px; margin:8px 0 0 0; font-family: Arial, sans-serif;">Creating Functional, Timeless and Sustainable design solutions</p>
                             </td>
                         </tr>
@@ -182,7 +182,7 @@ export async function sendVisitorConfirmation(data: InquiryData) {
                         <!-- Body -->
                         <tr>
                             <td style="padding:40px;">
-                                <h2 style="font-size:22px; color:#333333; margin:0 0 24px 0; font-weight:300; font-family: Georgia, serif;">
+                                <h2 style="font-size:22px; color:#333333; margin:0 0 24px 0; font-weight:300; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
                                     Welcome — We've Received Your Message
                                 </h2>
 
@@ -229,7 +229,7 @@ export async function sendVisitorConfirmation(data: InquiryData) {
                                 <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:40px; border-top:1px solid #eeeeee; padding-top:24px;">
                                     <tr>
                                         <td>
-                                            <p style="font-size:14px; color:${BRAND}; margin:0 0 4px 0; font-family: Georgia, serif;">Warm regards,</p>
+                                            <p style="font-size:14px; color:${BRAND}; margin:0 0 4px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">Warm regards,</p>
                                             <p style="font-size:14px; color:#1a1a1a; margin:0; font-weight:600;">Michael Mbah</p>
                                             <p style="font-size:12px; color:#999999; margin:0;">Vartex Architects</p>
                                         </td>
