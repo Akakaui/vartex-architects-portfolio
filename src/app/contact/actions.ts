@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { sendClientNotification, sendVisitorConfirmation } from "@/lib/email";
 import { logContactSubmission } from "@/lib/sheets";
+import { writeClient } from "@/sanity/lib/client";
 
 const inquirySchema = z.object({
     name: z.string().min(2, "Name is required"),
@@ -92,6 +93,28 @@ export async function contactInquiryAction(prevState: FormState, formData: FormD
         console.log("✅ Contact inquiry logged to Google Sheets");
     } catch (error) {
         console.error("❌ Failed to log to Google Sheets:", error);
+    }
+
+    // NEW PREVENTATIVE ACTION: Log to Sanity CMS (Lead Dashboard)
+    if (process.env.SANITY_API_TOKEN) {
+        try {
+            await writeClient.create({
+                _type: "lead",
+                refNumber,
+                name,
+                email,
+                phone,
+                type,
+                location,
+                brief: brief || "",
+                submittedAt: new Date().toISOString(),
+            });
+            console.log("✅ Lead successfully saved to Sanity Dashboard");
+        } catch (error) {
+            console.error("❌ Failed to save lead to Sanity:", error);
+        }
+    } else {
+        console.warn("⚠️ SANITY_API_TOKEN not configured — skipping Sanity log");
     }
 
     return {
