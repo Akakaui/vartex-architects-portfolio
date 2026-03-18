@@ -32,9 +32,17 @@ These MUST be added in the Vercel Dashboard (Project Settings -> Environment Var
    - `robots.txt`: Automatically served at `https://vartexarchitects.com/robots.txt`
    - No manual updates are needed; the site handles this dynamically.
 
-## 4. Ongoing Updates
+## 4. Google Search Console (Verification)
+To start indexing the site and see traffic data, the client should add the website to **Google Search Console**.
+
+1. **Add Property**: Choose the "Domain" option and enter `vartexarchitects.com`.
+2. **Verify Ownership**: Google will provide a **TXT Record** (a string of letters and numbers).
+3. **Update DNS**: The client (or you) must add this TXT record to their domain registrar (GoDaddy, Namecheap, etc.) alongside the Vercel records.
+4. **Submit Sitemap**: Once verified, the client should paste `https://vartexarchitects.com/sitemap.xml` into the "Sitemaps" section of Search Console.
+
+## 5. Ongoing Updates
 As long as you are a collaborator on their GitHub repo, any change you `git push` from your end will **automatically redeploy** the website on their Vercel account.
 
-## 5. Google Sheets Webhook
+## 6. Google Sheets Webhook
 - The "Integration Guide" provided earlier explains how to set up the Google Apps Script. 
 - Ensure the script is deployed as "Anyone" (even anonymous) so the website can communicate with it.
