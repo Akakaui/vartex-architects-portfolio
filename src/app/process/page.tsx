@@ -19,7 +19,7 @@ const STEPS = [
             "Feasibility Studies",
             "Project Brief Development"
         ],
-        image: "/images/process/conception.png"
+        image: "/images/process/architectural-precision-drafting.jpg"
     },
     {
         id: "02",
@@ -32,7 +32,7 @@ const STEPS = [
             "Floor Plan Optimization",
             "Structural Coordination"
         ],
-        image: "/images/process/design.png"
+        image: "/images/process/construction-site-execution.jpg"
     },
     {
         id: "03",
@@ -45,7 +45,7 @@ const STEPS = [
             "Specification Writing",
             "Permit Documentation"
         ],
-        image: "/images/process/documentation.png"
+        image: "/images/process/digital-skyscraper-modeling.jpg"
     },
     {
         id: "04",
@@ -58,7 +58,7 @@ const STEPS = [
             "Finish & Fixture Selection",
             "Final Project Delivery"
         ],
-        image: "/images/process/realization.png"
+        image: "/images/process/architect-studio-workspace.jpg"
     }
 ];
 
