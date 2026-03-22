@@ -42,8 +42,8 @@ export async function sendClientNotification(data: InquiryData) {
                         <!-- Header -->
                         <tr>
                             <td style="background:${BRAND}; padding:28px 40px; text-align:center;">
-                                <h1 style="color:#ffffff; font-size:14px; letter-spacing:6px; margin:0; font-weight:400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">VARTEX ARCHITECTS</h1>
-                                <p style="color:rgba(255,255,255,0.6); font-size:9px; letter-spacing:2px; margin:8px 0 0 0; font-family: Arial, sans-serif;">Creating Functional, Timeless and Sustainable design solutions</p>
+                                <h1 style="color:#ffffff; font-size:16px; letter-spacing:8px; margin:0; font-weight:400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">VARTEX</h1>
+                                <p style="color:#ffffff; font-size:9px; letter-spacing:4px; margin:10px 0 0 0; opacity:0.8; text-transform:uppercase; font-family: Arial, sans-serif;">Architectural Excellence</p>
                             </td>
                         </tr>
 
@@ -174,8 +174,8 @@ export async function sendVisitorConfirmation(data: InquiryData) {
                         <!-- Header -->
                         <tr>
                             <td style="background:${BRAND}; padding:28px 40px; text-align:center;">
-                                <h1 style="color:#ffffff; font-size:14px; letter-spacing:6px; margin:0; font-weight:400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">VARTEX ARCHITECTS</h1>
-                                <p style="color:rgba(255,255,255,0.6); font-size:9px; letter-spacing:2px; margin:8px 0 0 0; font-family: Arial, sans-serif;">Creating Functional, Timeless and Sustainable design solutions</p>
+                                <h1 style="color:#ffffff; font-size:16px; letter-spacing:8px; margin:0; font-weight:400; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">VARTEX</h1>
+                                <p style="color:#ffffff; font-size:9px; letter-spacing:4px; margin:10px 0 0 0; opacity:0.8; text-transform:uppercase; font-family: Arial, sans-serif;">Architectural Excellence</p>
                             </td>
                         </tr>
 
