@@ -19,7 +19,7 @@ const STEPS = [
             "Feasibility Studies",
             "Project Brief Development"
         ],
-        image: "/images/process/architectural-precision-drafting.jpg"
+        image: "/images/process/architect-studio-workspace.jpg"
     },
     {
         id: "02",
@@ -45,7 +45,7 @@ const STEPS = [
             "Specification Writing",
             "Permit Documentation"
         ],
-        image: "/images/process/architect-studio-workspace.jpg"
+        image: "/images/process/architectural-precision-drafting.jpg"
     },
     {
         id: "04",
