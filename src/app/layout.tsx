@@ -22,8 +22,9 @@ export const metadata: Metadata = {
         default: "Vartex Architects | Architecture, Interior Design & 3D Visualization",
         template: "%s | Vartex Architects"
     },
-    description: "Creating Functional, Timeless and Sustainable design solutions",
-    keywords: ["Architecture", "Sustainable Design", "Vartex Architects", "Modern Architecture", "Industrial Design", "Residential Architecture", "Enugu Architects", "Lagos Architects"],
+    description: "Creating Functional, Timeless and Sustainable design solutions in Lagos and Enugu, Nigeria.",
+    metadataBase: new URL("https://vartexarchitects.com"),
+    keywords: ["Architecture", "Sustainable Design", "Vartex Architects", "Vertex Architects", "Vortex Architects", "Modern Architecture", "Industrial Design", "Residential Architecture", "Enugu Architects", "Lagos Architects", "Architect near me", "Nigerian Architects"],
     authors: [{ name: "Vartex Studio" }],
     creator: "Vartex Studio",
     publisher: "Vartex Studio",
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Vartex Architects | Architecture, Interior Design & 3D Visualization",
         description: "Creating Functional, Timeless and Sustainable design solutions",
-        url: 'https://vartex.pro',
+        url: 'https://vartexarchitects.com',
         siteName: 'Vartex Architects',
         images: [
             {
@@ -67,6 +68,45 @@ export const metadata: Metadata = {
     },
 };
 
+
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Vartex Architects",
+    "url": "https://vartexarchitects.com",
+    "logo": "https://vartexarchitects.com/og-image.jpg",
+    "sameAs": [
+        "https://instagram.com/vartex.architects"
+    ],
+    "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+2348000000000",
+        "contactType": "customer service",
+        "email": "info@vartexarchitects.com"
+    }
+}
+
+const localBusinessLd = {
+    "@context": "https://schema.org",
+    "@type": "ArchitecturalBusiness",
+    "name": "Vartex Architects",
+    "image": "https://vartexarchitects.com/og-image.jpg",
+    "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Lagos",
+        "addressRegion": "Lagos State",
+        "addressCountry": "Nigeria"
+    },
+    "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 6.5244,
+        "longitude": 3.3792
+    },
+    "url": "https://vartexarchitects.com",
+    "telephone": "+2348000000000",
+    "priceRange": "$$"
+}
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -74,6 +114,16 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className="light" suppressHydrationWarning>
+            <head>
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessLd) }}
+                />
+            </head>
             <body className={`${inter.variable} ${ibmPlexMono.variable} antialiased bg-white dark:bg-[#191919] text-[#292929] dark:text-white min-h-screen relative`}>
                 {/* Corner Axis Marks */}
                 <div className="fixed top-5 left-5 w-5 h-5 border-t border-l border-gray-300 dark:border-gray-700 opacity-40 z-50 pointer-events-none"></div>

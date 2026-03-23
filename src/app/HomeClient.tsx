@@ -205,7 +205,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                             >
                                 <Image
                                     src={project.image}
-                                    alt={project.title}
+                                    alt={`${project.title} | Vartex Architects Featured Project`}
                                     fill
                                     priority={index === 0}
                                     sizes="(max-width: 1024px) 100vw, 60vw"
@@ -314,7 +314,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                                     <Image
                                         src={project.image}
                                         className="object-cover transition-all duration-700 group-hover:scale-105"
-                                        alt={project.title}
+                                        alt={`${project.title} | Vartex Architects Portfolio Work`}
                                         fill
                                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
                                     />
