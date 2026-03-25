@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Script from "next/script";
 
 
 const inter = Inter({
@@ -137,6 +138,21 @@ export default function RootLayout({
                         {children}
                     </div>
                 </SmoothScroll>
+
+                {/* Google Analytics (GA4) Tracking */}
+                <Script
+                    src="https://www.googletagmanager.com/gtag/js?id=G-KGYN2FS582"
+                    strategy="afterInteractive"
+                />
+                <Script id="google-analytics" strategy="afterInteractive">
+                    {`
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+
+                        gtag('config', 'G-KGYN2FS582');
+                    `}
+                </Script>
             </body>
         </html>
     );
