@@ -36,3 +36,9 @@ build/
 *.wasm
 *.map
 *.node
+
+# Project Documentation (Local Only)
+*-guide.md
+handoff.md
+integration-guide.md
+GMB-Client-Handover-Guide.md
