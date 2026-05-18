@@ -287,7 +287,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                     <div className="lg:col-span-1 border-r border-neutral-200 dark:border-white/10 hidden lg:block h-32 self-center"></div>
                     <div className="lg:col-span-7">
                         <p className="text-2xl lg:text-3xl font-light leading-snug text-primary/80 dark:text-white/80 max-w-3xl">
-                            We believe a building is not just a structure, but a dialogue between the inhabitant and the environment. Every line drawn serves a purpose; every void creates meaning. Simplicity is the ultimate sophistication.
+                            We believe a building is not just a structure, but a dialogue between the inhabitant and the environment. Every line drawn serves a purpose; every void creates meaning. Simplicity is the ultimate sophistication. — Leonardo da Vinci
                         </p>
                     </div>
                 </section>

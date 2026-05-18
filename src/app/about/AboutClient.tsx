@@ -109,7 +109,7 @@ export default function About() {
                             </div>
                             <div className="flex flex-col gap-6 text-base font-light leading-relaxed text-primary/60 dark:text-white/60 max-w-xl">
                                 <p>
-                                    Michael Mbah established VARTEX in 2025 after years of refining his craft in both commercial and residential sectors across Nigeria. His approach is deeply mathematical, treating every project as an equation where light, volume, and budget are solved through architectural rigor.
+                                    Michael Mbah established VARTEX in 2025 after years of refining his craft in both commercial and residential sectors across Nigeria. His approach is deeply mathematical, treating every project as an equation where light, volume, and material are solved through architectural rigor.
                                 </p>
                                 <p>
                                     Today, the studio operates as a multidisciplinary hub, collaborating with engineers, landscape architects, and digital fabricators to deliver projects that are as technically sound as they are aesthetically profound.

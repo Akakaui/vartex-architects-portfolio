@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import JournalPostClient from './JournalPostClient';
 import { getBlogBySlug, getBlogs } from '@/sanity/lib/service';
 import { journalPosts as mockPosts } from '@/data/journal';
@@ -5,6 +6,33 @@ import { notFound } from 'next/navigation';
 
 interface Props {
     params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { id } = await params;
+    
+    // Fetch post details to populate metadata
+    let post: any = await getBlogBySlug(id);
+    if (!post) {
+        post = mockPosts.find(p => p.id === id);
+    }
+    
+    if (!post) {
+        return {
+            title: "Post Not Found | Vartex Journal",
+        };
+    }
+    
+    return {
+        title: `${post.title} | Vartex Architects Journal`,
+        description: post.excerpt || post.summary || `Read our latest article: ${post.title} on the Vartex Architects Journal.`,
+        openGraph: {
+            title: `${post.title} | Vartex Architects Journal`,
+            description: post.excerpt || post.summary || `Read our latest article: ${post.title} on the Vartex Architects Journal.`,
+            url: `https://vartexarchitects.com/journal/${id}`,
+            images: post.image ? [{ url: post.image }] : [],
+        }
+    };
 }
 
 export default async function JournalPostPage({ params }: Props) {

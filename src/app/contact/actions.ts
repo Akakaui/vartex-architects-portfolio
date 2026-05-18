@@ -78,21 +78,21 @@ export async function contactInquiryAction(prevState: FormState, formData: FormD
                 sendClientNotification(inquiryData),
                 sendVisitorConfirmation(inquiryData),
             ]);
-            console.log("✅ Both emails sent successfully via Resend");
+            console.log("Both emails sent successfully via Resend");
         } catch (error) {
-            console.error("❌ Email sending failed:", error);
+            console.error("Email sending failed:", error);
             // Still return success — the inquiry was received, even if email fails
         }
     } else {
-        console.log("⚠️ Resend API Key not configured — skipping email send");
+        console.log("Resend API Key not configured — skipping email send");
     }
 
     // Log to Google Sheets
     try {
         await logContactSubmission(inquiryData);
-        console.log("✅ Contact inquiry logged to Google Sheets");
+        console.log("Contact inquiry logged to Google Sheets");
     } catch (error) {
-        console.error("❌ Failed to log to Google Sheets:", error);
+        console.error("Failed to log to Google Sheets:", error);
     }
 
     // NEW PREVENTATIVE ACTION: Log to Sanity CMS (Lead Dashboard)
@@ -109,12 +109,12 @@ export async function contactInquiryAction(prevState: FormState, formData: FormD
                 brief: brief || "",
                 submittedAt: new Date().toISOString(),
             });
-            console.log("✅ Lead successfully saved to Sanity Dashboard");
+            console.log("Lead successfully saved to Sanity Dashboard");
         } catch (error) {
-            console.error("❌ Failed to save lead to Sanity:", error);
+            console.error("Failed to save lead to Sanity:", error);
         }
     } else {
-        console.warn("⚠️ SANITY_API_TOKEN not configured — skipping Sanity log");
+        console.warn("SANITY_API_TOKEN not configured — skipping Sanity log");
     }
 
     return {

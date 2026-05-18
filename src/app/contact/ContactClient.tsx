@@ -85,7 +85,7 @@ export default function Contact() {
                 <div className="px-8 lg:px-24 pb-24 lg:pb-32 relative bg-primary dark:bg-neutral-900/50 py-24">
 
                     {/* Success Message */}
-                    <div className="hidden success-message absolute inset-0 bg-white dark:bg-background-dark p-8 lg:p-24 flex-col justify-center gap-8 items-center text-center z-20">
+                    <div className={`${state.success ? 'flex flex-col' : 'hidden'} success-message absolute inset-0 bg-white dark:bg-background-dark p-8 lg:p-24 justify-center gap-8 items-center text-center z-20`}>
                         <CheckCircle className="w-16 h-16 text-primary dark:text-white" />
                         <div className="flex flex-col gap-4">
                             <h2 className="text-4xl lg:text-6xl font-black tracking-tighter text-primary dark:text-white uppercase leading-none">Inquiry Received.</h2>

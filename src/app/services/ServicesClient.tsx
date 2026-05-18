@@ -6,14 +6,14 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Home as HomeIcon, Sofa, ChevronDown, CheckCircle, ChevronRight, X, Loader2 } from "lucide-react";
 import gsap from "gsap";
-import { requestGuideAction, GuideState } from "./actions";
+import { requestGuideAction, GuideState, submitQuizAction, QuizState } from "./actions";
 
 /* ─── DATA ────────────────────────────────────────────────────────────────── */
 const ARCH = {
     id: "architecture",
     index: "01",
     label: "ARCHITECTURAL DESIGN",
-    headline: ["ARCHITEC-", "TURAL", "DESIGN."],
+    headline: ["ARCHITECTURAL", "DESIGN."],
     tagline: "From the site to the stone.",
     hero: "We design buildings that hold their logic from the first sketch to the final inspection. Architecture, to us, is a dialogue — between the land, the light, and the life that will occupy the space.",
     approach: "Every project begins the same way: we listen. Not just to the brief, but to the site itself — its orientation, its constraints, its latent possibilities. From there, design is not imposed. It emerges.",
@@ -297,7 +297,7 @@ function EngCard({
                     </p>
                     <div>
                         <span className="font-mono text-[9px] text-primary dark:text-white tracking-widest block mb-4 uppercase">
-                            ⏳ ESTIMATED TIMELINE: <span className="font-bold">{eng.timeline}</span>
+                            ESTIMATED TIMELINE: <span className="font-bold">{eng.timeline}</span>
                         </span>
                         <div className="flex flex-col gap-6 mt-4">
                             {eng.phases.map((phase, i) => (
@@ -308,8 +308,8 @@ function EngCard({
                                     <ul className="flex flex-col gap-2">
                                         {phase.items.map((item, j) => (
                                             <li key={j} className="flex gap-3 items-start">
-                                                <span className="text-neutral-400 dark:text-neutral-500 font-mono">→</span>
-                                                <span>{item}</span>
+                                                <span className="w-1.5 h-[1px] bg-neutral-300 dark:bg-white/20 mt-2 shrink-0 self-start"></span>
+                                                <span className="text-[11px] lg:text-xs font-light tracking-[0.02em] leading-relaxed text-neutral-600 dark:text-neutral-400">{item}</span>
                                             </li>
                                         ))}
                                     </ul>
@@ -323,8 +323,189 @@ function EngCard({
     );
 }
 
+/* ─── DECISION QUIZ MODAL ────────────────────────────────────────────────── */
+const Q1_OPTIONS = [
+    "Building something new",
+    "Renovating or extending an existing structure",
+    "Transforming an interior space",
+    "I need both architecture and interior design",
+];
+
+const Q2_OPTIONS = [
+    "Single residential home",
+    "Multi-unit residential",
+    "Commercial or mixed-use",
+    "Not sure yet",
+];
+
+function getRecommendation(q1: string): { service: "architecture" | "interior" | "both"; label: string; reason: string } {
+    if (q1 === "Transforming an interior space") {
+        return { service: "interior", label: "Interior Design", reason: "Your focus on transforming an existing space maps directly to our Interior Design discipline — spatial planning, visualization, and technical specification." };
+    }
+    if (q1 === "I need both architecture and interior design") {
+        return { service: "both", label: "Architecture + Interior Design", reason: "Your project benefits from a fully integrated approach — resolving both the structural form and interior staging concurrently with one team." };
+    }
+    return { service: "architecture", label: "Architectural Design", reason: "Your project involves new construction or structural work, which sits squarely in our Architectural Design discipline — from site analysis through to full documentation." };
+}
+
+const quizInitialState: QuizState = { message: "", errors: {}, success: false };
+
+function DecisionQuizModal({ onClose }: { onClose: () => void }) {
+    const [step, setStep] = useState<"q1" | "q2" | "recommendation">("q1");
+    const [q1, setQ1] = useState("");
+    const [q2, setQ2] = useState("");
+    const [rec, setRec] = useState<{ service: "architecture" | "interior" | "both"; label: string; reason: string } | null>(null);
+    const [skipBoth, setSkipBoth] = useState(false);
+    const [quizState, quizAction, isQuizPending] = useActionState(submitQuizAction, quizInitialState);
+
+    useEffect(() => {
+        document.body.style.overflow = "hidden";
+        return () => { document.body.style.overflow = "unset"; };
+    }, []);
+
+    function handleQ1(answer: string) {
+        setQ1(answer);
+        setStep("q2");
+    }
+
+    function handleQ2(answer: string) {
+        setQ2(answer);
+        setRec(getRecommendation(q1));
+        setStep("recommendation");
+    }
+
+    function handleSkipBoth() {
+        setSkipBoth(true);
+        setRec({ service: "both", label: "Architecture + Interior Design", reason: "You requested both service guides — we will send you the full overview for both our Architectural Design and Interior Design disciplines." });
+        setStep("recommendation");
+    }
+
+    return (
+        <div onClick={onClose} className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[999] flex items-end justify-center sm:items-center sm:px-4">
+            <div
+                onClick={(e) => e.stopPropagation()}
+                className="bg-neutral-900 border border-neutral-800 w-full max-w-lg p-8 sm:p-12 sm:rounded-md shadow-2xl relative max-h-[92vh] overflow-y-auto"
+                style={{ animation: "slideUp 0.35s cubic-bezier(0.16,1,0.3,1)" }}
+            >
+                <style>{`@keyframes slideUp { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }`}</style>
+
+                {/* Close */}
+                <button onClick={onClose} className="absolute top-5 right-5 text-neutral-500 hover:text-white transition-colors p-2" aria-label="Close">
+                    <X className="w-4 h-4" />
+                </button>
+
+                {/* SUCCESS */}
+                {quizState.success ? (
+                    <div className="flex flex-col items-center text-center py-8 gap-6">
+                        <div className="w-10 h-[1px] bg-white/30"></div>
+                        <h3 className="text-2xl font-black tracking-tight text-white uppercase">YOUR GUIDE IS ON ITS WAY.</h3>
+                        <p className="text-sm font-light text-neutral-400 leading-relaxed max-w-xs">
+                            Check your inbox. If it does not arrive within a few minutes, check your junk folder.
+                        </p>
+                        <button onClick={onClose} className="border border-white/20 hover:border-white text-white font-mono text-[9px] uppercase tracking-[0.25em] py-4 px-10 transition-colors mt-2">
+                            CLOSE
+                        </button>
+                    </div>
+                ) : step === "q1" ? (
+                    <div className="flex flex-col gap-7">
+                        <div className="flex flex-col gap-2">
+                            <span className="font-mono text-[9px] text-neutral-500 tracking-[0.3em] uppercase">SERVICE MATCHING — 01 / 02</span>
+                            <h3 className="text-2xl font-black tracking-tight text-white uppercase leading-snug">What are you<br />planning?</h3>
+                        </div>
+                        <div className="flex flex-col gap-2 mt-1">
+                            {Q1_OPTIONS.map((opt) => (
+                                <button
+                                    key={opt}
+                                    onClick={() => handleQ1(opt)}
+                                    className="text-left border border-neutral-700 hover:border-white/60 text-white/80 hover:text-white font-light text-sm px-5 py-4 transition-all leading-snug"
+                                >
+                                    {opt}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                ) : step === "q2" ? (
+                    <div className="flex flex-col gap-7">
+                        <div className="flex flex-col gap-2">
+                            <span className="font-mono text-[9px] text-neutral-500 tracking-[0.3em] uppercase">SERVICE MATCHING — 02 / 02</span>
+                            <h3 className="text-2xl font-black tracking-tight text-white uppercase leading-snug">What is the scale<br />of the project?</h3>
+                        </div>
+                        <div className="flex flex-col gap-2 mt-1">
+                            {Q2_OPTIONS.map((opt) => (
+                                <button
+                                    key={opt}
+                                    onClick={() => handleQ2(opt)}
+                                    className="text-left border border-neutral-700 hover:border-white/60 text-white/80 hover:text-white font-light text-sm px-5 py-4 transition-all leading-snug"
+                                >
+                                    {opt}
+                                </button>
+                            ))}
+                        </div>
+                        <button onClick={() => setStep("q1")} className="font-mono text-[9px] text-neutral-500 hover:text-white uppercase tracking-[0.2em] text-left transition-colors pt-1">
+                            BACK
+                        </button>
+                    </div>
+                ) : rec ? (
+                    <form action={quizAction} className="flex flex-col gap-6">
+                        <input type="hidden" name="service" value={skipBoth ? "both" : rec.service} />
+                        <input type="hidden" name="q1" value={q1} />
+                        <input type="hidden" name="q2" value={q2} />
+
+                        <div className="flex flex-col gap-2">
+                            <span className="font-mono text-[9px] text-neutral-500 tracking-[0.3em] uppercase">OUR RECOMMENDATION</span>
+                            <h3 className="text-2xl font-black tracking-tight text-white uppercase leading-snug">{rec.label}</h3>
+                            <p className="text-xs font-light text-neutral-400 leading-relaxed mt-1">{rec.reason}</p>
+                        </div>
+
+                        <div className="w-full h-[1px] bg-neutral-800"></div>
+
+                        {/* Name */}
+                        <div className="flex flex-col gap-2">
+                            <label htmlFor="quiz-name" className="font-mono text-[9px] tracking-[0.2em] text-white uppercase flex justify-between">
+                                YOUR NAME
+                                {quizState.errors?.name && <span className="text-red-400 lowercase tracking-normal italic">{quizState.errors.name[0]}</span>}
+                            </label>
+                            <input id="quiz-name" name="name" type="text" placeholder="Adaeze Okonkwo" required
+                                className="bg-neutral-800 border border-neutral-700/50 focus:border-white/40 px-4 py-3 text-sm text-white placeholder:text-neutral-600 outline-none transition-colors" />
+                        </div>
+
+                        {/* Email */}
+                        <div className="flex flex-col gap-2">
+                            <label htmlFor="quiz-email" className="font-mono text-[9px] tracking-[0.2em] text-white uppercase flex justify-between">
+                                EMAIL ADDRESS
+                                {quizState.errors?.email && <span className="text-red-400 lowercase tracking-normal italic">{quizState.errors.email[0]}</span>}
+                            </label>
+                            <input id="quiz-email" name="email" type="email" placeholder="adaeze@example.com" required
+                                className="bg-neutral-800 border border-neutral-700/50 focus:border-white/40 px-4 py-3 text-sm text-white placeholder:text-neutral-600 outline-none transition-colors" />
+                        </div>
+
+                        {quizState.message && !quizState.success && (
+                            <p className="text-xs text-red-400 italic">{quizState.message}</p>
+                        )}
+
+                        <button type="submit" disabled={isQuizPending}
+                            className="bg-white text-black font-mono text-[10px] font-bold uppercase tracking-[0.2em] py-4 hover:bg-neutral-200 transition-colors w-full flex items-center justify-center gap-2">
+                            {isQuizPending ? <><Loader2 className="w-3 h-3 animate-spin" /> SENDING...</> : "SEND ME THE GUIDE"}
+                        </button>
+
+                        <button type="button" onClick={handleSkipBoth}
+                            className="font-mono text-[8px] text-neutral-500 hover:text-white uppercase tracking-[0.2em] text-center transition-colors">
+                            SKIP — JUST SEND ME BOTH GUIDES
+                        </button>
+
+                        <button type="button" onClick={() => setStep("q2")}
+                            className="font-mono text-[9px] text-neutral-500 hover:text-white uppercase tracking-[0.2em] text-left transition-colors -mt-2">
+                            BACK
+                        </button>
+                    </form>
+                ) : null}
+            </div>
+        </div>
+    );
+}
+
 /* ─── SERVICES INDEX ──────────────────────────────────────────────────────── */
-function ServicesIndex({ setPage }: { setPage: (p: string) => void }) {
+function ServicesIndex({ setPage, onOpenQuiz }: { setPage: (p: string) => void; onOpenQuiz: () => void }) {
     return (
         <div className="flex flex-col">
             {/* HERO */}
@@ -388,12 +569,20 @@ function ServicesIndex({ setPage }: { setPage: (p: string) => void }) {
                 <p className="text-sm font-light text-primary/60 dark:text-white/60 max-w-2xl leading-relaxed">
                     The highest design outcomes are achieved when exterior volumes and interior staging are resolved concurrently. If your project is still open in scope, let&apos;s begin with a coordinated design consultation.
                 </p>
-                <Link
-                    href="/contact"
-                    className="border border-primary dark:border-white text-primary dark:text-white hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-black font-mono text-[10px] font-bold uppercase tracking-[0.2em] py-5 px-10 transition-colors w-full sm:w-auto self-start text-center"
-                >
-                    BEGIN A CONVERSATION
-                </Link>
+                <div className="flex flex-col sm:flex-row gap-4 self-start w-full sm:w-auto">
+                    <button
+                        onClick={onOpenQuiz}
+                        className="bg-primary dark:bg-white text-white dark:text-black font-mono text-[10px] font-bold uppercase tracking-[0.2em] py-5 px-10 hover:bg-black dark:hover:bg-neutral-200 transition-colors text-center w-full sm:w-auto"
+                    >
+                        HELP ME DECIDE
+                    </button>
+                    <Link
+                        href="/contact"
+                        className="border border-primary dark:border-white text-primary dark:text-white hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-black font-mono text-[10px] font-bold uppercase tracking-[0.2em] py-5 px-10 transition-colors w-full sm:w-auto self-start text-center"
+                    >
+                        BEGIN THE CONVERSATION
+                    </Link>
+                </div>
             </section>
         </div>
     );
@@ -524,7 +713,7 @@ function ServicesDetail({ data, setPage }: { data: typeof ARCH; setPage: (p: str
                                 "Snag List & Final Handover Packages",
                             ].map((item, idx) => (
                                 <li key={idx} className="flex gap-3 items-center">
-                                    <span className="text-neutral-400 dark:text-neutral-500 font-mono">→</span>
+                                    <span className="w-1.5 h-[1px] bg-neutral-300 dark:bg-white/20 mt-[0.6rem] shrink-0 self-start"></span>
                                     <span>{item}</span>
                                 </li>
                             ))}
@@ -567,6 +756,7 @@ function ServicesDetail({ data, setPage }: { data: typeof ARCH; setPage: (p: str
 /* ─── MAIN CLIENT WRAPPER ─────────────────────────────────────────────────── */
 export default function ServicesClient() {
     const [page, setPage] = useState("index");
+    const [showQuiz, setShowQuiz] = useState(false);
 
     // Scroll to top when view changes
     useEffect(() => {
@@ -578,10 +768,12 @@ export default function ServicesClient() {
             <Header />
 
             <main className="flex-grow">
-                {page === "index" && <ServicesIndex setPage={setPage} />}
+                {page === "index" && <ServicesIndex setPage={setPage} onOpenQuiz={() => setShowQuiz(true)} />}
                 {page === "architecture" && <ServicesDetail data={ARCH} setPage={setPage} />}
                 {page === "interior" && <ServicesDetail data={INT} setPage={setPage} />}
             </main>
+
+            {showQuiz && <DecisionQuizModal onClose={() => setShowQuiz(false)} />}
 
             <Footer />
         </div>
