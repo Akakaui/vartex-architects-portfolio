@@ -156,8 +156,6 @@ export default function Contact() {
                                     <select id="project-type" name="type" className="bg-transparent border-b border-white/10 py-4 focus:border-white outline-none transition-colors text-xl font-light text-white appearance-none cursor-pointer">
                                         <option value="architectural" className="bg-primary text-white">Architectural Design</option>
                                         <option value="interior" className="bg-primary text-white">Interior Design</option>
-                                        <option value="landscaping" className="bg-primary text-white">Landscaping</option>
-                                        <option value="urban" className="bg-primary text-white">Urban Planning</option>
                                     </select>
                                     <ChevronDown className="absolute bottom-5 right-0 pointer-events-none opacity-40 w-5 h-5 text-white" />
                                 </div>
