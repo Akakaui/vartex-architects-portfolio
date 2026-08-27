@@ -101,21 +101,25 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                         start: "top 70%",
                         end: "bottom 30%",
                         onEnter: () => {
+                            card.classList.add("service-card-visible");
                             if (icon) { icon.classList.add("text-primary", "dark:text-white"); icon.classList.remove("text-primary/20", "dark:text-white/20"); }
                             if (title) { title.classList.add("text-primary", "dark:text-white"); }
                             if (text) { text.classList.add("text-primary/100", "dark:text-white/100"); text.classList.remove("text-primary/60", "dark:text-white/60"); }
                         },
                         onLeave: () => {
+                            card.classList.remove("service-card-visible");
                             if (icon) { icon.classList.remove("text-primary", "dark:text-white"); icon.classList.add("text-primary/20", "dark:text-white/20"); }
                             if (title) { title.classList.remove("text-primary", "dark:text-white"); }
                             if (text) { text.classList.remove("text-primary/100", "dark:text-white/100"); text.classList.add("text-primary/60", "dark:text-white/60"); }
                         },
                         onEnterBack: () => {
+                            card.classList.add("service-card-visible");
                             if (icon) { icon.classList.add("text-primary", "dark:text-white"); icon.classList.remove("text-primary/20", "dark:text-white/20"); }
                             if (title) { title.classList.add("text-primary", "dark:text-white"); }
                             if (text) { text.classList.add("text-primary/100", "dark:text-white/100"); text.classList.remove("text-primary/60", "dark:text-white/60"); }
                         },
                         onLeaveBack: () => {
+                            card.classList.remove("service-card-visible");
                             if (icon) { icon.classList.remove("text-primary", "dark:text-white"); icon.classList.add("text-primary/20", "dark:text-white/20"); }
                             if (title) { title.classList.remove("text-primary", "dark:text-white"); }
                             if (text) { text.classList.remove("text-primary/100", "dark:text-white/100"); text.classList.add("text-primary/60", "dark:text-white/60"); }
@@ -163,7 +167,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
     const activeProject = validFeaturedProjects[currentSlide];
 
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen overflow-x-hidden">
             <Header />
 
             <main ref={mainRef} className="flex-grow bg-white dark:bg-background-dark">
@@ -361,6 +365,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
 
                 {/* SPECIALIZATIONS */}
                 <section className="px-8 lg:px-24 py-16 lg:py-24 bg-neutral-50 dark:bg-neutral-900/10 border-y border-neutral-100 dark:border-white/5" aria-label="Core architectural specializations">
+                    <div className="mb-8 flex items-center justify-between lg:mb-10"><span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">SERVICES</span></div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-neutral-200 dark:bg-neutral-800">
                         {/* Item 1: Architectural Design */}
                         <Link href="/services?service=architecture" className="bg-white dark:bg-background-dark p-8 lg:p-10 flex flex-col gap-6 lg:gap-8 group service-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-white">
@@ -369,7 +374,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                                 <h4 className="text-xl font-bold uppercase tracking-tight text-primary dark:text-white transition-colors duration-500 title-layer">Architectural Design</h4>
                                 <p className="text-xs text-primary/60 dark:text-white/60 leading-relaxed italic transition-colors duration-500 text-layer">Crafting spaces that balance structural integrity with openness to nature.</p>
                             </div>
-                            <span className="font-mono text-[9px] text-primary/20 dark:text-white/20">01</span>
+                            <span className="font-mono text-[10px] text-primary/20 dark:text-white/20">01</span>
                         </Link>
                         {/* Item 2: Interior Design */}
                         <Link href="/services?service=interior" className="bg-white dark:bg-background-dark p-8 lg:p-10 flex flex-col gap-6 lg:gap-8 group service-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-white">
@@ -378,7 +383,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                                 <h4 className="text-xl font-bold uppercase tracking-tight text-primary dark:text-white transition-colors duration-500 title-layer">Interior Design</h4>
                                 <p className="text-xs text-primary/60 dark:text-white/60 leading-relaxed italic transition-colors duration-500 text-layer">Curating the inner volume through materiality, light, and proportion.</p>
                             </div>
-                            <span className="font-mono text-[9px] text-primary/20 dark:text-white/20">02</span>
+                            <span className="font-mono text-[10px] text-primary/20 dark:text-white/20">02</span>
                         </Link>
                     </div>
                 </section>
