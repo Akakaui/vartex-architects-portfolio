@@ -100,7 +100,6 @@ export default function TermsOfService() {
                             <div className="bg-neutral-50 dark:bg-white/[0.03] border border-neutral-100 dark:border-white/5 p-6 rounded-sm flex flex-col gap-2 font-mono text-[12px] tracking-wider">
                                 <span className="text-primary dark:text-white font-bold">VARTEX ARCHITECTS</span>
                                 <span>Email: <a href="mailto:Info@vartexarchitects.com" className="underline hover:text-primary dark:hover:text-white transition-colors">Info@vartexarchitects.com</a></span>
-                                <span>Phone: <a href="tel:+2347032697179" className="underline hover:text-primary dark:hover:text-white transition-colors">+234 703 269 7179</a></span>
                                 <span>WhatsApp: <a href="https://wa.me/message/WCAUBNIBDXOSF1" className="underline hover:text-primary dark:hover:text-white transition-colors">+234 704 900 1510</a></span>
                                 <span>Address: Lagos, Nigeria</span>
                             </div>

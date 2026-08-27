@@ -96,7 +96,6 @@ export default function Footer() {
                 <div className="lg:col-span-3 lg:col-start-10 flex flex-col gap-4 lg:gap-8 lg:text-right">
                     <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">CONTACT US</span>
                     <div className="flex flex-col gap-2 lg:items-end">
-                        <a href="tel:+2347032697179" className="text-lg lg:text-xl font-bold text-primary dark:text-white uppercase leading-tight tracking-widest hover:opacity-50 transition-opacity">+234 703 269 7179</a>
                         <a href="tel:+2347049001510" className="text-lg lg:text-xl font-bold text-primary dark:text-white uppercase leading-tight tracking-widest hover:opacity-50 transition-opacity">+234 704 900 1510</a>
                         <a href="mailto:info@vartexarchitects.com" className="text-lg lg:text-xl font-bold text-primary dark:text-white hover:opacity-50 transition-opacity break-words">info@vartexarchitects.com</a>
                     </div>
