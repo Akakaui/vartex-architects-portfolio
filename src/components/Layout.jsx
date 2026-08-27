@@ -76,7 +76,7 @@ const Layout = ({ children }) => {
                     <div>
                         <h4 className="mono-text text-[10px] uppercase tracking-widest text-gray-400 mb-6 font-bold">Social</h4>
                         <div className="flex flex-col gap-3 text-sm">
-                            <a href="#" className="hover:text-primary">LinkedIn</a>
+                            <a href="https://www.linkedin.com/company/vartexarchitects/" target="_blank" rel="noopener noreferrer" className="hover:text-primary">LinkedIn</a>
                             <a href="#" className="hover:text-primary">Instagram</a>
                             <a href="#" className="hover:text-primary">Behance</a>
                         </div>

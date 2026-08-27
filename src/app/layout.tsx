@@ -79,14 +79,23 @@ const jsonLd = {
     "sameAs": [
         "https://www.instagram.com/vartex_architects",
         "https://x.com/VartexArchitect",
-        "https://www.threads.net/@vartex_architects"
+        "https://www.threads.net/@vartex_architects",
+        "https://www.linkedin.com/company/vartexarchitects/"
     ],
-    "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+2347049001510",
-        "contactType": "customer service",
-        "email": "info@vartexarchitects.com"
-    }
+    "contactPoint": [
+        {
+            "@type": "ContactPoint",
+            "telephone": "+2347032697179",
+            "contactType": "telephone",
+            "email": "info@vartexarchitects.com"
+        },
+        {
+            "@type": "ContactPoint",
+            "telephone": "+2347049001510",
+            "contactType": "WhatsApp",
+            "url": "https://wa.me/message/WCAUBNIBDXOSF1"
+        }
+    ]
 }
 
 const localBusinessLd = {
@@ -106,7 +115,13 @@ const localBusinessLd = {
         "longitude": 3.3792
     },
     "url": "https://vartexarchitects.com",
-    "telephone": "+2347049001510",
+    "telephone": "+2347032697179",
+    "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+2347049001510",
+        "contactType": "WhatsApp",
+        "url": "https://wa.me/message/WCAUBNIBDXOSF1"
+    },
     "areaServed": ["Lagos", "Enugu", "Nigeria"],
     "serviceType": ["Architectural Design", "Interior Design", "3D Visualization"],
     "priceRange": "$$"

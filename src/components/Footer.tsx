@@ -58,7 +58,7 @@ export default function Footer() {
                         </a>
 
                         {/* LinkedIn */}
-                        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:opacity-40 transition-opacity text-primary dark:text-white">
+                        <a href="https://www.linkedin.com/company/vartexarchitects/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:opacity-40 transition-opacity text-primary dark:text-white">
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"></path>
                                 <rect x="2" y="9" width="4" height="12"></rect>
@@ -96,6 +96,7 @@ export default function Footer() {
                 <div className="lg:col-span-3 lg:col-start-10 flex flex-col gap-4 lg:gap-8 lg:text-right">
                     <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">CONTACT US</span>
                     <div className="flex flex-col gap-2 lg:items-end">
+                        <a href="tel:+2347032697179" className="text-lg lg:text-xl font-bold text-primary dark:text-white uppercase leading-tight tracking-widest hover:opacity-50 transition-opacity">+234 703 269 7179</a>
                         <a href="tel:+2347049001510" className="text-lg lg:text-xl font-bold text-primary dark:text-white uppercase leading-tight tracking-widest hover:opacity-50 transition-opacity">+234 704 900 1510</a>
                         <a href="mailto:info@vartexarchitects.com" className="text-lg lg:text-xl font-bold text-primary dark:text-white hover:opacity-50 transition-opacity break-words">info@vartexarchitects.com</a>
                     </div>
