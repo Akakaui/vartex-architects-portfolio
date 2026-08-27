@@ -217,15 +217,8 @@ function FAQSection() {
 }
 
 function ServicesIndex({ onOpenQuiz }: { onOpenQuiz: () => void }) {
-    useEffect(() => {
-        if (!window.matchMedia("(max-width: 1023px)").matches) return;
-        const cards = Array.from(document.querySelectorAll<HTMLElement>(".services-index-card"));
-        const observer = new IntersectionObserver((entries) => entries.forEach((entry) => entry.target.classList.toggle("service-card-visible", entry.isIntersecting)), { threshold: 0.55 });
-        cards.forEach((card) => observer.observe(card));
-        return () => observer.disconnect();
-    }, []);
     return <div className="flex flex-col"><section className="service-reveal border-b border-neutral-100 px-8 py-24 dark:border-white/5 lg:px-24 lg:py-36"><span className="font-mono text-[11px] tracking-[0.4em] text-neutral-400">03 / SERVICES</span><h1 className="mt-7 max-w-3xl text-6xl font-black uppercase leading-[0.86] tracking-tighter text-primary dark:text-white lg:text-[8rem]">Every line<br />serves<br />a purpose.</h1><p className="mt-10 max-w-xl text-lg leading-relaxed text-primary/65 dark:text-white/65 lg:text-xl">Vartex operates across two specialized architectural disciplines. In both fields, our commitment is absolute: resolving structural voids and interior proportions through systematic rigour.</p></section>
-        <section className="grid grid-cols-1 lg:grid-cols-2">{([{ id: "architecture", number: "01", title: "Architectural Design", description: "We design structures from the inside out, beginning with site context, solar orientation, and structural integrity.", image: "/images/process/architectural-precision-drafting.jpg", icon: HomeIcon }, { id: "interior", number: "02", title: "Interior Design", description: "Proportion, surface finishes, and custom millwork are integrated seamlessly to complete architectural spaces.", image: "/projects/project-3.webp", icon: Sofa }] as const).map((service) => { const Icon = service.icon; return <Link key={service.id} href={`/services/${service.id}`} className="service-reveal services-index-card group border-b border-r border-neutral-100 bg-white p-8 text-left transition-colors hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:border-white/5 dark:bg-background-dark dark:hover:bg-neutral-900 lg:p-16"><div className="relative mb-10 aspect-[16/9] overflow-hidden bg-neutral-100 dark:bg-neutral-900"><Image src={service.image} alt={`${service.title} service`} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-black/10" /></div><div className="flex items-start justify-between gap-6"><div><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">{service.number}</span><h2 className="mt-4 text-3xl font-black uppercase leading-none tracking-tight text-primary dark:text-white lg:text-5xl">{service.title}</h2><p className="mt-6 max-w-md text-base leading-relaxed text-primary/65 dark:text-white/65">{service.description}</p></div><Icon className="icon-layer mt-1 h-8 w-8 shrink-0 text-primary/25 transition-colors group-hover:text-primary dark:text-white/25 dark:group-hover:text-white" aria-hidden="true" /></div><span className="mt-10 inline-flex items-center gap-3 font-mono text-[11px] font-bold tracking-[0.2em] text-primary dark:text-white">EXPLORE THIS SERVICE <ArrowUpRight className="h-4 w-4" /></span></Link>; })}</section>
+        <section className="grid grid-cols-1 lg:grid-cols-2">{([{ id: "architecture", number: "01", title: "Architectural Design", description: "We design structures from the inside out, beginning with site context, solar orientation, and structural integrity.", image: "/images/process/architectural-precision-drafting.jpg", icon: HomeIcon }, { id: "interior", number: "02", title: "Interior Design", description: "Proportion, surface finishes, and custom millwork are integrated seamlessly to complete architectural spaces.", image: "/projects/project-3.webp", icon: Sofa }] as const).map((service) => { const Icon = service.icon; return <Link key={service.id} href={`/services/${service.id}`} className="service-reveal group border-b border-r border-neutral-100 bg-white p-8 text-left transition-colors hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:border-white/5 dark:bg-background-dark dark:hover:bg-neutral-900 lg:p-16"><div className="relative mb-10 aspect-[16/9] overflow-hidden bg-neutral-100 dark:bg-neutral-900"><Image src={service.image} alt={`${service.title} service`} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-black/10" /></div><div className="flex items-start justify-between gap-6"><div><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">{service.number}</span><h2 className="mt-4 text-3xl font-black uppercase leading-none tracking-tight text-primary dark:text-white lg:text-5xl">{service.title}</h2><p className="mt-6 max-w-md text-base leading-relaxed text-primary/65 dark:text-white/65">{service.description}</p></div><Icon className="mt-1 h-8 w-8 shrink-0 text-primary/25 transition-colors group-hover:text-primary dark:text-white/25 dark:group-hover:text-white" aria-hidden="true" /></div><span className="mt-10 inline-flex items-center gap-3 font-mono text-[11px] font-bold tracking-[0.2em] text-primary dark:text-white">EXPLORE THIS SERVICE <ArrowUpRight className="h-4 w-4" /></span></Link>; })}</section>
         <section className="service-reveal bg-neutral-50 px-8 py-20 dark:bg-neutral-900/10 lg:px-24 lg:py-28"><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">COORDINATED ENGAGEMENT</span><h2 className="mt-5 text-3xl font-black uppercase tracking-tight text-primary dark:text-white lg:text-5xl">Some projects require both.</h2><p className="mt-6 max-w-2xl text-base leading-relaxed text-primary/65 dark:text-white/65">The highest design outcomes are achieved when exterior volumes and interior staging are resolved concurrently. If your project is still open in scope, begin with a coordinated design consultation.</p><button onClick={onOpenQuiz} className="mt-10 bg-primary px-8 py-5 font-mono text-[11px] font-bold tracking-[0.2em] text-white transition-colors hover:bg-black dark:bg-white dark:text-black dark:hover:bg-neutral-200">HELP ME DECIDE</button></section><FAQSection /></div>;
 }
 
@@ -234,7 +227,7 @@ function TierCard({ tier, active, onSelect, mobile }: { tier: Tier; active: bool
     return <article onClick={onSelect} onKeyDown={(event) => { if (mobile && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); onSelect?.(); } }} tabIndex={mobile ? 0 : undefined} className={`relative flex min-h-[480px] flex-col overflow-hidden rounded-[3px] border p-7 shadow-[0_22px_70px_-48px_rgba(20,20,20,0.8)] transition-all duration-500 lg:p-8 ${tier.recommended ? "border-primary/40 bg-primary text-white shadow-[0_26px_90px_-42px_rgba(0,0,0,0.75)] dark:border-white/40 dark:bg-white dark:text-primary" : "border-neutral-200/80 bg-white text-primary shadow-[0_18px_60px_-45px_rgba(20,20,20,0.65)] dark:border-white/10 dark:bg-background-dark dark:text-white"} ${mobile && !active ? "scale-[0.965] bg-neutral-50/90 opacity-65 ring-1 ring-neutral-300/80 dark:bg-neutral-900/90 dark:ring-white/20" : "scale-100 opacity-100"} ${mobile ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-white" : ""}`}>
         <div className={`pointer-events-none absolute inset-x-0 top-0 h-1 ${tier.recommended ? "bg-white/70 dark:bg-primary/70" : "bg-primary/10 dark:bg-white/15"}`} aria-hidden="true" />
         {tier.recommended && <span className={`absolute left-1/2 top-0 -translate-x-1/2 whitespace-nowrap rounded-b-sm px-3 py-1.5 text-center font-mono text-[10px] font-bold tracking-[0.16em] ${tier.recommended ? "bg-white text-primary dark:bg-primary dark:text-white" : ""}`}>MOST OF OUR CLIENTS CHOOSE THIS</span>}
-        <div className="flex items-start justify-between gap-4 pt-3"><span className={`font-mono text-[11px] tracking-[0.2em] ${tier.recommended ? "opacity-60" : "text-neutral-400"}`}>{tier.num} / 03</span><span className={`font-mono text-[10px] tracking-[0.2em] ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{tier.level}</span></div>
+        <div className="flex items-start justify-between gap-4"><span className={`font-mono text-[11px] tracking-[0.2em] ${tier.recommended ? "opacity-60" : "text-neutral-400"}`}>{tier.num} / 03</span><span className={`font-mono text-[10px] tracking-[0.2em] ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{tier.level}</span></div>
         <h3 className="mt-12 text-3xl font-black uppercase leading-none tracking-tight">{tier.name}</h3><span className={`mt-3 font-mono text-[11px] tracking-[0.16em] ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{tier.sub}</span><div className="mt-8 border-y border-current/15 py-5"><span className="block font-mono text-[10px] tracking-[0.16em] opacity-60">STARTING PRICE</span><strong className="mt-2 block text-2xl font-bold">{tier.price}</strong></div><p className={`mt-6 text-base leading-relaxed ${tier.recommended ? "opacity-80" : "text-primary/65 dark:text-white/65"}`}>{tier.desc}</p><ul className="mt-7 flex flex-col gap-3">{summary.map((item) => <li key={item} className="flex gap-3 text-sm leading-relaxed"><span className="mt-2 h-px w-2 shrink-0 bg-current opacity-50" /><span>{item}</span></li>)}</ul>
     </article>;
 }
@@ -243,11 +236,6 @@ function TierComparison({ data }: { data: ServiceData }) {
     const [active, setActive] = useState(1);
     const mobileRefs = useRef<(HTMLDivElement | null)[]>([]);
     const mobileTrackRef = useRef<HTMLDivElement | null>(null);
-    const autoPauseUntil = useRef(0);
-
-    const markInteraction = () => {
-        autoPauseUntil.current = Date.now() + 7000;
-    };
 
     const centreCard = (index: number, behavior: ScrollBehavior = "smooth") => {
         const track = mobileTrackRef.current;
@@ -257,7 +245,6 @@ function TierComparison({ data }: { data: ServiceData }) {
     };
 
     const select = (index: number) => {
-        markInteraction();
         setActive(index);
         centreCard(index);
     };
@@ -267,17 +254,6 @@ function TierComparison({ data }: { data: ServiceData }) {
         const frame = window.requestAnimationFrame(() => centreCard(1, "auto"));
         return () => window.cancelAnimationFrame(frame);
     }, []);
-
-    useEffect(() => {
-        if (window.matchMedia("(min-width: 1024px)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-        const timer = window.setInterval(() => {
-            if (Date.now() < autoPauseUntil.current) return;
-            const next = (active + 1) % data.tiers.length;
-            setActive(next);
-            centreCard(next);
-        }, 5200);
-        return () => window.clearInterval(timer);
-    }, [active, data.tiers.length]);
 
     const syncActiveCard = (event: React.UIEvent<HTMLDivElement>) => {
         const track = event.currentTarget;
@@ -293,9 +269,9 @@ function TierComparison({ data }: { data: ServiceData }) {
         if (closestIndex !== active) setActive(closestIndex);
     };
 
-    return <section className="service-reveal border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:px-24 lg:py-32"><div className="max-w-3xl"><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">ENGAGEMENT MODELS</span><h2 className="mt-5 text-4xl font-black uppercase leading-none tracking-tighter text-primary dark:text-white lg:text-6xl">Three scoping tiers.</h2><p className="mt-7 text-base leading-relaxed text-primary/65 dark:text-white/65">Choose the level of design support that matches your project complexity. Each tier can be refined in your proposal.</p></div><div className="mt-14 hidden gap-5 lg:grid lg:grid-cols-3">{data.tiers.map((tier) => <TierCard key={tier.name} tier={tier} active={true} />)}</div><div ref={mobileTrackRef} onScroll={syncActiveCard} onPointerDown={markInteraction} onTouchStart={markInteraction} className="no-scrollbar mt-14 flex touch-pan-y snap-x snap-mandatory gap-4 overflow-x-auto px-[11vw] pb-5 lg:hidden" aria-label={`${data.label} pricing tiers`} aria-roledescription="carousel">
+    return <section className="service-reveal border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:px-24 lg:py-32"><div className="max-w-3xl"><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">ENGAGEMENT MODELS</span><h2 className="mt-5 text-4xl font-black uppercase leading-none tracking-tighter text-primary dark:text-white lg:text-6xl">Three scoping tiers.</h2><p className="mt-7 text-base leading-relaxed text-primary/65 dark:text-white/65">Choose the level of design support that matches your project complexity. Each tier can be refined in your proposal.</p></div><div className="mt-14 hidden gap-5 lg:grid lg:grid-cols-3">{data.tiers.map((tier) => <TierCard key={tier.name} tier={tier} active={true} />)}</div><div ref={mobileTrackRef} onScroll={syncActiveCard} className="no-scrollbar mt-14 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[11vw] pb-5 lg:hidden" aria-label={`${data.label} pricing tiers`}>
         {data.tiers.map((tier, index) => <div key={tier.name} ref={(node) => { mobileRefs.current[index] = node; }} className="w-[78vw] shrink-0 snap-center"><TierCard tier={tier} active={active === index} mobile onSelect={() => select(index)} /></div>)}
-    </div><div className="mt-1 flex items-center justify-center gap-2 lg:hidden" aria-label="Choose pricing tier">{data.tiers.map((tier, index) => <button key={tier.name} type="button" onClick={() => select(index)} aria-label={`Show ${tier.level} tier`} aria-current={active === index ? "true" : undefined} className={`h-1.5 rounded-full transition-all duration-300 ${active === index ? "w-8 bg-primary dark:bg-white" : "w-1.5 bg-primary/25 dark:bg-white/25"}`} />)}</div><p className="sr-only" aria-live="polite">Showing {data.tiers[active].level} tier: {data.tiers[active].name}.</p><p className="mt-8 max-w-3xl text-sm leading-relaxed text-primary/55 dark:text-white/55">{data.disclaimer}</p></section>;
+    </div><p className="sr-only" aria-live="polite">Showing {data.tiers[active].level} tier: {data.tiers[active].name}.</p><p className="mt-8 max-w-3xl text-sm leading-relaxed text-primary/55 dark:text-white/55">{data.disclaimer}</p></section>;
 }
 
 function ServicesDetail({ data, setPage }: { data: ServiceData; setPage: (p: "index" | "architecture" | "interior") => void }) {

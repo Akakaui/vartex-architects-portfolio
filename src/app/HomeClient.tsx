@@ -371,7 +371,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                         <Link href="/services?service=architecture" className="bg-white dark:bg-background-dark p-8 lg:p-10 flex flex-col gap-6 lg:gap-8 group service-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-white">
                             <HomeIcon className="w-10 h-10 text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500 icon-layer" />
                             <div className="flex flex-col gap-4">
-                                <h4 className="text-3xl lg:text-4xl font-bold uppercase tracking-tighter text-primary dark:text-white transition-colors duration-500 title-layer">Architectural Design</h4>
+                                <h4 className="text-xl font-bold uppercase tracking-tight text-primary dark:text-white transition-colors duration-500 title-layer">Architectural Design</h4>
                                 <p className="text-xs text-primary/60 dark:text-white/60 leading-relaxed italic transition-colors duration-500 text-layer">Crafting spaces that balance structural integrity with openness to nature.</p>
                             </div>
                             <span className="font-mono text-[10px] text-primary/20 dark:text-white/20">01</span>
@@ -380,7 +380,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                         <Link href="/services?service=interior" className="bg-white dark:bg-background-dark p-8 lg:p-10 flex flex-col gap-6 lg:gap-8 group service-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-white">
                             <Sofa className="w-10 h-10 text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500 icon-layer" />
                             <div className="flex flex-col gap-4">
-                                <h4 className="text-3xl lg:text-4xl font-bold uppercase tracking-tighter text-primary dark:text-white transition-colors duration-500 title-layer">Interior Design</h4>
+                                <h4 className="text-xl font-bold uppercase tracking-tight text-primary dark:text-white transition-colors duration-500 title-layer">Interior Design</h4>
                                 <p className="text-xs text-primary/60 dark:text-white/60 leading-relaxed italic transition-colors duration-500 text-layer">Curating the inner volume through materiality, light, and proportion.</p>
                             </div>
                             <span className="font-mono text-[10px] text-primary/20 dark:text-white/20">02</span>
