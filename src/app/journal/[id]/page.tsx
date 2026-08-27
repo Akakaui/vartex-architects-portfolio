@@ -56,11 +56,11 @@ export default async function JournalPostPage({ params }: Props) {
 
     // Related posts (same category, excluding current)
     const relatedPosts = activePosts
-        .filter(p => p.category === post.category && (p.slug || p.id) !== (post.slug || post.id))
+        .filter((p: any) => p.category === post.category && (p.slug || p.id) !== (post.slug || post.id))
         .slice(0, 2);
 
     // Navigation logic
-    const currentIndex = activePosts.findIndex(p => (p.slug || p.id) === (post.slug || post.id));
+    const currentIndex = activePosts.findIndex((p: any) => (p.slug || p.id) === (post.slug || post.id));
     const prevPost = currentIndex > 0 ? activePosts[currentIndex - 1] : null;
     const nextPost = currentIndex < activePosts.length - 1 ? activePosts[currentIndex + 1] : null;
 
@@ -68,7 +68,6 @@ export default async function JournalPostPage({ params }: Props) {
         <JournalPostClient
             post={post}
             relatedPosts={relatedPosts}
-            prevProject={null} // Not used in this component, but keeping interface clean
             prevPost={prevPost}
             nextPost={nextPost}
         />

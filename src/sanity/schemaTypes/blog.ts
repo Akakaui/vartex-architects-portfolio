@@ -7,7 +7,7 @@ export default {
             name: 'title',
             title: 'Post Title',
             type: 'string',
-            validation: (Rule) => Rule.required(),
+            validation: (Rule: any) => Rule.required(),
         },
         {
             name: 'slug',
@@ -17,7 +17,7 @@ export default {
                 source: 'title',
                 maxLength: 96,
             },
-            validation: (Rule) => Rule.required(),
+            validation: (Rule: any) => Rule.required(),
         },
         {
             name: 'publishedAt',
@@ -46,7 +46,7 @@ export default {
             options: {
                 hotspot: true,
             },
-            validation: (Rule) => Rule.required(),
+            validation: (Rule: any) => Rule.required(),
         },
         {
             name: 'category',

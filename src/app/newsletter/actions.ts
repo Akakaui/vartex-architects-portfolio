@@ -46,7 +46,7 @@ export async function newsletterSignupAction(
             console.error("❌ Failed to send newsletter emails:", error);
         }
     } else {
-        console.warn("⚠️ Zoho not configured — skipping newsletter email");
+        console.warn("⚠️ Zoho not configured / skipping newsletter email");
     }
 
     // Log to Google Sheets

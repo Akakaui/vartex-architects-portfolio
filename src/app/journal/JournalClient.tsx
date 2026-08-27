@@ -102,7 +102,7 @@ export default function JournalClient({ initialPosts, isGlobalComingSoon }: Jour
             <main ref={mainRef} className="flex-grow bg-white dark:bg-background-dark">
                 {isGlobalComingSoon ? (
                     <section className="px-8 lg:px-24 py-40 flex flex-col items-center justify-center min-h-[60vh] text-center border-b border-neutral-100 dark:border-white/5">
-                        <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase mb-8">System Status — Offline</span>
+                        <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase mb-8">System Status / Offline</span>
                         <h2 className="text-6xl lg:text-9xl font-black uppercase tracking-tighter leading-none text-primary dark:text-white mb-12">
                             JOURNAL <br /> COMING SOON.
                         </h2>
@@ -121,7 +121,7 @@ export default function JournalClient({ initialPosts, isGlobalComingSoon }: Jour
                         {/* Hero Header */}
                         <section className="px-8 lg:px-24 pt-24 pb-12 lg:pt-32 lg:pb-16 border-b border-neutral-100 dark:border-white/5 fade-in">
                             <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">
-                                Reflections — Discourse — Process
+                                Reflections / Discourse / Process
                             </span>
                             <h1 className="text-5xl lg:text-9xl font-black uppercase tracking-tighter leading-none text-primary dark:text-white mt-4">
                                 JOURNAL.

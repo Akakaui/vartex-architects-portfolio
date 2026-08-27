@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Terms of Service — VARTEX Architects",
+    title: "Terms of Service / VARTEX Architects",
     description: "Terms governing the use of vartexarchitects.com and the engagement of our architectural design and consulting services.",
 };
 
@@ -101,6 +101,7 @@ export default function TermsOfService() {
                                 <span className="text-primary dark:text-white font-bold">VARTEX ARCHITECTS</span>
                                 <span>Email: <a href="mailto:Info@vartexarchitects.com" className="underline hover:text-primary dark:hover:text-white transition-colors">Info@vartexarchitects.com</a></span>
                                 <span>Phone: <a href="tel:+2347032697179" className="underline hover:text-primary dark:hover:text-white transition-colors">+234 703 269 7179</a></span>
+                                <span>WhatsApp: <a href="https://wa.me/message/WCAUBNIBDXOSF1" className="underline hover:text-primary dark:hover:text-white transition-colors">+234 704 900 1510</a></span>
                                 <span>Address: Lagos, Nigeria</span>
                             </div>
                         </section>

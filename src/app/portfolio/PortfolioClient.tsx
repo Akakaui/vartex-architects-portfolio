@@ -83,7 +83,7 @@ export default function PortfolioClient({ projects }: PortfolioClientProps) {
                 {/* Header Section */}
                 <section className="px-8 lg:px-24 pt-24 pb-16 lg:py-24 flex flex-col items-center gap-12 border-b border-neutral-100 dark:border-white/5" aria-label="Portfolio header">
                     <div className="flex flex-col items-center gap-4 text-center">
-                        <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">Archived Works — Index 001/2026</span>
+                        <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">Archived Works / Index 001/2026</span>
                         <h1 className="text-6xl lg:text-9xl font-black uppercase tracking-tighter leading-none text-primary dark:text-white">
                             PROJECTS.
                         </h1>

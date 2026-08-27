@@ -1,781 +1,260 @@
 "use client";
 
-import { useState, useEffect, useRef, useActionState } from "react";
+import { useEffect, useRef, useState, useActionState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Home as HomeIcon, Sofa, ChevronDown, CheckCircle, ChevronRight, X, Loader2 } from "lucide-react";
+import { Home as HomeIcon, Sofa, ArrowUpRight, ChevronLeft, ChevronRight, ChevronDown, CheckCircle, X, Loader2 } from "lucide-react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { requestGuideAction, GuideState, submitQuizAction, QuizState } from "./actions";
 
-/* ─── DATA ────────────────────────────────────────────────────────────────── */
-const ARCH = {
+gsap.registerPlugin(ScrollTrigger);
+
+type Tier = {
+    num: string;
+    name: string;
+    level: "Basic" | "Standard" | "Premium";
+    sub: string;
+    price: string;
+    desc: string;
+    phases: { label: string; items: string[] }[];
+    recommended?: boolean;
+};
+
+type ServiceData = {
+    id: "architecture" | "interior";
+    index: string;
+    label: string;
+    headline: string[];
+    hero: string;
+    image: string;
+    imageAlt: string;
+    approach: string;
+    how: [string, string, string][];
+    tiers: Tier[];
+    disclaimer: string;
+    buildSection: boolean;
+    closing: string;
+};
+
+const ARCHITECTURE: ServiceData = {
     id: "architecture",
     index: "01",
     label: "ARCHITECTURAL DESIGN",
     headline: ["ARCHITECTURAL", "DESIGN."],
-    tagline: "From the site to the stone.",
-    hero: "We design buildings that hold their logic from the first sketch to the final inspection. Architecture, to us, is a dialogue — between the land, the light, and the life that will occupy the space.",
-    approach: "Every project begins the same way: we listen. Not just to the brief, but to the site itself — its orientation, its constraints, its latent possibilities. From there, design is not imposed. It emerges.",
+    hero: "Every project begins the same way: we listen. Not just to the brief, but to the site itself, its orientation, its constraints, and its latent possibilities. From there, design is not imposed. It emerges.",
+    image: "/images/process/architect-studio-workspace.jpg",
+    imageAlt: "Architects developing a spatial concept in the studio",
+    approach: "We design buildings that hold their logic from the first sketch to the final inspection. Architecture, to us, is a dialogue between the land, the light, and the life that will occupy the space.",
     how: [
-        ["01", "SITE & CONTEXT", "Before a line is drawn, we study the land — its topography, zoning, orientation, and the environment it will shape and be shaped by."],
+        ["01", "SITE & CONTEXT", "Before a line is drawn, we study the land, its topography, zoning, orientation, and the environment it will shape."],
         ["02", "DESIGN DEVELOPMENT", "Sketches evolve into precise spatial models, tested against light, structure, and how the building will actually be lived in."],
-        ["03", "TECHNICAL DOCUMENTATION", "Exhaustive construction drawings — every joint, surface, and system documented with precision that leaves builders without ambiguity."],
+        ["03", "TECHNICAL DOCUMENTATION", "Exhaustive construction drawings document every joint, surface, and system with precision that leaves builders without ambiguity."],
         ["04", "REALIZATION", "We remain present through construction, ensuring the built form maintains the rigour of the original design intent."],
     ],
-    engagements: [
+    tiers: [
         {
-            num: "01", name: "FOUNDATION", sub: "The Essential",
+            num: "01", name: "Foundation", level: "Basic", sub: "The Essential", price: "Starting from $600",
             desc: "For clients who arrive with a resolved vision and require precise technical documentation to move into construction without delay.",
-            timeline: "3 PHASES · ~8 WEEKS",
             phases: [
-                { label: "01 — MOBILIZATION & CONCEPT", items: ["Initial consultation & briefing", "Remote site analysis", "Space planning & moodboard"] },
-                { label: "02 — DESIGN", items: ["2D floor plans & exterior elevations", "Up to 2 rounds of refinement"] },
-                { label: "03 — DOCUMENTATION", items: ["Architectural blueprints", "5 printed & bound hardcopy sets"] },
+                { label: "01 / MOBILIZATION & CONCEPT", items: ["Initial consultation and briefing", "Remote site analysis", "Space planning and moodboard"] },
+                { label: "02 / DESIGN", items: ["2D floor plans and exterior elevations", "Up to 2 rounds of refinement"] },
+                { label: "03 / DOCUMENTATION", items: ["Architectural blueprints", "5 printed and bound hardcopy sets"] },
             ],
         },
         {
-            num: "02", name: "SIGNATURE", sub: "The Professional",
-            desc: "For projects demanding full design exploration, photorealistic visualization, and integrated engineering — the complete experience before a single brick is laid.",
-            timeline: "4 PHASES · ~12 WEEKS",
+            num: "02", name: "Signature", level: "Standard", sub: "The Professional", price: "Starting from $2,000", recommended: true,
+            desc: "For projects demanding full design exploration, photorealistic visualization, and integrated engineering before a single brick is laid.",
             phases: [
-                { label: "01 — MOBILIZATION & CONCEPT", items: ["In-depth multi-session consultation", "On-site and remote site & zoning analysis", "Advanced space planning & moodboard"] },
-                { label: "02 — DESIGN & VISUALIZATION", items: ["Detailed 2D floor plans & elevations", "Photorealistic exterior 3D renders", "Up to 3 rounds of refinement"] },
-                { label: "03 — DOCUMENTATION", items: ["Detailed architectural blueprints", "Structural engineering drawings", "MEP drawings"] },
-                { label: "04 — ENGINEERING & DELIVERY", items: ["Government approval drawing set", "Executive architectural blueprints", "5 printed & bound hardcopy sets each"] },
+                { label: "01 / MOBILIZATION & CONCEPT", items: ["In-depth multi-session consultation", "On-site and remote site and zoning analysis", "Advanced space planning and moodboard"] },
+                { label: "02 / DESIGN & VISUALIZATION", items: ["Detailed 2D floor plans and elevations", "Photorealistic exterior 3D renders", "Up to 3 rounds of refinement"] },
+                { label: "03 / DOCUMENTATION", items: ["Detailed architectural blueprints", "Structural engineering drawings", "MEP drawings"] },
+                { label: "04 / ENGINEERING & DELIVERY", items: ["Government approval drawing set", "Executive architectural blueprints", "5 printed and bound hardcopy sets each"] },
             ],
         },
         {
-            num: "03", name: "BESPOKE", sub: "The Executive",
-            desc: "For high-end builds that demand the full spectrum — cinematic visualization, complete engineering, and a dedicated principal consultant at every phase.",
-            timeline: "4 PHASES · ~15 WEEKS",
+            num: "03", name: "Bespoke", level: "Premium", sub: "The Executive", price: "Starting from $3,200",
+            desc: "For high-end builds that demand the full spectrum: cinematic visualization, complete engineering, and a dedicated principal consultant at every phase.",
             phases: [
-                { label: "01 — MOBILIZATION & CONCEPT", items: ["Priority multi-session consultation", "Advanced site & zoning analysis", "Survey & soil test coordination", "Advanced space planning & precedent study"] },
-                { label: "02 — DESIGN & VISUALIZATION", items: ["8+ premium exterior 3D renders", "Unlimited rounds of refinement", "Highly detailed 2D plans"] },
-                { label: "03 — DOCUMENTATION", items: ["Interior 3D renders — up to 5 spaces", "Animated cinematic video walkthrough", "Full architectural blueprint set"] },
-                { label: "04 — ENGINEERING & DELIVERY", items: ["Executive architectural blueprints", "Structural & MEP engineering drawings", "Government approval drawing set"] },
+                { label: "01 / MOBILIZATION & CONCEPT", items: ["Priority multi-session consultation", "Advanced site and zoning analysis", "Survey and soil test coordination", "Advanced space planning and precedent study"] },
+                { label: "02 / DESIGN & VISUALIZATION", items: ["8+ premium exterior 3D renders", "Unlimited rounds of refinement", "Highly detailed 2D plans"] },
+                { label: "03 / DOCUMENTATION", items: ["Interior 3D renders for up to 5 spaces", "Animated cinematic video walkthrough", "Full architectural blueprint set"] },
+                { label: "04 / ENGINEERING & DELIVERY", items: ["Executive architectural blueprints", "Structural and MEP engineering drawings", "Government approval drawing set"] },
             ],
         },
     ],
+    disclaimer: "Pricing shown is based on a one-story residential building on a full plot of land. Total pricing will be confirmed in your proposal and will be billed in your local currency.",
     buildSection: true,
     closing: "From first sketch to final stone.",
 };
 
-const INT = {
+const INTERIOR: ServiceData = {
     id: "interior",
     index: "02",
     label: "INTERIOR DESIGN",
     headline: ["INTERIOR", "DESIGN."],
-    tagline: "Every void considered.",
-    hero: "We treat the interior not as decoration applied after the fact — but as the completion of a spatial idea that began the moment the building was conceived.",
-    approach: "The interior volume is where architecture is most intimately experienced. The height of a ceiling, the texture of a wall, the quality of light at noon — these are not stylistic decisions. They are spatial ones. We resolve them with the same rigour we apply to structure.",
+    hero: "The interior volume is where architecture is most intimately experienced. The height of a ceiling, the texture of a wall, and the quality of light at noon are spatial decisions resolved with the same rigour applied to structure.",
+    image: "/projects/project-3.webp",
+    imageAlt: "Interior space with considered materiality and proportion",
+    approach: "We treat the interior not as decoration applied after the fact, but as the completion of a spatial idea that began the moment the building was conceived.",
     how: [
-        ["01", "SPATIAL ANALYSIS", "We begin by understanding how the space is lived in — traffic, light, function, and the relationship between rooms — before proposing any layout."],
-        ["02", "VISUALIZATION", "From spatial diagrams to photorealistic renders and cinematic walkthroughs, you inhabit the design before a single piece is procured."],
-        ["03", "SPECIFICATION", "Every material, finish, fixture, and fitting is specified exactly — schedules that leave artisans and contractors no room for interpretation."],
-        ["04", "EXECUTION", "For clients who require it, we manage procurement, supervise fit-out, and oversee final staging through to project handover."],
+        ["01", "SPATIAL ANALYSIS", "We begin by understanding how the space is lived in: traffic, light, function, and the relationship between rooms."],
+        ["02", "VISUALIZATION", "From spatial diagrams to photorealistic renders and cinematic walkthroughs, you inhabit the design before procurement begins."],
+        ["03", "SPECIFICATION", "Every material, finish, fixture, and fitting is specified exactly, leaving artisans and contractors no room for interpretation."],
+        ["04", "EXECUTION", "For clients who require it, we manage procurement, supervise fit-out, and oversee final staging through project handover."],
     ],
-    engagements: [
+    tiers: [
         {
-            num: "01", name: "CONCEPT", sub: "The Essential",
-            desc: "For clients who want a professional spatial direction and visual concept — clarity and confidence to brief a contractor and begin procurement independently.",
-            timeline: "2 PHASES · ~5 WEEKS",
+            num: "01", name: "Concept", level: "Basic", sub: "The Essential", price: "Starting from $1,000",
+            desc: "For clients who want a professional spatial direction and visual concept, with clarity to brief a contractor and begin procurement independently.",
             phases: [
-                { label: "01 — SPATIAL PLANNING & CONCEPT", items: ["Initial consultation & briefing", "Site measurement review", "2D furniture layout", "Conceptual moodboard"] },
-                { label: "02 — VISUALIZATION", items: ["Standard 3D visualization", "Material palette guide"] },
+                { label: "01 / SPATIAL PLANNING & CONCEPT", items: ["Initial consultation and briefing", "Site measurement review", "2D furniture layout", "Conceptual moodboard"] },
+                { label: "02 / VISUALIZATION", items: ["Standard 3D visualization", "Material palette guide"] },
             ],
         },
         {
-            num: "02", name: "SPECIFICATION", sub: "The Professional",
-            desc: "For clients who require a complete interior design outcome — fully documented, technically exact, ready for any skilled artisan to execute without ambiguity.",
-            timeline: "3 PHASES · ~9 WEEKS",
+            num: "02", name: "Specification", level: "Standard", sub: "The Professional", price: "Starting from $1,900", recommended: true,
+            desc: "For clients who require a complete interior design outcome, fully documented, technically exact, and ready for skilled execution.",
             phases: [
-                { label: "01 — SPATIAL PLANNING & CONCEPT", items: ["In-depth multi-session consultation", "Site verification & measurement", "Advanced 2D layouts", "Design moodboard"] },
-                { label: "02 — VISUALIZATION & DEVELOPMENT", items: ["Photorealistic 3D renders", "Exact specification schedule", "Furniture sourcing guide"] },
-                { label: "03 — TECHNICAL DOCUMENTATION", items: ["Interior elevations & joinery drawings", "5 printed & bound hardcopy sets"] },
+                { label: "01 / SPATIAL PLANNING & CONCEPT", items: ["In-depth multi-session consultation", "Site verification and measurement", "Advanced 2D layouts", "Design moodboard"] },
+                { label: "02 / VISUALIZATION & DEVELOPMENT", items: ["Photorealistic 3D renders", "Exact specification schedule", "Furniture sourcing guide"] },
+                { label: "03 / TECHNICAL DOCUMENTATION", items: ["Interior elevations and joinery drawings", "5 printed and bound hardcopy sets"] },
             ],
         },
         {
-            num: "03", name: "WHITE GLOVE", sub: "The Executive",
-            desc: "For clients who want a completely hands-off journey — from first spatial analysis to the final staging of a move-in-ready, immaculately realized interior.",
-            timeline: "3 PHASES · ~11 WEEKS",
+            num: "03", name: "White Glove", level: "Premium", sub: "The Executive", price: "Starting from $3,200",
+            desc: "For clients who want a completely hands-off journey from spatial analysis to the final staging of a move-in-ready interior.",
             phases: [
-                { label: "01 — SPATIAL PLANNING & CONCEPT", items: ["Priority executive consultation", "Full site verification & measurement", "Advanced spatial planning & reflected ceiling plans", "Executive moodboard"] },
-                { label: "02 — VISUALIZATION & DEVELOPMENT", items: ["Comprehensive photorealistic 3D renders — all key spaces", "Bespoke furniture design", "Animated interior video walkthrough"] },
-                { label: "03 — TECHNICAL DOCUMENTATION", items: ["Interior elevations — all rooms", "Custom millwork & cabinetry blueprints", "Tile layout & setting-out plans", "Full build-ready specification set"] },
+                { label: "01 / SPATIAL PLANNING & CONCEPT", items: ["Priority executive consultation", "Full site verification and measurement", "Advanced spatial planning and reflected ceiling plans", "Executive moodboard"] },
+                { label: "02 / VISUALIZATION & DEVELOPMENT", items: ["Comprehensive photorealistic 3D renders for key spaces", "Bespoke furniture design", "Animated interior video walkthrough"] },
+                { label: "03 / TECHNICAL DOCUMENTATION", items: ["Interior elevations for all rooms", "Custom millwork and cabinetry blueprints", "Tile layout and setting-out plans", "Full build-ready specification set"] },
             ],
         },
     ],
+    disclaimer: "Pricing shown is based on interior design for a 4-bedroom residential apartment. Total pricing will be confirmed in your proposal and will be billed in your local currency.",
     buildSection: false,
     closing: "Every void considered. Every surface resolved.",
 };
 
-const initialFormState: GuideState = {
-    message: "",
-    errors: {},
-    success: false,
-};
+const FAQS = [
+    { q: "Which service is right for my project?", a: "Choose Architectural Design when the project involves a new building, extension, structural change, or approval drawings. Choose Interior Design when the building shell exists and the focus is spatial planning, finishes, furniture, and technical specification." },
+    { q: "Can Vartex handle architecture and interiors together?", a: "Yes. A coordinated engagement resolves the exterior volume and the interior experience as one design system, reducing conflicts between structure, services, materiality, and staging." },
+    { q: "What is the difference between the three tiers?", a: "The tiers scale the depth of consultation, visualization, documentation, engineering coordination, and delivery support. The Standard option is designed for clients who want a complete professional design experience." },
+    { q: "Are the prices fixed?", a: "The displayed prices are starting points for the stated project assumptions. The final scope and total price are confirmed in a proposal and billed in your local currency." },
+    { q: "Can I request a service guide before booking?", a: "Yes. Use Receive Service Guide on either detail page and the studio will send the available service overview by email when the delivery configuration and guide files are active." },
+];
 
-/* ─── SERVICE GUIDE MODAL ────────────────────────────────────────────────── */
+const initialFormState: GuideState = { message: "", errors: {}, success: false };
+const quizInitialState: QuizState = { message: "", errors: {}, success: false };
+
+function GridCTA({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+    return (
+        <section className={`relative overflow-hidden bg-primary dark:bg-[#111] text-white ${className}`}>
+            <div className="absolute inset-0 opacity-10 pointer-events-none" aria-hidden="true">
+                <svg className="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <defs><pattern id="service-grid-pattern" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5" /></pattern></defs>
+                    <rect width="100%" height="100%" fill="url(#service-grid-pattern)" />
+                </svg>
+            </div>
+            <div className="relative z-10">{children}</div>
+        </section>
+    );
+}
+
 function GuideModal({ service, onClose }: { service: string; onClose: () => void }) {
     const [state, formAction, isPending] = useActionState(requestGuideAction, initialFormState);
-
-    // Prevent background scroll when modal open
-    useEffect(() => {
-        document.body.style.overflow = "hidden";
-        return () => {
-            document.body.style.overflow = "unset";
-        };
-    }, []);
-
+    useEffect(() => { document.body.style.overflow = "hidden"; return () => { document.body.style.overflow = "unset"; }; }, []);
     return (
-        <div
-            onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[999] flex items-end justify-center sm:items-center sm:px-4"
-        >
-            <div
-                onClick={(e) => e.stopPropagation()}
-                className="bg-neutral-900 border border-neutral-800 dark:border-white/5 w-full max-w-lg p-8 sm:p-12 sm:rounded-md shadow-2xl relative max-h-[90vh] overflow-y-auto"
-            >
-                {/* Close Button */}
-                <button
-                    onClick={onClose}
-                    className="absolute top-6 right-6 text-neutral-400 hover:text-white transition-colors p-2"
-                    aria-label="Close modal"
-                >
-                    <X className="w-5 h-5" />
-                </button>
-
+        <div onClick={onClose} className="fixed inset-0 z-[999] flex items-end justify-center bg-black/80 backdrop-blur-sm sm:items-center sm:px-4">
+            <div onClick={(e) => e.stopPropagation()} className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-t-md border border-neutral-800 bg-neutral-900 p-8 shadow-2xl sm:rounded-md sm:p-12">
+                <button onClick={onClose} className="absolute right-5 top-5 p-2 text-neutral-400 transition-colors hover:text-white" aria-label="Close service guide dialog"><X className="h-5 w-5" /></button>
                 {!state.success ? (
                     <div className="flex flex-col gap-6">
-                        <div className="flex flex-col gap-2">
-                            <span className="font-mono text-[9px] text-neutral-500 tracking-[0.3em] uppercase">SERVICE SCOPE</span>
-                            <h3 className="text-3xl font-black tracking-tight text-white uppercase leading-none">
-                                {service === "architecture" ? "ARCHITECTURAL\nDESIGN GUIDE" : "INTERIOR\nDESIGN GUIDE"}
-                            </h3>
-                        </div>
-
-                        <p className="text-sm font-light text-neutral-400 leading-relaxed">
-                            Receive our exhaustive service overview — detailing structural deliverables, timelines, and phase-by-phase scope straight to your inbox.
-                        </p>
-
-                        <form action={formAction} className="flex flex-col gap-6 pt-2">
-                            {/* Hidden Service Type */}
-                            <input type="hidden" name="service" value={service} />
-
-                            {/* Name Input */}
-                            <div className="flex flex-col gap-2">
-                                <label htmlFor="guide-name" className="font-mono text-[9px] tracking-[0.2em] text-white uppercase flex justify-between">
-                                    YOUR NAME
-                                    {state.errors?.name && (
-                                        <span className="text-red-500 lowercase tracking-normal italic">{state.errors.name[0]}</span>
-                                    )}
-                                </label>
-                                <input
-                                    id="guide-name"
-                                    name="name"
-                                    type="text"
-                                    placeholder="Adaeze Okonkwo"
-                                    required
-                                    className="bg-neutral-800 border border-neutral-700/50 focus:border-white/50 px-4 py-3 text-sm text-white placeholder:text-neutral-600 outline-none transition-colors rounded-sm"
-                                />
-                            </div>
-
-                            {/* Email Input */}
-                            <div className="flex flex-col gap-2">
-                                <label htmlFor="guide-email" className="font-mono text-[9px] tracking-[0.2em] text-white uppercase flex justify-between">
-                                    EMAIL ADDRESS
-                                    {state.errors?.email && (
-                                        <span className="text-red-500 lowercase tracking-normal italic">{state.errors.email[0]}</span>
-                                    )}
-                                </label>
-                                <input
-                                    id="guide-email"
-                                    name="email"
-                                    type="email"
-                                    placeholder="adaeze@example.com"
-                                    required
-                                    className="bg-neutral-800 border border-neutral-700/50 focus:border-white/50 px-4 py-3 text-sm text-white placeholder:text-neutral-600 outline-none transition-colors rounded-sm"
-                                />
-                            </div>
-
-                            {/* General Message Error */}
-                            {state.message && !state.success && (
-                                <p className="text-xs text-red-500 italic">{state.message}</p>
-                            )}
-
-                            {/* Submit Button */}
-                            <button
-                                type="submit"
-                                disabled={isPending}
-                                className="bg-white text-black font-mono text-[10px] font-bold uppercase tracking-[0.2em] py-4 hover:bg-neutral-200 transition-colors w-full rounded-sm flex items-center justify-center gap-2"
-                            >
-                                {isPending ? (
-                                    <>
-                                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                                        SENDING...
-                                    </>
-                                ) : (
-                                    "SEND ME THE GUIDE →"
-                                )}
-                            </button>
+                        <div><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-500">SERVICE SCOPE</span><h3 className="mt-2 whitespace-pre-line text-3xl font-black uppercase leading-none tracking-tight text-white">{service === "architecture" ? "ARCHITECTURAL\nDESIGN GUIDE" : "INTERIOR\nDESIGN GUIDE"}</h3></div>
+                        <p className="text-base leading-relaxed text-neutral-400">Receive our service overview with deliverables, timelines, and engagement options.</p>
+                        <form action={formAction} className="flex flex-col gap-6"><input type="hidden" name="service" value={service} />
+                            <label className="flex flex-col gap-2 font-mono text-[11px] tracking-[0.2em] text-white">YOUR NAME<input name="name" type="text" placeholder="Adaeze Okonkwo" required className="rounded-sm border border-neutral-700 bg-neutral-800 px-4 py-3 font-sans text-base tracking-normal text-white outline-none placeholder:text-neutral-600 focus:border-white/60" />{state.errors?.name && <span className="font-sans text-sm normal-case tracking-normal text-red-400">{state.errors.name[0]}</span>}</label>
+                            <label className="flex flex-col gap-2 font-mono text-[11px] tracking-[0.2em] text-white">EMAIL ADDRESS<input name="email" type="email" placeholder="adaeze@example.com" required className="rounded-sm border border-neutral-700 bg-neutral-800 px-4 py-3 font-sans text-base tracking-normal text-white outline-none placeholder:text-neutral-600 focus:border-white/60" />{state.errors?.email && <span className="font-sans text-sm normal-case tracking-normal text-red-400">{state.errors.email[0]}</span>}</label>
+                            {state.message && !state.success && <p className="text-sm text-red-400">{state.message}</p>}
+                            <button type="submit" disabled={isPending} className="flex w-full items-center justify-center gap-2 rounded-sm bg-white py-4 font-mono text-[11px] font-bold tracking-[0.2em] text-black transition-colors hover:bg-neutral-200 disabled:opacity-60">{isPending ? <><Loader2 className="h-4 w-4 animate-spin" /> SENDING...</> : "SEND ME THE GUIDE"}</button>
                         </form>
-
-                        <span className="font-mono text-[8px] text-neutral-600 tracking-wider text-center block">
-                            Direct download link sent to verify and prevent mailbox spam.
-                        </span>
+                        <span className="text-center font-mono text-[10px] leading-relaxed tracking-wider text-neutral-500">The guide is delivered by email when the studio delivery files are configured.</span>
                     </div>
-                ) : (
-                    <div className="flex flex-col items-center justify-center text-center py-6 gap-6">
-                        <CheckCircle className="w-14 h-14 text-white animate-pulse" />
-                        <div className="flex flex-col gap-2">
-                            <h3 className="text-2xl font-black tracking-tight text-white uppercase leading-none">GUIDE SENT.</h3>
-                            <p className="text-sm font-light text-neutral-400 leading-relaxed max-w-sm mt-2">
-                                Please check your inbox. If it does not arrive within a few minutes, check your junk folder.<br /><br />
-                                Once you have reviewed the details, feel free to get in touch.
-                            </p>
-                        </div>
-                        <button
-                            onClick={onClose}
-                            className="bg-white text-black font-mono text-[10px] font-bold uppercase tracking-[0.2em] py-4 px-12 hover:bg-neutral-200 transition-colors rounded-sm"
-                        >
-                            RETURN TO SERVICES
-                        </button>
-                    </div>
-                )}
+                ) : <div className="flex flex-col items-center gap-6 py-8 text-center"><CheckCircle className="h-14 w-14 text-white" /><h3 className="text-2xl font-black uppercase text-white">GUIDE REQUEST RECEIVED.</h3><p className="text-base leading-relaxed text-neutral-400">Please check your inbox. If it does not arrive shortly, check your junk folder.</p><button onClick={onClose} className="rounded-sm bg-white px-10 py-4 font-mono text-[11px] font-bold tracking-[0.2em] text-black">CLOSE</button></div>}
             </div>
         </div>
     );
 }
 
-/* ─── ACCORDION CARD ──────────────────────────────────────────────────────── */
-function EngCard({
-    eng,
-    isOpen,
-    toggle,
-}: {
-    eng: { num: string; name: string; sub: string; desc: string; timeline: string; phases: { label: string; items: string[] }[] };
-    isOpen: boolean;
-    toggle: () => void;
-}) {
-    const contentRef = useRef<HTMLDivElement>(null);
+const Q1_OPTIONS = ["Building something new", "Renovating or extending an existing structure", "Transforming an interior space", "I need both architecture and interior design"];
+const Q2_OPTIONS = ["Single residential home", "Multi-unit residential", "Commercial or mixed-use", "Not sure yet"];
 
-    return (
-        <div className="border-b border-neutral-100 dark:border-white/5 transition-all duration-300">
-            <button
-                onClick={toggle}
-                className="w-full py-8 text-left flex justify-between items-center group focus:outline-none"
-            >
-                <div className="flex flex-col gap-1">
-                    <span className="font-mono text-[8px] text-neutral-400 dark:text-neutral-500 tracking-[0.2em]">{eng.num} / 03</span>
-                    <h3 className="text-xl lg:text-2xl font-bold tracking-tight text-primary dark:text-white transition-colors group-hover:opacity-75">
-                        {eng.name}
-                    </h3>
-                    <span className="font-mono text-[9px] text-neutral-400 dark:text-neutral-500 tracking-[0.1em]">{eng.sub}</span>
-                </div>
-                <div className="w-8 h-8 rounded-full border border-neutral-200 dark:border-white/10 flex items-center justify-center group-hover:border-primary dark:group-hover:border-white transition-colors">
-                    <ChevronRight
-                        className={`w-4 h-4 text-neutral-400 dark:text-white transition-transform duration-300 ${
-                            isOpen ? "rotate-90" : ""
-                        }`}
-                    />
-                </div>
-            </button>
-
-            <div
-                ref={contentRef}
-                style={{
-                    maxHeight: isOpen ? `${contentRef.current?.scrollHeight}px` : "0px",
-                    opacity: isOpen ? 1 : 0,
-                    overflow: "hidden",
-                    transition: "max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease",
-                }}
-            >
-                <div className="pb-8 flex flex-col gap-6 text-sm font-light text-primary/70 dark:text-white/70">
-                    <p className="leading-relaxed border-b border-neutral-100 dark:border-white/5 pb-6">
-                        {eng.desc}
-                    </p>
-                    <div>
-                        <span className="font-mono text-[9px] text-primary dark:text-white tracking-widest block mb-4 uppercase">
-                            ESTIMATED TIMELINE: <span className="font-bold">{eng.timeline}</span>
-                        </span>
-                        <div className="flex flex-col gap-6 mt-4">
-                            {eng.phases.map((phase, i) => (
-                                <div key={i} className="flex flex-col gap-3">
-                                    <h4 className="font-mono text-[9px] tracking-widest text-neutral-400 dark:text-neutral-500 uppercase border-b border-neutral-100 dark:border-white/5 pb-2">
-                                        {phase.label}
-                                    </h4>
-                                    <ul className="flex flex-col gap-2">
-                                        {phase.items.map((item, j) => (
-                                            <li key={j} className="flex gap-3 items-start">
-                                                <span className="w-1.5 h-[1px] bg-neutral-300 dark:bg-white/20 mt-2 shrink-0 self-start"></span>
-                                                <span className="text-[11px] lg:text-xs font-light tracking-[0.02em] leading-relaxed text-neutral-600 dark:text-neutral-400">{item}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+function recommendation(q1: string) {
+    if (q1 === "Transforming an interior space") return { service: "interior", label: "Interior Design", reason: "Your focus maps directly to our Interior Design discipline: spatial planning, visualization, and technical specification." };
+    if (q1 === "I need both architecture and interior design") return { service: "both", label: "Architecture + Interior Design", reason: "Your project benefits from an integrated approach that resolves structural form and interior staging together." };
+    return { service: "architecture", label: "Architectural Design", reason: "Your project involves new construction or structural work, from site analysis through complete documentation." };
 }
-
-/* ─── DECISION QUIZ MODAL ────────────────────────────────────────────────── */
-const Q1_OPTIONS = [
-    "Building something new",
-    "Renovating or extending an existing structure",
-    "Transforming an interior space",
-    "I need both architecture and interior design",
-];
-
-const Q2_OPTIONS = [
-    "Single residential home",
-    "Multi-unit residential",
-    "Commercial or mixed-use",
-    "Not sure yet",
-];
-
-function getRecommendation(q1: string): { service: "architecture" | "interior" | "both"; label: string; reason: string } {
-    if (q1 === "Transforming an interior space") {
-        return { service: "interior", label: "Interior Design", reason: "Your focus on transforming an existing space maps directly to our Interior Design discipline — spatial planning, visualization, and technical specification." };
-    }
-    if (q1 === "I need both architecture and interior design") {
-        return { service: "both", label: "Architecture + Interior Design", reason: "Your project benefits from a fully integrated approach — resolving both the structural form and interior staging concurrently with one team." };
-    }
-    return { service: "architecture", label: "Architectural Design", reason: "Your project involves new construction or structural work, which sits squarely in our Architectural Design discipline — from site analysis through to full documentation." };
-}
-
-const quizInitialState: QuizState = { message: "", errors: {}, success: false };
 
 function DecisionQuizModal({ onClose }: { onClose: () => void }) {
     const [step, setStep] = useState<"q1" | "q2" | "recommendation">("q1");
-    const [q1, setQ1] = useState("");
-    const [q2, setQ2] = useState("");
-    const [rec, setRec] = useState<{ service: "architecture" | "interior" | "both"; label: string; reason: string } | null>(null);
-    const [skipBoth, setSkipBoth] = useState(false);
-    const [quizState, quizAction, isQuizPending] = useActionState(submitQuizAction, quizInitialState);
-
-    useEffect(() => {
-        document.body.style.overflow = "hidden";
-        return () => { document.body.style.overflow = "unset"; };
-    }, []);
-
-    function handleQ1(answer: string) {
-        setQ1(answer);
-        setStep("q2");
-    }
-
-    function handleQ2(answer: string) {
-        setQ2(answer);
-        setRec(getRecommendation(q1));
-        setStep("recommendation");
-    }
-
-    function handleSkipBoth() {
-        setSkipBoth(true);
-        setRec({ service: "both", label: "Architecture + Interior Design", reason: "You requested both service guides — we will send you the full overview for both our Architectural Design and Interior Design disciplines." });
-        setStep("recommendation");
-    }
-
-    return (
-        <div onClick={onClose} className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[999] flex items-end justify-center sm:items-center sm:px-4">
-            <div
-                onClick={(e) => e.stopPropagation()}
-                className="bg-neutral-900 border border-neutral-800 w-full max-w-lg p-8 sm:p-12 sm:rounded-md shadow-2xl relative max-h-[92vh] overflow-y-auto"
-                style={{ animation: "slideUp 0.35s cubic-bezier(0.16,1,0.3,1)" }}
-            >
-                <style>{`@keyframes slideUp { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }`}</style>
-
-                {/* Close */}
-                <button onClick={onClose} className="absolute top-5 right-5 text-neutral-500 hover:text-white transition-colors p-2" aria-label="Close">
-                    <X className="w-4 h-4" />
-                </button>
-
-                {/* SUCCESS */}
-                {quizState.success ? (
-                    <div className="flex flex-col items-center text-center py-8 gap-6">
-                        <div className="w-10 h-[1px] bg-white/30"></div>
-                        <h3 className="text-2xl font-black tracking-tight text-white uppercase">YOUR GUIDE IS ON ITS WAY.</h3>
-                        <p className="text-sm font-light text-neutral-400 leading-relaxed max-w-xs">
-                            Check your inbox. If it does not arrive within a few minutes, check your junk folder.
-                        </p>
-                        <button onClick={onClose} className="border border-white/20 hover:border-white text-white font-mono text-[9px] uppercase tracking-[0.25em] py-4 px-10 transition-colors mt-2">
-                            CLOSE
-                        </button>
-                    </div>
-                ) : step === "q1" ? (
-                    <div className="flex flex-col gap-7">
-                        <div className="flex flex-col gap-2">
-                            <span className="font-mono text-[9px] text-neutral-500 tracking-[0.3em] uppercase">SERVICE MATCHING — 01 / 02</span>
-                            <h3 className="text-2xl font-black tracking-tight text-white uppercase leading-snug">What are you<br />planning?</h3>
-                        </div>
-                        <div className="flex flex-col gap-2 mt-1">
-                            {Q1_OPTIONS.map((opt) => (
-                                <button
-                                    key={opt}
-                                    onClick={() => handleQ1(opt)}
-                                    className="text-left border border-neutral-700 hover:border-white/60 text-white/80 hover:text-white font-light text-sm px-5 py-4 transition-all leading-snug"
-                                >
-                                    {opt}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                ) : step === "q2" ? (
-                    <div className="flex flex-col gap-7">
-                        <div className="flex flex-col gap-2">
-                            <span className="font-mono text-[9px] text-neutral-500 tracking-[0.3em] uppercase">SERVICE MATCHING — 02 / 02</span>
-                            <h3 className="text-2xl font-black tracking-tight text-white uppercase leading-snug">What is the scale<br />of the project?</h3>
-                        </div>
-                        <div className="flex flex-col gap-2 mt-1">
-                            {Q2_OPTIONS.map((opt) => (
-                                <button
-                                    key={opt}
-                                    onClick={() => handleQ2(opt)}
-                                    className="text-left border border-neutral-700 hover:border-white/60 text-white/80 hover:text-white font-light text-sm px-5 py-4 transition-all leading-snug"
-                                >
-                                    {opt}
-                                </button>
-                            ))}
-                        </div>
-                        <button onClick={() => setStep("q1")} className="font-mono text-[9px] text-neutral-500 hover:text-white uppercase tracking-[0.2em] text-left transition-colors pt-1">
-                            BACK
-                        </button>
-                    </div>
-                ) : rec ? (
-                    <form action={quizAction} className="flex flex-col gap-6">
-                        <input type="hidden" name="service" value={skipBoth ? "both" : rec.service} />
-                        <input type="hidden" name="q1" value={q1} />
-                        <input type="hidden" name="q2" value={q2} />
-
-                        <div className="flex flex-col gap-2">
-                            <span className="font-mono text-[9px] text-neutral-500 tracking-[0.3em] uppercase">OUR RECOMMENDATION</span>
-                            <h3 className="text-2xl font-black tracking-tight text-white uppercase leading-snug">{rec.label}</h3>
-                            <p className="text-xs font-light text-neutral-400 leading-relaxed mt-1">{rec.reason}</p>
-                        </div>
-
-                        <div className="w-full h-[1px] bg-neutral-800"></div>
-
-                        {/* Name */}
-                        <div className="flex flex-col gap-2">
-                            <label htmlFor="quiz-name" className="font-mono text-[9px] tracking-[0.2em] text-white uppercase flex justify-between">
-                                YOUR NAME
-                                {quizState.errors?.name && <span className="text-red-400 lowercase tracking-normal italic">{quizState.errors.name[0]}</span>}
-                            </label>
-                            <input id="quiz-name" name="name" type="text" placeholder="Adaeze Okonkwo" required
-                                className="bg-neutral-800 border border-neutral-700/50 focus:border-white/40 px-4 py-3 text-sm text-white placeholder:text-neutral-600 outline-none transition-colors" />
-                        </div>
-
-                        {/* Email */}
-                        <div className="flex flex-col gap-2">
-                            <label htmlFor="quiz-email" className="font-mono text-[9px] tracking-[0.2em] text-white uppercase flex justify-between">
-                                EMAIL ADDRESS
-                                {quizState.errors?.email && <span className="text-red-400 lowercase tracking-normal italic">{quizState.errors.email[0]}</span>}
-                            </label>
-                            <input id="quiz-email" name="email" type="email" placeholder="adaeze@example.com" required
-                                className="bg-neutral-800 border border-neutral-700/50 focus:border-white/40 px-4 py-3 text-sm text-white placeholder:text-neutral-600 outline-none transition-colors" />
-                        </div>
-
-                        {quizState.message && !quizState.success && (
-                            <p className="text-xs text-red-400 italic">{quizState.message}</p>
-                        )}
-
-                        <button type="submit" disabled={isQuizPending}
-                            className="bg-white text-black font-mono text-[10px] font-bold uppercase tracking-[0.2em] py-4 hover:bg-neutral-200 transition-colors w-full flex items-center justify-center gap-2">
-                            {isQuizPending ? <><Loader2 className="w-3 h-3 animate-spin" /> SENDING...</> : "SEND ME THE GUIDE"}
-                        </button>
-
-                        <button type="button" onClick={handleSkipBoth}
-                            className="font-mono text-[8px] text-neutral-500 hover:text-white uppercase tracking-[0.2em] text-center transition-colors">
-                            SKIP — JUST SEND ME BOTH GUIDES
-                        </button>
-
-                        <button type="button" onClick={() => setStep("q2")}
-                            className="font-mono text-[9px] text-neutral-500 hover:text-white uppercase tracking-[0.2em] text-left transition-colors -mt-2">
-                            BACK
-                        </button>
-                    </form>
-                ) : null}
-            </div>
-        </div>
-    );
+    const [q1, setQ1] = useState(""); const [q2, setQ2] = useState(""); const [skipBoth, setSkipBoth] = useState(false);
+    const [rec, setRec] = useState<ReturnType<typeof recommendation> | null>(null);
+    const [quizState, quizAction, isPending] = useActionState(submitQuizAction, quizInitialState);
+    useEffect(() => { document.body.style.overflow = "hidden"; return () => { document.body.style.overflow = "unset"; }; }, []);
+    return <div onClick={onClose} className="fixed inset-0 z-[999] flex items-end justify-center bg-black/80 backdrop-blur-sm sm:items-center sm:px-4"><div onClick={(e) => e.stopPropagation()} className="relative w-full max-w-lg rounded-t-md border border-neutral-800 bg-neutral-900 p-8 shadow-2xl sm:rounded-md sm:p-12"><button onClick={onClose} className="absolute right-5 top-5 p-2 text-neutral-500 hover:text-white" aria-label="Close service matching dialog"><X className="h-5 w-5" /></button>
+        {quizState.success ? <div className="flex flex-col items-center gap-6 py-8 text-center"><h3 className="text-2xl font-black uppercase text-white">YOUR GUIDE IS ON ITS WAY.</h3><p className="text-base leading-relaxed text-neutral-400">Check your inbox. If it does not arrive shortly, check your junk folder.</p><button onClick={onClose} className="border border-white/30 px-10 py-4 font-mono text-[11px] tracking-[0.2em] text-white">CLOSE</button></div> : step === "q1" ? <div className="flex flex-col gap-7"><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-500">SERVICE MATCHING / 01 / 02</span><h3 className="text-3xl font-black uppercase leading-snug text-white">What are you<br />planning?</h3><div className="flex flex-col gap-2">{Q1_OPTIONS.map((option) => <button key={option} onClick={() => { setQ1(option); setStep("q2"); }} className="border border-neutral-700 px-5 py-4 text-left text-base leading-snug text-white/80 transition-colors hover:border-white/60 hover:text-white">{option}</button>)}</div></div> : step === "q2" ? <div className="flex flex-col gap-7"><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-500">SERVICE MATCHING / 02 / 02</span><h3 className="text-3xl font-black uppercase leading-snug text-white">What is the scale<br />of the project?</h3><div className="flex flex-col gap-2">{Q2_OPTIONS.map((option) => <button key={option} onClick={() => { setQ2(option); setRec(recommendation(q1)); setStep("recommendation"); }} className="border border-neutral-700 px-5 py-4 text-left text-base leading-snug text-white/80 transition-colors hover:border-white/60 hover:text-white">{option}</button>)}</div><button onClick={() => setStep("q1")} className="text-left font-mono text-[11px] tracking-[0.2em] text-neutral-500 hover:text-white">BACK</button></div> : rec && <form action={quizAction} className="flex flex-col gap-6"><input type="hidden" name="service" value={skipBoth ? "both" : rec.service} /><input type="hidden" name="q1" value={q1} /><input type="hidden" name="q2" value={q2} /><div><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-500">OUR RECOMMENDATION</span><h3 className="mt-2 text-3xl font-black uppercase leading-tight text-white">{rec.label}</h3><p className="mt-3 text-base leading-relaxed text-neutral-400">{rec.reason}</p></div><label className="flex flex-col gap-2 font-mono text-[11px] tracking-[0.2em] text-white">YOUR NAME<input name="name" type="text" placeholder="Adaeze Okonkwo" required className="rounded-sm border border-neutral-700 bg-neutral-800 px-4 py-3 font-sans text-base tracking-normal text-white outline-none placeholder:text-neutral-600 focus:border-white/60" /></label><label className="flex flex-col gap-2 font-mono text-[11px] tracking-[0.2em] text-white">EMAIL ADDRESS<input name="email" type="email" placeholder="adaeze@example.com" required className="rounded-sm border border-neutral-700 bg-neutral-800 px-4 py-3 font-sans text-base tracking-normal text-white outline-none placeholder:text-neutral-600 focus:border-white/60" /></label>{quizState.message && <p className="text-sm text-red-400">{quizState.message}</p>}<button type="submit" disabled={isPending} className="flex items-center justify-center gap-2 bg-white py-4 font-mono text-[11px] font-bold tracking-[0.2em] text-black disabled:opacity-60">{isPending ? <><Loader2 className="h-4 w-4 animate-spin" /> SENDING...</> : "SEND ME THE GUIDE"}</button><button type="button" onClick={() => { setSkipBoth(true); setRec({ service: "both", label: "Architecture + Interior Design", reason: "We will send the full overview for both disciplines." }); }} className="font-mono text-[10px] tracking-[0.15em] text-neutral-500 hover:text-white">SKIP AND SEND BOTH GUIDES</button><button type="button" onClick={() => setStep("q2")} className="text-left font-mono text-[11px] tracking-[0.2em] text-neutral-500 hover:text-white">BACK</button></form>}
+    </div></div>;
 }
 
-/* ─── SERVICES INDEX ──────────────────────────────────────────────────────── */
-function ServicesIndex({ setPage, onOpenQuiz }: { setPage: (p: string) => void; onOpenQuiz: () => void }) {
-    return (
-        <div className="flex flex-col">
-            {/* HERO */}
-            <section className="px-8 lg:px-24 py-24 lg:py-36 border-b border-neutral-100 dark:border-white/5 flex flex-col gap-8">
-                <span className="font-mono text-[10px] tracking-[0.4em] text-neutral-400 uppercase">03 — SERVICES</span>
-                <h1 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.9] text-primary dark:text-white">
-                    Every line<br />serves<br />a purpose.
-                </h1>
-                <p className="text-lg lg:text-xl font-light text-primary/60 dark:text-white/60 max-w-xl leading-relaxed">
-                    Vartex operates across two specialized architectural disciplines. In both fields, our commitment is absolute: resolving structural voids and interior proportions through systematic rigor.
-                </p>
-            </section>
-
-            {/* SECTIONS GRID */}
-            <section className="grid grid-cols-1 lg:grid-cols-2">
-                {/* ARCHITECTURE */}
-                <div className="px-8 lg:px-24 py-20 lg:py-32 border-b lg:border-b-0 lg:border-r border-neutral-100 dark:border-white/5 flex flex-col gap-8 justify-between">
-                    <div className="flex flex-col gap-6">
-                        <span className="font-mono text-xs tracking-widest text-neutral-400">01</span>
-                        <h2 className="text-3xl lg:text-5xl font-black tracking-tight text-primary dark:text-white uppercase leading-none">
-                            Architectural<br />Design
-                        </h2>
-                        <p className="text-sm font-light text-primary/60 dark:text-white/60 leading-relaxed max-w-md">
-                            We design structures from the inside out — beginning with site context, solar orientation, and structural integrity to shape spatial interactions.
-                        </p>
-                    </div>
-                    <button
-                        onClick={() => setPage("architecture")}
-                        className="bg-primary dark:bg-white text-white dark:text-black font-mono text-[10px] font-bold uppercase tracking-[0.2em] py-5 px-8 hover:bg-black dark:hover:bg-neutral-200 transition-colors w-full sm:w-auto self-start mt-8"
-                    >
-                        EXPLORE THIS SERVICE →
-                    </button>
-                </div>
-
-                {/* INTERIOR */}
-                <div className="px-8 lg:px-24 py-20 lg:py-32 border-b lg:border-b-0 border-neutral-100 dark:border-white/5 flex flex-col gap-8 justify-between">
-                    <div className="flex flex-col gap-6">
-                        <span className="font-mono text-xs tracking-widest text-neutral-400">02</span>
-                        <h2 className="text-3xl lg:text-5xl font-black tracking-tight text-primary dark:text-white uppercase leading-none">
-                            Interior<br />Design
-                        </h2>
-                        <p className="text-sm font-light text-primary/60 dark:text-white/60 leading-relaxed max-w-md">
-                            Proportion, surface finishes, and custom millwork are integrated seamlessly to complete architectural spaces.
-                        </p>
-                    </div>
-                    <button
-                        onClick={() => setPage("interior")}
-                        className="border border-neutral-200 dark:border-white/10 hover:bg-neutral-50 dark:hover:bg-white/5 text-primary dark:text-white font-mono text-[10px] font-bold uppercase tracking-[0.2em] py-5 px-8 transition-colors w-full sm:w-auto self-start mt-8"
-                    >
-                        EXPLORE THIS SERVICE →
-                    </button>
-                </div>
-            </section>
-
-            {/* ADVISORY SECTION */}
-            <section className="px-8 lg:px-24 py-20 lg:py-32 bg-neutral-50 dark:bg-neutral-900/10 border-t border-neutral-100 dark:border-white/5 flex flex-col gap-8">
-                <span className="font-mono text-[9px] tracking-[0.3em] text-neutral-400 uppercase">COORDINATED ENGAGEMENT</span>
-                <h3 className="text-2xl lg:text-4xl font-black tracking-tight text-primary dark:text-white uppercase leading-none">
-                    Some projects require both.
-                </h3>
-                <p className="text-sm font-light text-primary/60 dark:text-white/60 max-w-2xl leading-relaxed">
-                    The highest design outcomes are achieved when exterior volumes and interior staging are resolved concurrently. If your project is still open in scope, let&apos;s begin with a coordinated design consultation.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 self-start w-full sm:w-auto">
-                    <button
-                        onClick={onOpenQuiz}
-                        className="bg-primary dark:bg-white text-white dark:text-black font-mono text-[10px] font-bold uppercase tracking-[0.2em] py-5 px-10 hover:bg-black dark:hover:bg-neutral-200 transition-colors text-center w-full sm:w-auto"
-                    >
-                        HELP ME DECIDE
-                    </button>
-                    <Link
-                        href="/contact"
-                        className="border border-primary dark:border-white text-primary dark:text-white hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-black font-mono text-[10px] font-bold uppercase tracking-[0.2em] py-5 px-10 transition-colors w-full sm:w-auto self-start text-center"
-                    >
-                        BEGIN THE CONVERSATION
-                    </Link>
-                </div>
-            </section>
-        </div>
-    );
+function FAQSection() {
+    const [open, setOpen] = useState<number | null>(0);
+    return <section className="service-reveal border-t border-neutral-100 bg-neutral-50 px-8 py-20 dark:border-white/5 dark:bg-neutral-900/10 lg:px-24 lg:py-28"><div className="grid gap-12 lg:grid-cols-12"><div className="lg:col-span-4"><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">FREQUENTLY ASKED QUESTIONS</span><h2 className="mt-5 max-w-xs text-4xl font-black uppercase leading-none tracking-tighter text-primary dark:text-white">Clarity before the first line.</h2></div><div className="lg:col-span-8">{FAQS.map((item, index) => <div key={item.q} className="border-t border-neutral-200 dark:border-white/10"><button onClick={() => setOpen(open === index ? null : index)} aria-expanded={open === index} className="flex w-full items-center justify-between gap-6 py-6 text-left text-lg font-bold text-primary dark:text-white"><span>{item.q}</span><ChevronDown className={`h-5 w-5 shrink-0 transition-transform duration-300 ${open === index ? "rotate-180" : ""}`} /></button><div className={`grid transition-[grid-template-rows,opacity] duration-300 ${open === index ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}><div className="min-h-0 overflow-hidden"><p className="max-w-2xl pb-6 text-base leading-relaxed text-primary/65 dark:text-white/65">{item.a}</p></div></div></div>)}</div></div></section>;
 }
 
-/* ─── SERVICES DETAIL ─────────────────────────────────────────────────────── */
-function ServicesDetail({ data, setPage }: { data: typeof ARCH; setPage: (p: string) => void }) {
-    const [openCardIndex, setOpenCardIndex] = useState<number | null>(0);
+function ServicesIndex({ onOpenQuiz }: { onOpenQuiz: () => void }) {
+    return <div className="flex flex-col"><section className="service-reveal border-b border-neutral-100 px-8 py-24 dark:border-white/5 lg:px-24 lg:py-36"><span className="font-mono text-[11px] tracking-[0.4em] text-neutral-400">03 / SERVICES</span><h1 className="mt-7 max-w-3xl text-6xl font-black uppercase leading-[0.86] tracking-tighter text-primary dark:text-white lg:text-[8rem]">Every line<br />serves<br />a purpose.</h1><p className="mt-10 max-w-xl text-lg leading-relaxed text-primary/65 dark:text-white/65 lg:text-xl">Vartex operates across two specialized architectural disciplines. In both fields, our commitment is absolute: resolving structural voids and interior proportions through systematic rigour.</p></section>
+        <div className="service-reveal relative h-[46vh] min-h-[300px] w-full overflow-hidden bg-neutral-900"><Image src="/hero.webp" alt="Vartex architectural design atmosphere" fill priority sizes="100vw" className="object-cover object-center" /><div className="absolute inset-0 bg-black/25" /><span className="absolute bottom-6 left-8 font-mono text-[11px] tracking-[0.3em] text-white/80 lg:bottom-10 lg:left-24">FORM / MATERIAL / LIGHT</span></div>
+        <section className="grid grid-cols-1 lg:grid-cols-2">{([{ id: "architecture", number: "01", title: "Architectural Design", description: "We design structures from the inside out, beginning with site context, solar orientation, and structural integrity.", image: "/images/process/architectural-precision-drafting.jpg", icon: HomeIcon }, { id: "interior", number: "02", title: "Interior Design", description: "Proportion, surface finishes, and custom millwork are integrated seamlessly to complete architectural spaces.", image: "/projects/project-3.webp", icon: Sofa }] as const).map((service) => { const Icon = service.icon; return <Link key={service.id} href={`/services/${service.id}`} className="service-reveal group border-b border-r border-neutral-100 bg-white p-8 text-left transition-colors hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:border-white/5 dark:bg-background-dark dark:hover:bg-neutral-900 lg:p-16"><div className="relative mb-10 aspect-[16/9] overflow-hidden bg-neutral-100 dark:bg-neutral-900"><Image src={service.image} alt={`${service.title} service`} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-black/10" /></div><div className="flex items-start justify-between gap-6"><div><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">{service.number}</span><h2 className="mt-4 text-3xl font-black uppercase leading-none tracking-tight text-primary dark:text-white lg:text-5xl">{service.title}</h2><p className="mt-6 max-w-md text-base leading-relaxed text-primary/65 dark:text-white/65">{service.description}</p></div><Icon className="mt-1 h-8 w-8 shrink-0 text-primary/25 transition-colors group-hover:text-primary dark:text-white/25 dark:group-hover:text-white" aria-hidden="true" /></div><span className="mt-10 inline-flex items-center gap-3 font-mono text-[11px] font-bold tracking-[0.2em] text-primary dark:text-white">EXPLORE THIS SERVICE <ArrowUpRight className="h-4 w-4" /></span></Link>; })}</section>
+        <section className="service-reveal bg-neutral-50 px-8 py-20 dark:bg-neutral-900/10 lg:px-24 lg:py-28"><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">COORDINATED ENGAGEMENT</span><h2 className="mt-5 text-3xl font-black uppercase tracking-tight text-primary dark:text-white lg:text-5xl">Some projects require both.</h2><p className="mt-6 max-w-2xl text-base leading-relaxed text-primary/65 dark:text-white/65">The highest design outcomes are achieved when exterior volumes and interior staging are resolved concurrently. If your project is still open in scope, begin with a coordinated design consultation.</p><button onClick={onOpenQuiz} className="mt-10 bg-primary px-8 py-5 font-mono text-[11px] font-bold tracking-[0.2em] text-white transition-colors hover:bg-black dark:bg-white dark:text-black dark:hover:bg-neutral-200">HELP ME DECIDE</button></section><FAQSection /></div>;
+}
+
+function TierCard({ tier, active, onSelect, mobile }: { tier: Tier; active: boolean; onSelect?: () => void; mobile?: boolean }) {
+    const summary = tier.phases.flatMap((phase) => phase.items).slice(0, 6);
+    return <article onClick={onSelect} onKeyDown={(event) => { if (mobile && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); onSelect?.(); } }} tabIndex={mobile ? 0 : undefined} className={`relative flex min-h-[480px] flex-col border p-7 transition-all duration-300 lg:p-8 ${tier.recommended ? "border-primary bg-primary text-white dark:border-white dark:bg-white dark:text-primary" : "border-neutral-200 bg-white text-primary dark:border-white/10 dark:bg-background-dark dark:text-white"} ${mobile && !active ? "scale-[0.97] opacity-70" : "scale-100 opacity-100"}`}>
+        {tier.recommended && <span className={`absolute -top-3 left-6 px-3 py-1 font-mono text-[10px] font-bold tracking-[0.16em] ${tier.recommended ? "bg-white text-primary dark:bg-primary dark:text-white" : ""}`}>MOST OF OUR CLIENTS CHOOSE THIS</span>}
+        <div className="flex items-start justify-between gap-4"><span className={`font-mono text-[11px] tracking-[0.2em] ${tier.recommended ? "opacity-60" : "text-neutral-400"}`}>{tier.num} / 03</span><span className={`font-mono text-[10px] tracking-[0.2em] ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{tier.level}</span></div>
+        <h3 className="mt-12 text-3xl font-black uppercase leading-none tracking-tight">{tier.name}</h3><span className={`mt-3 font-mono text-[11px] tracking-[0.16em] ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{tier.sub}</span><div className="mt-8 border-y border-current/15 py-5"><span className="block font-mono text-[10px] tracking-[0.16em] opacity-60">STARTING PRICE</span><strong className="mt-2 block text-2xl font-bold">{tier.price}</strong></div><p className={`mt-6 text-base leading-relaxed ${tier.recommended ? "opacity-80" : "text-primary/65 dark:text-white/65"}`}>{tier.desc}</p><ul className="mt-7 flex flex-col gap-3">{summary.map((item) => <li key={item} className="flex gap-3 text-sm leading-relaxed"><span className="mt-2 h-px w-2 shrink-0 bg-current opacity-50" /><span>{item}</span></li>)}</ul></article>;
+}
+
+function TierComparison({ data }: { data: ServiceData }) {
+    const [active, setActive] = useState(1);
+    const mobileRefs = useRef<(HTMLElement | null)[]>([]);
+    useEffect(() => { mobileRefs.current[1]?.scrollIntoView({ inline: "center", block: "nearest" }); }, []);
+    const select = (index: number) => { setActive(index); mobileRefs.current[index]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" }); };
+    return <section className="service-reveal border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:px-24 lg:py-32"><div className="max-w-3xl"><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">ENGAGEMENT MODELS</span><h2 className="mt-5 text-4xl font-black uppercase leading-none tracking-tighter text-primary dark:text-white lg:text-6xl">Three scoping tiers.</h2><p className="mt-7 text-base leading-relaxed text-primary/65 dark:text-white/65">Choose the level of design support that matches your project complexity. Each tier can be refined in your proposal.</p></div><div className="mt-14 hidden gap-5 lg:grid lg:grid-cols-3">{data.tiers.map((tier) => <TierCard key={tier.name} tier={tier} active={true} />)}</div><div className="no-scrollbar mt-14 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[11vw] pb-5 lg:hidden">{data.tiers.map((tier, index) => <div key={tier.name} ref={(node) => { mobileRefs.current[index] = node; }} className="w-[78vw] shrink-0 snap-center"><TierCard tier={tier} active={active === index} mobile onSelect={() => select(index)} /></div>)}</div><p className="mt-8 max-w-3xl text-sm leading-relaxed text-primary/55 dark:text-white/55">{data.disclaimer}</p></section>;
+}
+
+function ServicesDetail({ data, setPage }: { data: ServiceData; setPage: (p: "index" | "architecture" | "interior") => void }) {
     const [showGuide, setShowGuide] = useState(false);
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [data.id]);
-
-    return (
-        <div className="flex flex-col">
-            {/* BREADCRUMB */}
-            <div className="px-8 lg:px-24 py-6 border-b border-neutral-100 dark:border-white/5 flex gap-3 items-center font-mono text-[9px] tracking-wider text-neutral-400 dark:text-neutral-500 uppercase">
-                <button onClick={() => setPage("index")} className="hover:text-primary dark:hover:text-white transition-colors">
-                    SERVICES
-                </button>
-                <span>/</span>
-                <span className="text-primary dark:text-white">{data.label}</span>
-            </div>
-
-            {/* HERO */}
-            <section className="px-8 lg:px-24 py-20 lg:py-32 border-b border-neutral-100 dark:border-white/5 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-                <div className="lg:col-span-8 flex flex-col gap-8">
-                    <span className="font-mono text-[10px] tracking-[0.4em] text-neutral-400 uppercase">0{data.index} — SERVICE DIRECTORY</span>
-                    <h1 className="text-4xl lg:text-7xl font-black uppercase tracking-tighter leading-none text-primary dark:text-white">
-                        {data.headline.map((line, idx) => (
-                            <span key={idx} className="block">{line}</span>
-                        ))}
-                    </h1>
-                    <p className="text-lg lg:text-xl font-light text-primary/60 dark:text-white/60 leading-relaxed max-w-xl">
-                        {data.hero}
-                    </p>
-                    <span className="font-mono text-xs tracking-widest text-primary dark:text-white uppercase font-semibold">
-                        {data.tagline}
-                    </span>
-                </div>
-
-                <div className="lg:col-span-4 flex flex-col gap-4 lg:sticky lg:top-24 w-full">
-                    <button
-                        onClick={() => setShowGuide(true)}
-                        className="bg-primary dark:bg-white text-white dark:text-black font-mono text-[10px] font-bold uppercase tracking-[0.2em] py-5 px-8 hover:bg-black dark:hover:bg-neutral-200 transition-colors w-full"
-                    >
-                        RECEIVE SERVICE GUIDE
-                    </button>
-                    <Link
-                        href="/contact"
-                        className="border border-neutral-200 dark:border-white/10 hover:bg-neutral-50 dark:hover:bg-white/5 text-primary dark:text-white font-mono text-[10px] font-bold uppercase tracking-[0.2em] py-5 px-8 transition-colors text-center w-full block"
-                    >
-                        START A PROJECT
-                    </Link>
-                </div>
-            </section>
-
-            {/* APPROACH */}
-            <section className="px-8 lg:px-24 py-20 lg:py-32 bg-neutral-50 dark:bg-neutral-900/10 border-b border-neutral-100 dark:border-white/5 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                <h2 className="lg:col-span-4 font-mono text-[10px] tracking-[0.3em] text-neutral-400 uppercase">OUR APPROACH</h2>
-                <div className="lg:col-span-8 border-l-2 border-primary/20 dark:border-white/10 pl-6 lg:pl-10">
-                    <p className="text-xl lg:text-2xl font-light text-primary/80 dark:text-white/80 leading-relaxed">
-                        {data.approach}
-                    </p>
-                </div>
-            </section>
-
-            {/* METHODOLOGY / HOW WE WORK */}
-            <section className="px-8 lg:px-24 py-20 lg:py-32 border-b border-neutral-100 dark:border-white/5 flex flex-col gap-16">
-                <span className="font-mono text-[10px] tracking-[0.3em] text-neutral-400 uppercase">HOW WE WORK</span>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {data.how.map(([num, title, desc]) => (
-                        <div key={num} className="flex flex-col gap-4 border-t border-neutral-100 dark:border-white/5 pt-6">
-                            <span className="font-mono text-xs text-neutral-400">{num}</span>
-                            <h4 className="text-lg font-bold uppercase tracking-tight text-primary dark:text-white">{title}</h4>
-                            <p className="text-xs text-primary/60 dark:text-white/60 leading-relaxed">{desc}</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* PACKAGES / ACCORDIONS */}
-            <section className="px-8 lg:px-24 py-20 lg:py-32 border-b border-neutral-100 dark:border-white/5 flex flex-col gap-12">
-                <div className="flex flex-col gap-4">
-                    <span className="font-mono text-[10px] tracking-[0.3em] text-neutral-400 uppercase">ENGAGEMENT MODELS</span>
-                    <h2 className="text-3xl lg:text-5xl font-black uppercase tracking-tighter text-primary dark:text-white">
-                        Three scoping tiers.
-                    </h2>
-                    <p className="text-sm font-light text-primary/60 dark:text-white/60 max-w-xl leading-relaxed">
-                        We offer structured services scaled to match your project&apos;s level of complexity — from technical documentation packages to full concierge representation.
-                    </p>
-                </div>
-
-                <div className="flex flex-col border-t border-neutral-100 dark:border-white/5 mt-6">
-                    {data.engagements.map((eng, idx) => (
-                        <EngCard
-                            key={idx}
-                            eng={eng}
-                            isOpen={openCardIndex === idx}
-                            toggle={() => setOpenCardIndex(openCardIndex === idx ? null : idx)}
-                        />
-                    ))}
-                </div>
-            </section>
-
-            {/* BUILD SECTION */}
-            {data.buildSection && (
-                <section className="px-8 lg:px-24 py-20 lg:py-32 bg-neutral-50 dark:bg-neutral-900/10 border-b border-neutral-100 dark:border-white/5 grid grid-cols-1 lg:grid-cols-12 gap-12">
-                    <div className="lg:col-span-5 flex flex-col gap-4">
-                        <span className="font-mono text-[10px] tracking-[0.3em] text-neutral-400 uppercase">CONSTRUCTION MANAGEMENT</span>
-                        <h3 className="text-3xl font-black tracking-tight text-primary dark:text-white uppercase leading-none">
-                            The build.
-                        </h3>
-                        <p className="text-xs font-mono tracking-widest text-neutral-400 uppercase">FOR APPROVED DESIGN DRAWINGS</p>
-                    </div>
-                    <div className="lg:col-span-7 flex flex-col gap-8">
-                        <p className="text-sm font-light text-primary/60 dark:text-white/60 leading-relaxed max-w-xl">
-                            If you already possess complete design blueprints, Vartex can coordinate the project as the **Lead Consultant** — ensuring technical guidelines are maintained during actual layout construction:
-                        </p>
-                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-light">
-                            {[
-                                "QS Coordination & Bill of Quantities",
-                                "Contractor Tendering & Bid Review",
-                                "Scheduled On-site Verification Inspections",
-                                "Material Mockup Approvals",
-                                "Payment Certificate Issuance",
-                                "Snag List & Final Handover Packages",
-                            ].map((item, idx) => (
-                                <li key={idx} className="flex gap-3 items-center">
-                                    <span className="w-1.5 h-[1px] bg-neutral-300 dark:bg-white/20 mt-[0.6rem] shrink-0 self-start"></span>
-                                    <span>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </section>
-            )}
-
-            {/* CLOSING SECTION */}
-            <section className="px-8 lg:px-24 py-24 lg:py-40 text-center border-b border-neutral-100 dark:border-white/5 flex flex-col gap-8 items-center max-w-4xl mx-auto">
-                <span className="font-mono text-[9px] tracking-[0.4em] text-neutral-400 uppercase">TIMELINES</span>
-                <h2 className="text-4xl lg:text-7xl font-black uppercase tracking-tighter leading-none text-primary dark:text-white">
-                    Let&apos;s build.
-                </h2>
-                <p className="text-sm font-light text-primary/60 dark:text-white/60 max-w-md leading-relaxed">
-                    {data.closing}<br />
-                    Transforming blueprints into precise spatial solutions.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full sm:w-auto">
-                    <button
-                        onClick={() => setShowGuide(true)}
-                        className="bg-primary dark:bg-white text-white dark:text-black font-mono text-[10px] font-bold uppercase tracking-[0.2em] py-5 px-10 hover:bg-black dark:hover:bg-neutral-200 transition-colors rounded-sm"
-                    >
-                        RECEIVE SERVICE GUIDE
-                    </button>
-                    <Link
-                        href="/contact"
-                        className="border border-neutral-200 dark:border-white/10 hover:bg-neutral-50 dark:hover:bg-white/5 text-primary dark:text-white font-mono text-[10px] font-bold uppercase tracking-[0.2em] py-5 px-10 transition-colors text-center rounded-sm"
-                    >
-                        START A PROJECT
-                    </Link>
-                </div>
-            </section>
-
-            {showGuide && <GuideModal service={data.id} onClose={() => setShowGuide(false)} />}
-        </div>
-    );
+    return <div className="flex flex-col"><div className="service-reveal flex items-center gap-3 border-b border-neutral-100 px-8 py-6 font-mono text-[11px] tracking-[0.15em] text-neutral-400 dark:border-white/5 lg:px-24"><button onClick={() => setPage("index")} className="hover:text-primary dark:hover:text-white">SERVICES</button><span>/</span><span className="text-primary dark:text-white">{data.label}</span></div><section className="service-reveal grid gap-12 border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:grid-cols-12 lg:px-24 lg:py-32"><div className="lg:col-span-8"><span className="font-mono text-[11px] tracking-[0.35em] text-neutral-400">{data.index} / SERVICE DIRECTORY</span><h1 className="mt-7 text-5xl font-black uppercase leading-[0.88] tracking-tighter text-primary dark:text-white lg:text-[7rem]">{data.headline.map((line) => <span key={line} className="block">{line}</span>)}</h1><p className="mt-10 max-w-2xl text-xl leading-relaxed text-primary/70 dark:text-white/70 lg:text-2xl">{data.hero}</p></div><div className="flex flex-col gap-3 lg:col-span-4 lg:pt-8"><button onClick={() => setShowGuide(true)} className="bg-primary py-5 font-mono text-[11px] font-bold tracking-[0.2em] text-white hover:bg-black dark:bg-white dark:text-black dark:hover:bg-neutral-200">RECEIVE SERVICE GUIDE</button><Link href="/contact" className="border border-neutral-200 py-5 text-center font-mono text-[11px] font-bold tracking-[0.2em] text-primary hover:bg-neutral-50 dark:border-white/10 dark:text-white dark:hover:bg-white/5">START A PROJECT</Link></div></section><div className="service-reveal relative h-[42vh] min-h-[280px] w-full overflow-hidden bg-neutral-900"><Image src={data.image} alt={data.imageAlt} fill sizes="100vw" className="object-cover" /><div className="absolute inset-0 bg-black/20" /><span className="absolute bottom-6 left-8 font-mono text-[11px] tracking-[0.3em] text-white/80 lg:bottom-10 lg:left-24">{data.label} / MATERIAL STUDY</span></div><section className="service-reveal border-b border-neutral-100 bg-neutral-50 px-8 py-20 dark:border-white/5 dark:bg-neutral-900/10 lg:px-24 lg:py-28"><p className="max-w-4xl text-2xl font-light leading-snug text-primary/80 dark:text-white/80 lg:text-4xl">{data.approach}</p></section><TierComparison data={data} />{data.buildSection && <section className="service-reveal grid gap-12 border-b border-neutral-100 bg-neutral-50 px-8 py-20 dark:border-white/5 dark:bg-neutral-900/10 lg:grid-cols-12 lg:px-24 lg:py-28"><div className="lg:col-span-5"><h2 className="text-4xl font-black uppercase leading-none tracking-tighter text-primary dark:text-white">THE BUILD.</h2><p className="mt-4 text-lg font-medium text-primary/70 dark:text-white/70">Construction Management</p></div><div className="lg:col-span-7"><p className="max-w-xl text-base leading-relaxed text-primary/65 dark:text-white/65">If you already possess complete design blueprints, Vartex can coordinate the project as lead consultant, ensuring technical guidelines are maintained during construction.</p><ul className="mt-8 grid gap-4 sm:grid-cols-2">{["QS coordination and bill of quantities", "Contractor tendering and bid review", "Scheduled on-site verification inspections", "Material mockup approvals", "Payment certificate issuance", "Snag list and final handover packages"].map((item) => <li key={item} className="flex gap-3 text-sm"><span className="mt-3 h-px w-2 shrink-0 bg-current opacity-50" />{item}</li>)}</ul></div></section>}<section className="service-reveal border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:px-24 lg:py-28"><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">HOW WE WORK</span><div className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">{data.how.map(([num, title, desc]) => <article key={num} className="border-t border-neutral-200 pt-6 dark:border-white/10"><span className="font-mono text-[11px] tracking-[0.2em] text-neutral-400">{num}</span><h3 className="mt-5 text-xl font-bold uppercase leading-tight text-primary dark:text-white">{title}</h3><p className="mt-4 text-base leading-relaxed text-primary/65 dark:text-white/65">{desc}</p></article>)}</div></section><GridCTA className="service-reveal px-8 py-20 lg:px-24 lg:py-24"><div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between"><h2 className="text-6xl font-black uppercase leading-none tracking-tighter lg:text-[8rem]">LET&apos;S BUILD.</h2><div className="flex w-full flex-col gap-3 sm:flex-row lg:w-auto"><button onClick={() => setShowGuide(true)} className="bg-white px-8 py-5 font-mono text-[11px] font-bold tracking-[0.2em] text-primary hover:bg-neutral-100">RECEIVE SERVICE GUIDE</button><Link href="/contact" className="border border-white/50 px-8 py-5 text-center font-mono text-[11px] font-bold tracking-[0.2em] text-white hover:bg-white/10">START A PROJECT</Link></div></div></GridCTA>{showGuide && <GuideModal service={data.id} onClose={() => setShowGuide(false)} />}</div>;
 }
 
-/* ─── MAIN CLIENT WRAPPER ─────────────────────────────────────────────────── */
-export default function ServicesClient() {
-    const [page, setPage] = useState("index");
+export default function ServicesClient({ initialPage = "index" }: { initialPage?: "index" | "architecture" | "interior" }) {
+    const [page, setPage] = useState<"index" | "architecture" | "interior">(initialPage);
     const [showQuiz, setShowQuiz] = useState(false);
-
-    // Scroll to top when view changes
+    const rootRef = useRef<HTMLDivElement>(null);
+    useEffect(() => { const requested = new URLSearchParams(window.location.search).get("service"); if (requested === "architecture" || requested === "interior") setPage(requested); }, []);
     useEffect(() => {
         window.scrollTo(0, 0);
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const ctx = gsap.context(() => {
+            gsap.utils.toArray<HTMLElement>(".service-reveal").forEach((element, index) => {
+                gsap.from(element, { y: 28, duration: 0.9, delay: Math.min(index * 0.03, 0.25), ease: "power3.out", scrollTrigger: { trigger: element, start: "top 88%", once: true } });
+            });
+        });
+        return () => ctx.revert();
     }, [page]);
-
-    return (
-        <div className="flex flex-col min-h-screen bg-white dark:bg-background-dark text-primary dark:text-white pt-20">
-            <Header />
-
-            <main className="flex-grow">
-                {page === "index" && <ServicesIndex setPage={setPage} onOpenQuiz={() => setShowQuiz(true)} />}
-                {page === "architecture" && <ServicesDetail data={ARCH} setPage={setPage} />}
-                {page === "interior" && <ServicesDetail data={INT} setPage={setPage} />}
-            </main>
-
-            {showQuiz && <DecisionQuizModal onClose={() => setShowQuiz(false)} />}
-
-            <Footer />
-        </div>
-    );
+    return <div ref={rootRef} className="flex min-h-screen flex-col bg-white pt-20 text-primary dark:bg-background-dark dark:text-white"><Header /><main className="flex-grow">{page === "index" && <ServicesIndex onOpenQuiz={() => setShowQuiz(true)} />}{page === "architecture" && <ServicesDetail data={ARCHITECTURE} setPage={setPage} />}{page === "interior" && <ServicesDetail data={INTERIOR} setPage={setPage} />}</main>{showQuiz && <DecisionQuizModal onClose={() => setShowQuiz(false)} />}<Footer /></div>;
 }

@@ -23,9 +23,9 @@ export const metadata: Metadata = {
         default: "Vartex Architects | Architecture, Interior Design & 3D Visualization",
         template: "%s | Vartex Architects"
     },
-    description: "Vartex Architects is a specialized studio focusing on high-end residential, commercial and hospitality projects. We provide a complete design experience from conceptual visualization to architectural execution.",
+    description: "Vartex Architects is a Lagos and Nigeria-based architecture and interior design studio creating considered residential, commercial, and hospitality spaces from concept through execution.",
     metadataBase: new URL("https://vartexarchitects.com"),
-    keywords: ["Architecture", "Sustainable Design", "Vartex Architects", "Vertex Architects", "Vortex Architects", "Modern Architecture", "Industrial Design", "Residential Architecture", "Enugu Architects", "Lagos Architects", "Architect near me", "Nigerian Architects"],
+    keywords: ["Vartex Architects", "architecture studio Nigeria", "Lagos architects", "Enugu architects", "residential architecture Nigeria", "interior design Lagos", "commercial architecture Nigeria", "architectural visualization", "sustainable architecture Nigeria"],
     authors: [{ name: "Vartex Studio" }],
     creator: "Vartex Studio",
     publisher: "Vartex Studio",
@@ -39,15 +39,15 @@ export const metadata: Metadata = {
         description: "Specialized in premium Architecture, Interior Design, and 3D Visualization. Vartex Architects provides photorealistic rendering and sustainable planning solutions.",
         url: 'https://vartexarchitects.com',
         siteName: 'Vartex Architects',
+        locale: 'en_NG',
         images: [
             {
                 url: "/og-image.jpg",
                 width: 1200,
                 height: 630,
-                alt: "Vartex Architects Logo",
+                alt: "Vartex Architects architecture and interior design studio",
             },
         ],
-        locale: 'en_US',
         type: "website",
     },
     twitter: {
@@ -75,13 +75,15 @@ const jsonLd = {
     "@type": "Organization",
     "name": "Vartex Architects",
     "url": "https://vartexarchitects.com",
-    "logo": "https://vartexarchitects.com/og-image.jpg",
+    "logo": "https://vartexarchitects.com/brand-logo-dark.png",
     "sameAs": [
-        "https://instagram.com/vartex.architects"
+        "https://www.instagram.com/vartex_architects",
+        "https://x.com/VartexArchitect",
+        "https://www.threads.net/@vartex_architects"
     ],
     "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+2348000000000",
+        "telephone": "+2347049001510",
         "contactType": "customer service",
         "email": "info@vartexarchitects.com"
     }
@@ -104,7 +106,9 @@ const localBusinessLd = {
         "longitude": 3.3792
     },
     "url": "https://vartexarchitects.com",
-    "telephone": "+2348000000000",
+    "telephone": "+2347049001510",
+    "areaServed": ["Lagos", "Enugu", "Nigeria"],
+    "serviceType": ["Architectural Design", "Interior Design", "3D Visualization"],
     "priceRange": "$$"
 }
 

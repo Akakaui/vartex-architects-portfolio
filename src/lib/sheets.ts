@@ -14,7 +14,7 @@ export async function logContactSubmission(data: {
     const webhookUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
 
     if (!webhookUrl) {
-        console.warn("⚠️ Webhook URL not configured — skipping contact log");
+        console.warn("⚠️ Webhook URL not configured / skipping contact log");
         return;
     }
 
@@ -50,5 +50,28 @@ export async function logContactSubmission(data: {
         }
     } catch (error) {
         console.error("❌ Google Sheets Contact Webhook failed:", error);
+    }
+}
+
+
+/**
+ * Log a newsletter signup to the same Google Sheets Webhook.
+ */
+export async function logNewsletterSignup(email: string) {
+    const webhookUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
+    if (!webhookUrl) {
+        console.warn("Webhook URL not configured / skipping newsletter log");
+        return;
+    }
+
+    const response = await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, formType: "newsletter", submittedAt: new Date().toISOString() }),
+        redirect: "follow",
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP Error ${response.status}: ${await response.text()}`);
     }
 }

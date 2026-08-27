@@ -149,7 +149,7 @@ export async function sendClientNotification(data: InquiryData) {
     await resend.emails.send({
         from: `Vartex Architects <${process.env.EMAIL_FROM || "info@vartexarchitects.com"}>`,
         to: [process.env.EMAIL_TO || "info@vartexarchitects.com"],
-        subject: `🔔 New Project Inquiry — ${data.name} (${data.type})`,
+        subject: `🔔 New Project Inquiry / ${data.name} (${data.type})`,
         html,
     });
 }
@@ -183,7 +183,7 @@ export async function sendVisitorConfirmation(data: InquiryData) {
                         <tr>
                             <td style="padding:40px;">
                                 <h2 style="font-size:22px; color:#333333; margin:0 0 24px 0; font-weight:300; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-                                    Welcome — We've Received Your Message
+                                    Welcome / We've Received Your Message
                                 </h2>
 
                                 <p style="font-size:15px; color:#333333; line-height:1.7; margin:0 0 8px 0; font-family: Arial, sans-serif;">
@@ -266,7 +266,28 @@ export async function sendVisitorConfirmation(data: InquiryData) {
     await resend.emails.send({
         from: `Vartex Architects <${process.env.EMAIL_FROM || "info@vartexarchitects.com"}>`,
         to: [data.email],
-        subject: "Welcome — We've Received Your Message",
+        subject: "Welcome / We've Received Your Message",
         html,
+    });
+}
+
+
+export async function sendNewsletterWelcome(email: string) {
+    if (!process.env.RESEND_API_KEY) return;
+    await resend.emails.send({
+        from: `Vartex Architects <${process.env.EMAIL_FROM || "info@vartexarchitects.com"}>`,
+        to: [email],
+        subject: "Welcome to Vartex Architects",
+        html: `<p>Thank you for joining the Vartex Architects journal. We will share considered ideas on architecture, interiors, and the spaces between them.</p>`,
+    });
+}
+
+export async function sendNewsletterOwnerNotification(email: string) {
+    if (!process.env.RESEND_API_KEY) return;
+    await resend.emails.send({
+        from: `Vartex Lead Center <${process.env.EMAIL_FROM || "info@vartexarchitects.com"}>`,
+        to: [process.env.EMAIL_TO || "info@vartexarchitects.com"],
+        subject: "New Journal Subscriber",
+        html: `<p>A new visitor subscribed to the Vartex Architects journal.</p><p>Email: <a href="mailto:${email}">${email}</a></p>`,
     });
 }

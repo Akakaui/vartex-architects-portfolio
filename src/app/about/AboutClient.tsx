@@ -80,15 +80,15 @@ export default function About() {
                                 {/* Overlay Texture */}
                                 <div className="absolute inset-0 bg-neutral-900/10 dark:bg-white/5 pointer-events-none"></div>
 
-                                {/* Technical Corner Overlay — Solid Black */}
+                                {/* Technical Corner Overlay / Solid Black */}
                                 <div className="absolute bottom-4 left-4 px-5 py-3 bg-black border border-white/10 font-mono text-[9px] tracking-[0.4em] uppercase z-10 transition-colors">
-                                    <span className="relative z-10 text-white font-semibold">PRINCIPAL — MICHAEL MBAH</span>
+                                    <span className="relative z-10 text-white font-semibold">PRINCIPAL / MICHAEL MBAH</span>
                                 </div>
                             </div>
                             <div className="flex flex-col gap-2 border-t border-neutral-100 dark:border-white/5 pt-6 font-mono text-[10px] tracking-widest text-primary/40 dark:text-white/40 uppercase">
                                 <div className="flex justify-between">
-                                    <span>B.ARCH — UNEC</span>
-                                    <span>M.ARCH — UNILAG</span>
+                                    <span>B.ARCH / UNEC</span>
+                                    <span>M.ARCH / UNILAG</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span>REGISTRATION</span>
@@ -127,10 +127,10 @@ export default function About() {
                     <section className="flex flex-col gap-12 border-t border-neutral-100 dark:border-white/5 pt-24 fade-in">
                         <div className="flex justify-between items-end">
                             <div className="flex flex-col gap-2">
-                                <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">01 — ACCOLADES</span>
+                                <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">01 / ACCOLADES</span>
                                 <h2 className="text-4xl lg:text-6xl font-black uppercase tracking-tighter text-primary dark:text-white">Recognition.</h2>
                             </div>
-                            <span className="font-mono text-[9px] tracking-widest text-primary/20 dark:text-white/20 uppercase hidden sm:block">CURATED SELECTION — 2020/2025</span>
+                            <span className="font-mono text-[9px] tracking-widest text-primary/20 dark:text-white/20 uppercase hidden sm:block">CURATED SELECTION / 2020/2025</span>
                         </div>
 
                         <div className="flex flex-col">

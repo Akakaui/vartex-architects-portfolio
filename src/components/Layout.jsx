@@ -84,7 +84,7 @@ const Layout = ({ children }) => {
                 </div>
 
                 <div className="w-full flex flex-col md:flex-row justify-between items-center gap-6 pt-10 border-t border-gray-50 dark:border-gray-900">
-                    <p className="mono-text text-[9px] uppercase text-gray-400 tracking-widest">© 2026 VARTEX ARCHITECTS — LAGOS / ENUGU / REMOTE</p>
+                    <p className="mono-text text-[9px] uppercase text-gray-400 tracking-widest">© 2026 VARTEX ARCHITECTS / LAGOS / ENUGU / REMOTE</p>
                     <div className="flex gap-8 mono-text text-[9px] uppercase tracking-widest text-gray-400">
                         <span className="hover:text-black dark:hover:text-white cursor-pointer">Privacy</span>
                         <span className="hover:text-black dark:hover:text-white cursor-pointer">Terms</span>

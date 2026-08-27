@@ -92,7 +92,7 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
             <main ref={mainRef} className={`flex-grow ${project.isComingSoon ? 'bg-white dark:bg-background-dark pt-20' : 'architectural-grid bg-[#0a0a0a] text-white'}`}>
                 {project.isComingSoon ? (
                     <section className="px-8 lg:px-24 py-40 flex flex-col items-center justify-center min-h-[70vh] text-center border-b border-neutral-100 dark:border-white/5">
-                        <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase mb-8">Architecture — In Development</span>
+                        <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase mb-8">Architecture / In Development</span>
                         <h2 className="text-6xl lg:text-9xl font-black uppercase tracking-tighter leading-none text-primary dark:text-white mb-12">
                             PROJECT <br /> COMING SOON.
                         </h2>

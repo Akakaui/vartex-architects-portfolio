@@ -259,7 +259,7 @@ export async function requestGuideAction(prevState: GuideState, formData: FormDa
                 resend.emails.send({
                     from: `Vartex Lead Center <${process.env.EMAIL_FROM || "info@vartexarchitects.com"}>`,
                     to: [process.env.EMAIL_TO || "info@vartexarchitects.com"],
-                    subject: `Guide Requested — ${name} (${serviceLabel})`,
+                    subject: `Guide Requested / ${name} (${serviceLabel})`,
                     html: studioHtml,
                 })
             ]);
@@ -544,7 +544,7 @@ export async function submitQuizAction(prevState: QuizState, formData: FormData)
                 resend.emails.send({
                     from: `Vartex Lead Center <${process.env.EMAIL_FROM || "info@vartexarchitects.com"}>`,
                     to: [process.env.EMAIL_TO || "info@vartexarchitects.com"],
-                    subject: `Quiz Lead — ${name} (${serviceLabel})`,
+                    subject: `Quiz Lead / ${name} (${serviceLabel})`,
                     html: studioHtml,
                 })
             ]);
