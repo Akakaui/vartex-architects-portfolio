@@ -137,11 +137,11 @@ body {
     }
     55% {
         transform: scale(1.12) rotate(2deg);
-        filter: drop-shadow(0 0 10px rgba(41, 41, 41, 0.28));
+        filter: drop-shadow(0 0 12px rgba(41, 41, 41, 0.38));
     }
     100% {
         transform: scale(1) rotate(0deg);
-        filter: drop-shadow(0 0 4px rgba(41, 41, 41, 0.12));
+        filter: drop-shadow(0 0 6px rgba(41, 41, 41, 0.2));
     }
 }
 
@@ -151,7 +151,7 @@ body {
     }
 
     .dark .service-card-visible .icon-layer {
-        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
+        filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.34));
     }
 }
 
