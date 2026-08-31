@@ -365,7 +365,9 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
 
                 {/* SPECIALIZATIONS */}
                 <section className="px-8 lg:px-24 py-16 lg:py-24 bg-neutral-50 dark:bg-neutral-900/10 border-y border-neutral-100 dark:border-white/5" aria-label="Core architectural specializations">
-                    <div className="mb-8 flex items-center justify-between lg:mb-10"><span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">SERVICES</span></div>
+                    <div className="flex justify-between items-end border-b border-neutral-100 dark:border-white/5 pb-8 mb-8 lg:mb-12">
+                        <h2 className="text-4xl lg:text-6xl font-black uppercase tracking-tighter text-primary dark:text-white">SERVICES</h2>
+                    </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-neutral-200 dark:bg-neutral-800">
                         {/* Item 1: Architectural Design */}
                         <Link href="/services?service=architecture" className="bg-white dark:bg-background-dark p-8 lg:p-10 flex flex-col gap-6 lg:gap-8 group service-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-white">

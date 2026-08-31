@@ -47,7 +47,7 @@ const ARCHITECTURE: ServiceData = {
     hero: "Every project begins the same way: we listen. Not just to the brief, but to the site itself, its orientation, its constraints, and its latent possibilities. From there, design is not imposed. It emerges.",
     image: "/images/process/architect-studio-workspace.jpg",
     imageAlt: "Architects developing a spatial concept in the studio",
-    approach: "We design buildings that hold their logic from the first sketch to the final inspection. Architecture, to us, is a dialogue between the land, the light, and the life that will occupy the space.",
+    approach: "Architectural design at Vartex is about creating intelligent, purposeful structures that harmonize with their environment. Our approach is rooted in rigorous site analysis and a deep understanding of our client's vision, allowing us to deliver buildings that perfectly balance aesthetic ambition with technical precision.",
     how: [
         ["01", "SITE & CONTEXT", "Before a line is drawn, we study the land, its topography, zoning, orientation, and the environment it will shape."],
         ["02", "DESIGN DEVELOPMENT", "Sketches evolve into precise spatial models, tested against light, structure, and how the building will actually be lived in."],
@@ -98,7 +98,7 @@ const INTERIOR: ServiceData = {
     hero: "The interior volume is where architecture is most intimately experienced. The height of a ceiling, the texture of a wall, and the quality of light at noon are spatial decisions resolved with the same rigour applied to structure.",
     image: "/projects/project-3.webp",
     imageAlt: "Interior space with considered materiality and proportion",
-    approach: "We treat the interior not as decoration applied after the fact, but as the completion of a spatial idea that began the moment the building was conceived.",
+    approach: "Interior design at Vartex is the art of shaping the human experience within a space. Our approach integrates rigorous spatial planning, tactile materiality, and bespoke detailing to ensure that every interior is a cohesive, functional extension of the architectural vision.",
     how: [
         ["01", "SPATIAL ANALYSIS", "We begin by understanding how the space is lived in: traffic, light, function, and the relationship between rooms."],
         ["02", "VISUALIZATION", "From spatial diagrams to photorealistic renders and cinematic walkthroughs, you inhabit the design before procurement begins."],
@@ -218,7 +218,7 @@ function FAQSection() {
 
 function ServicesIndex({ onOpenQuiz }: { onOpenQuiz: () => void }) {
     return <div className="flex flex-col"><section className="service-reveal border-b border-neutral-100 px-8 py-24 dark:border-white/5 lg:px-24 lg:py-36"><span className="font-mono text-[11px] tracking-[0.4em] text-neutral-400">03 / SERVICES</span><h1 className="mt-7 max-w-3xl text-6xl font-black uppercase leading-[0.86] tracking-tighter text-primary dark:text-white lg:text-[8rem]">Every line<br />serves<br />a purpose.</h1><p className="mt-10 max-w-xl text-lg leading-relaxed text-primary/65 dark:text-white/65 lg:text-xl">Vartex operates across two specialized architectural disciplines. In both fields, our commitment is absolute: resolving structural voids and interior proportions through systematic rigour.</p></section>
-        <section className="grid grid-cols-1 lg:grid-cols-2">{([{ id: "architecture", number: "01", title: "Architectural Design", description: "We design structures from the inside out, beginning with site context, solar orientation, and structural integrity.", image: "/images/process/architectural-precision-drafting.jpg", icon: HomeIcon }, { id: "interior", number: "02", title: "Interior Design", description: "Proportion, surface finishes, and custom millwork are integrated seamlessly to complete architectural spaces.", image: "/projects/project-3.webp", icon: Sofa }] as const).map((service) => { const Icon = service.icon; return <Link key={service.id} href={`/services/${service.id}`} className="service-reveal group border-b border-r border-neutral-100 bg-white p-8 text-left transition-colors hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:border-white/5 dark:bg-background-dark dark:hover:bg-neutral-900 lg:p-16"><div className="relative mb-10 aspect-[16/9] overflow-hidden bg-neutral-100 dark:bg-neutral-900"><Image src={service.image} alt={`${service.title} service`} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-black/10" /></div><div className="flex items-start justify-between gap-6"><div><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">{service.number}</span><h2 className="mt-4 text-3xl font-black uppercase leading-none tracking-tight text-primary dark:text-white lg:text-5xl">{service.title}</h2><p className="mt-6 max-w-md text-base leading-relaxed text-primary/65 dark:text-white/65">{service.description}</p></div><Icon className="mt-1 h-8 w-8 shrink-0 text-primary/25 transition-colors group-hover:text-primary dark:text-white/25 dark:group-hover:text-white" aria-hidden="true" /></div><span className="mt-10 inline-flex items-center gap-3 font-mono text-[11px] font-bold tracking-[0.2em] text-primary dark:text-white">EXPLORE THIS SERVICE <ArrowUpRight className="h-4 w-4" /></span></Link>; })}</section>
+        <section className="grid grid-cols-1 lg:grid-cols-2">{([{ id: "architecture", number: "01", title: "Architectural Design", description: "We design structures from the inside out, beginning with site context, solar orientation, and structural integrity.", image: "/images/process/architectural-precision-drafting.jpg", icon: HomeIcon }, { id: "interior", number: "02", title: "Interior Design", description: "Proportion, surface finishes, and custom millwork are integrated seamlessly to complete architectural spaces.", image: "/projects/project-3.webp", icon: Sofa }] as const).map((service) => { const Icon = service.icon; return <Link key={service.id} href={`/services/${service.id}`} className="service-reveal service-card group border-b border-r border-neutral-100 bg-white p-8 text-left transition-colors hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:border-white/5 dark:bg-background-dark dark:hover:bg-neutral-900 lg:p-16"><div className="relative mb-10 aspect-[16/9] overflow-hidden bg-neutral-100 dark:bg-neutral-900"><Image src={service.image} alt={`${service.title} service`} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-black/10" /></div><div className="flex items-start justify-between gap-6"><div><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">{service.number}</span><h2 className="mt-4 text-3xl font-black uppercase leading-none tracking-tight text-primary dark:text-white lg:text-5xl">{service.title}</h2><p className="mt-6 max-w-md text-base leading-relaxed text-primary/65 dark:text-white/65 text-layer transition-colors duration-500">{service.description}</p></div><Icon className="icon-layer mt-1 h-8 w-8 shrink-0 text-primary/25 transition-colors group-hover:text-primary dark:text-white/25 dark:group-hover:text-white duration-500" aria-hidden="true" /></div><span className="mt-10 inline-flex items-center gap-3 font-mono text-[11px] font-bold tracking-[0.2em] text-primary dark:text-white">EXPLORE THIS SERVICE <ArrowUpRight className="h-4 w-4" /></span></Link>; })}</section>
         <section className="service-reveal bg-neutral-50 px-8 py-20 dark:bg-neutral-900/10 lg:px-24 lg:py-28"><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">COORDINATED ENGAGEMENT</span><h2 className="mt-5 text-3xl font-black uppercase tracking-tight text-primary dark:text-white lg:text-5xl">Some projects require both.</h2><p className="mt-6 max-w-2xl text-base leading-relaxed text-primary/65 dark:text-white/65">The highest design outcomes are achieved when exterior volumes and interior staging are resolved concurrently. If your project is still open in scope, begin with a coordinated design consultation.</p><button onClick={onOpenQuiz} className="mt-10 bg-primary px-8 py-5 font-mono text-[11px] font-bold tracking-[0.2em] text-white transition-colors hover:bg-black dark:bg-white dark:text-black dark:hover:bg-neutral-200">HELP ME DECIDE</button></section><FAQSection /></div>;
 }
 
@@ -291,6 +291,37 @@ export default function ServicesClient({ initialPage = "index" }: { initialPage?
             gsap.utils.toArray<HTMLElement>(".service-reveal").forEach((element, index) => {
                 gsap.from(element, { y: 28, duration: 0.9, delay: Math.min(index * 0.03, 0.25), ease: "power3.out", scrollTrigger: { trigger: element, start: "top 88%", once: true } });
             });
+            if (window.matchMedia("(max-width: 1024px)").matches) {
+                gsap.utils.toArray<HTMLElement>(".service-card").forEach((card) => {
+                    const icon = card.querySelector(".icon-layer");
+                    const text = card.querySelector(".text-layer");
+                    ScrollTrigger.create({
+                        trigger: card,
+                        start: "top 70%",
+                        end: "bottom 30%",
+                        onEnter: () => {
+                            card.classList.add("service-card-visible");
+                            if (icon) { icon.classList.add("text-primary", "dark:text-white"); icon.classList.remove("text-primary/25", "dark:text-white/25"); }
+                            if (text) { text.classList.add("text-primary/100", "dark:text-white/100"); text.classList.remove("text-primary/65", "dark:text-white/65"); }
+                        },
+                        onLeave: () => {
+                            card.classList.remove("service-card-visible");
+                            if (icon) { icon.classList.remove("text-primary", "dark:text-white"); icon.classList.add("text-primary/25", "dark:text-white/25"); }
+                            if (text) { text.classList.remove("text-primary/100", "dark:text-white/100"); text.classList.add("text-primary/65", "dark:text-white/65"); }
+                        },
+                        onEnterBack: () => {
+                            card.classList.add("service-card-visible");
+                            if (icon) { icon.classList.add("text-primary", "dark:text-white"); icon.classList.remove("text-primary/25", "dark:text-white/25"); }
+                            if (text) { text.classList.add("text-primary/100", "dark:text-white/100"); text.classList.remove("text-primary/65", "dark:text-white/65"); }
+                        },
+                        onLeaveBack: () => {
+                            card.classList.remove("service-card-visible");
+                            if (icon) { icon.classList.remove("text-primary", "dark:text-white"); icon.classList.add("text-primary/25", "dark:text-white/25"); }
+                            if (text) { text.classList.remove("text-primary/100", "dark:text-white/100"); text.classList.add("text-primary/65", "dark:text-white/65"); }
+                        }
+                    });
+                });
+            }
         });
         return () => ctx.revert();
     }, [page]);
