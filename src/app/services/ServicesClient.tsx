@@ -224,7 +224,7 @@ function ServicesIndex({ onOpenQuiz }: { onOpenQuiz: () => void }) {
 
 function TierCard({ tier, active, onSelect, mobile }: { tier: Tier; active: boolean; onSelect?: () => void; mobile?: boolean }) {
     const summary = tier.phases.flatMap((phase) => phase.items).slice(0, 6);
-    return <article onClick={onSelect} onKeyDown={(event) => { if (mobile && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); onSelect?.(); } }} tabIndex={mobile ? 0 : undefined} className={`relative flex min-h-[480px] flex-col overflow-hidden rounded-[3px] border p-7 shadow-[0_22px_70px_-48px_rgba(20,20,20,0.8)] transition-all duration-500 lg:p-8 ${tier.recommended ? "border-primary/40 bg-primary text-white shadow-[0_26px_90px_-42px_rgba(0,0,0,0.75)] dark:border-white/40 dark:bg-white dark:text-primary" : "border-neutral-200/80 bg-white text-primary shadow-[0_18px_60px_-45px_rgba(20,20,20,0.65)] dark:border-white/10 dark:bg-background-dark dark:text-white"} ${mobile && !active ? "scale-[0.965] bg-neutral-50/90 opacity-65 ring-1 ring-neutral-300/80 dark:bg-neutral-900/90 dark:ring-white/20" : "scale-100 opacity-100"} ${mobile ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-white" : ""}`}>
+    return <article onClick={onSelect} onKeyDown={(event) => { if (mobile && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); onSelect?.(); } }} tabIndex={mobile ? 0 : undefined} className={`relative flex min-h-[480px] flex-col overflow-hidden rounded-[3px] border p-7 shadow-[0_22px_70px_-48px_rgba(20,20,20,0.8)] transition-all duration-500 lg:p-8 ${tier.recommended ? "border-primary/40 bg-primary text-white shadow-[0_26px_90px_-42px_rgba(0,0,0,0.75)] dark:border-white/40 dark:bg-white dark:text-primary" : "border-neutral-200/80 bg-white text-primary shadow-[0_18px_60px_-45px_rgba(20,20,20,0.65)] dark:border-white/10 dark:bg-background-dark dark:text-white"} ${mobile && !active ? "bg-neutral-50 border-neutral-300 dark:bg-neutral-900 dark:border-neutral-700" : ""} ${mobile ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-white" : ""}`}>
         <div className={`pointer-events-none absolute inset-x-0 top-0 h-1 ${tier.recommended ? "bg-white/70 dark:bg-primary/70" : "bg-primary/10 dark:bg-white/15"}`} aria-hidden="true" />
         {tier.recommended && <span className={`absolute left-1/2 top-0 -translate-x-1/2 whitespace-nowrap rounded-b-sm px-3 py-1.5 text-center font-mono text-[10px] font-bold tracking-[0.16em] ${tier.recommended ? "bg-white text-primary dark:bg-primary dark:text-white" : ""}`}>MOST OF OUR CLIENTS CHOOSE THIS</span>}
         <div className="flex items-start justify-between gap-4"><span className={`font-mono text-[11px] tracking-[0.2em] ${tier.recommended ? "opacity-60" : "text-neutral-400"}`}>{tier.num} / 03</span><span className={`font-mono text-[10px] tracking-[0.2em] ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{tier.level}</span></div>
@@ -233,45 +233,92 @@ function TierCard({ tier, active, onSelect, mobile }: { tier: Tier; active: bool
 }
 
 function TierComparison({ data }: { data: ServiceData }) {
-    const [active, setActive] = useState(1);
-    const mobileRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const mobileTrackRef = useRef<HTMLDivElement | null>(null);
+    const [active, setActive] = useState(0);
+    const [touchStart, setTouchStart] = useState<number | null>(null);
+    const [touchEnd, setTouchEnd] = useState<number | null>(null);
+    const minSwipeDistance = 50;
 
-    const centreCard = (index: number, behavior: ScrollBehavior = "smooth") => {
-        const track = mobileTrackRef.current;
-        const card = mobileRefs.current[index];
-        if (!track || !card) return;
-        track.scrollTo({ left: card.offsetLeft - (track.clientWidth - card.clientWidth) / 2, behavior });
+    const onTouchStart = (e: React.TouchEvent) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
     };
 
-    const select = (index: number) => {
-        setActive(index);
-        centreCard(index);
+    const onTouchMove = (e: React.TouchEvent) => {
+        setTouchEnd(e.targetTouches[0].clientX);
     };
 
-    useEffect(() => {
-        if (window.matchMedia("(min-width: 1024px)").matches) return;
-        const frame = window.requestAnimationFrame(() => centreCard(1, "auto"));
-        return () => window.cancelAnimationFrame(frame);
-    }, []);
-
-    const syncActiveCard = (event: React.UIEvent<HTMLDivElement>) => {
-        const track = event.currentTarget;
-        const trackCenter = track.scrollLeft + track.clientWidth / 2;
-        let closestIndex = active;
-        let closestDistance = Number.POSITIVE_INFINITY;
-        mobileRefs.current.forEach((card, index) => {
-            if (!card) return;
-            const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-            const distance = Math.abs(cardCenter - trackCenter);
-            if (distance < closestDistance) { closestDistance = distance; closestIndex = index; }
-        });
-        if (closestIndex !== active) setActive(closestIndex);
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+        if (isLeftSwipe) setActive((prev) => Math.min(data.tiers.length - 1, prev + 1));
+        if (isRightSwipe) setActive((prev) => Math.max(0, prev - 1));
     };
 
-    return <section className="service-reveal border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:px-24 lg:py-32"><div className="max-w-3xl"><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">ENGAGEMENT MODELS</span><h2 className="mt-5 text-4xl font-black uppercase leading-none tracking-tighter text-primary dark:text-white lg:text-6xl">Three scoping tiers.</h2><p className="mt-7 text-base leading-relaxed text-primary/65 dark:text-white/65">Choose the level of design support that matches your project complexity. Each tier can be refined in your proposal.</p></div><div className="mt-14 hidden gap-5 lg:grid lg:grid-cols-3">{data.tiers.map((tier) => <TierCard key={tier.name} tier={tier} active={true} />)}</div><div ref={mobileTrackRef} onScroll={syncActiveCard} className="no-scrollbar mt-14 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[11vw] pb-5 lg:hidden" aria-label={`${data.label} pricing tiers`}>
-        {data.tiers.map((tier, index) => <div key={tier.name} ref={(node) => { mobileRefs.current[index] = node; }} className="w-[78vw] shrink-0 snap-center"><TierCard tier={tier} active={active === index} mobile onSelect={() => select(index)} /></div>)}
-    </div><p className="sr-only" aria-live="polite">Showing {data.tiers[active].level} tier: {data.tiers[active].name}.</p><p className="mt-8 max-w-3xl text-sm leading-relaxed text-primary/55 dark:text-white/55">{data.disclaimer}</p></section>;
+    return <section className="service-reveal border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:px-24 lg:py-32">
+        <div className="max-w-3xl">
+            <span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">ENGAGEMENT MODELS</span>
+            <h2 className="mt-5 text-4xl font-black uppercase leading-none tracking-tighter text-primary dark:text-white lg:text-6xl">Three scoping tiers.</h2>
+            <p className="mt-7 text-base leading-relaxed text-primary/65 dark:text-white/65">Choose the level of design support that matches your project complexity. Each tier can be refined in your proposal.</p>
+        </div>
+        
+        {/* Desktop Grid */}
+        <div className="mt-14 hidden gap-5 lg:grid lg:grid-cols-3">
+            {data.tiers.map((tier) => <TierCard key={tier.name} tier={tier} active={true} />)}
+        </div>
+
+        {/* Mobile Stacked Deck */}
+        <div 
+            onTouchStart={onTouchStart} 
+            onTouchMove={onTouchMove} 
+            onTouchEnd={onTouchEnd} 
+            className="relative mt-24 h-[600px] w-full lg:hidden touch-pan-y" 
+            aria-label={`${data.label} pricing tiers`}
+        >
+            {data.tiers.map((tier, index) => {
+                const diff = index - active;
+                let transformClass = "";
+                let zIndex = 0;
+                let opacity = "opacity-0";
+                
+                if (diff === 0) {
+                    transformClass = "translate-y-0 scale-100";
+                    zIndex = 30;
+                    opacity = "opacity-100";
+                } else if (diff === 1) {
+                    transformClass = "-translate-y-8 scale-[0.95]";
+                    zIndex = 20;
+                    opacity = "opacity-90";
+                } else if (diff === 2) {
+                    transformClass = "-translate-y-16 scale-[0.90]";
+                    zIndex = 10;
+                    opacity = "opacity-70";
+                } else if (diff < 0) {
+                    transformClass = "-translate-x-full scale-[0.95]";
+                    zIndex = 40;
+                    opacity = "opacity-0";
+                } else {
+                    transformClass = "translate-y-0 scale-90";
+                    zIndex = 0;
+                    opacity = "opacity-0 pointer-events-none";
+                }
+
+                return (
+                    <div 
+                        key={tier.name} 
+                        style={{ zIndex }}
+                        className={`absolute left-0 right-0 top-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${transformClass} ${opacity}`}
+                    >
+                        <TierCard tier={tier} active={active === index} mobile onSelect={() => setActive(index)} />
+                    </div>
+                );
+            })}
+        </div>
+        
+        <p className="sr-only" aria-live="polite">Showing {data.tiers[active].level} tier: {data.tiers[active].name}.</p>
+        <p className="mt-8 max-w-3xl text-sm leading-relaxed text-primary/55 dark:text-white/55">{data.disclaimer}</p>
+    </section>;
 }
 
 function ServicesDetail({ data, setPage }: { data: ServiceData; setPage: (p: "index" | "architecture" | "interior") => void }) {
