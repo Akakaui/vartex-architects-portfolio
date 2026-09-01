@@ -224,10 +224,10 @@ function ServicesIndex({ onOpenQuiz }: { onOpenQuiz: () => void }) {
 
 function TierCard({ tier, active, onSelect, mobile }: { tier: Tier; active: boolean; onSelect?: () => void; mobile?: boolean }) {
     const summary = tier.phases.flatMap((phase) => phase.items).slice(0, 6);
-    return <article onClick={onSelect} onKeyDown={(event) => { if (mobile && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); onSelect?.(); } }} tabIndex={mobile ? 0 : undefined} className={`relative flex min-h-[480px] flex-col overflow-hidden rounded-[3px] border p-7 shadow-[0_22px_70px_-48px_rgba(20,20,20,0.8)] transition-all duration-500 lg:p-8 ${tier.recommended ? "border-primary/40 bg-primary text-white shadow-[0_26px_90px_-42px_rgba(0,0,0,0.75)] dark:border-white/40 dark:bg-white dark:text-primary" : "border-neutral-200/80 bg-white text-primary shadow-[0_18px_60px_-45px_rgba(20,20,20,0.65)] dark:border-white/10 dark:bg-background-dark dark:text-white"} ${mobile && !active ? "bg-neutral-50 border-neutral-300 dark:bg-neutral-900 dark:border-neutral-700" : ""} ${mobile ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-white" : ""}`}>
+    return <article onClick={onSelect} onKeyDown={(event) => { if (mobile && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); onSelect?.(); } }} tabIndex={mobile ? 0 : undefined} className={`relative flex min-h-[480px] flex-col overflow-hidden rounded-[3px] border p-7 shadow-[0_22px_70px_-48px_rgba(20,20,20,0.8)] transition-all duration-500 lg:p-8 ${tier.recommended ? "border-primary/40 bg-primary text-white shadow-[0_26px_90px_-42px_rgba(0,0,0,0.75)] dark:border-white/40 dark:bg-white dark:text-primary" : "border-neutral-200/80 bg-white text-primary shadow-[0_18px_60px_-45px_rgba(20,20,20,0.65)] dark:border-white/10 dark:bg-background-dark dark:text-white"} ${mobile && !active ? "bg-neutral-50 border-neutral-300 dark:bg-neutral-900 dark:border-neutral-700" : ""} ${mobile ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-white" : ""} ${mobile ? "pt-12" : ""}`}>
         <div className={`pointer-events-none absolute inset-x-0 top-0 h-1 ${tier.recommended ? "bg-white/70 dark:bg-primary/70" : "bg-primary/10 dark:bg-white/15"}`} aria-hidden="true" />
         {tier.recommended && (!mobile || active) && <span className={`absolute left-1/2 top-0 -translate-x-1/2 whitespace-nowrap rounded-b-sm px-3 py-1.5 text-center font-mono text-[10px] font-bold tracking-[0.16em] ${tier.recommended ? "bg-white text-primary dark:bg-primary dark:text-white" : ""}`}>MOST OF OUR CLIENTS CHOOSE THIS</span>}
-        <div className="flex items-start justify-between gap-4"><span className={`font-mono tracking-[0.2em] ${mobile ? "text-xl font-semibold text-neutral-500 dark:text-white/55" : "text-[11px]"} ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{mobile ? tier.num : `${tier.num} / 03`}</span><span className={`font-mono text-[10px] tracking-[0.2em] ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{tier.level}</span></div>
+        <div className="flex items-start justify-between gap-4"><span className={`font-mono tracking-[0.2em] ${mobile ? "text-2xl font-semibold text-neutral-500 dark:text-white/55" : "text-[11px]"} ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{mobile ? tier.num : `${tier.num} / 03`}</span><span className={`font-mono text-[10px] tracking-[0.2em] ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{tier.level}</span></div>
         <h3 className="mt-12 text-3xl font-black uppercase leading-none tracking-tight">{tier.name}</h3><span className={`mt-3 font-mono text-[11px] tracking-[0.16em] ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{tier.sub}</span><div className="mt-8 border-y border-current/15 py-5"><span className="block font-mono text-[10px] tracking-[0.16em] opacity-60">STARTING PRICE</span><strong className="mt-2 block text-2xl font-bold">{tier.price}</strong></div><p className={`mt-6 text-base leading-relaxed ${tier.recommended ? "opacity-80" : "text-primary/65 dark:text-white/65"}`}>{tier.desc}</p><ul className="mt-7 flex flex-col gap-3">{summary.map((item) => <li key={item} className="flex gap-3 text-sm leading-relaxed"><span className="mt-2 h-px w-2 shrink-0 bg-current opacity-50" /><span>{item}</span></li>)}</ul>
     </article>;
 }
@@ -301,20 +301,21 @@ function TierComparison({ data }: { data: ServiceData }) {
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
             ref={mobileDeckRef}
-            className="relative mt-24 h-[660px] w-full lg:hidden touch-pan-y"
+            className="relative mt-24 w-full pb-14 lg:hidden touch-pan-y"
             aria-label={`${data.label} pricing tiers`}
             aria-roledescription="carousel"
         >
             {data.tiers.map((tier, index) => {
                 const distance = (index - active + data.tiers.length) % data.tiers.length;
                 const isActive = distance === 0;
-                const transform = distance === 0
-                    ? "translate-x-[-50%] translate-y-14 scale-100"
-                    : distance === 1
-                        ? "translate-x-[-50%] translate-y-0 scale-[0.95]"
-                        : "translate-x-[-50%] -translate-y-14 scale-[0.90]";
+                const transform = distance === 1
+                    ? "-translate-x-1/2 translate-y-0 scale-[0.95]"
+                    : "-translate-x-1/2 -translate-y-14 scale-[0.90]";
                 const visibility = isActive ? "opacity-100" : distance === 1 ? "opacity-90" : "opacity-75";
-                return <div key={tier.name} className={`absolute left-1/2 top-0 w-[88%] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${transform} ${visibility}`} style={{ zIndex: data.tiers.length - distance }}>
+                const position = isActive
+                    ? "relative mx-auto translate-y-14 scale-100"
+                    : `absolute left-1/2 top-0 ${transform}`;
+                return <div key={tier.name} className={`w-[88%] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${position} ${visibility}`} style={{ zIndex: data.tiers.length - distance }}>
                     <TierCard tier={tier} active={isActive} mobile onSelect={() => { pauseAutoPlay(); setActive(index); }} />
                 </div>;
             })}
