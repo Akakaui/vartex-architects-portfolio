@@ -47,7 +47,7 @@ const ARCHITECTURE: ServiceData = {
     hero: "Every project begins the same way: we listen. Not just to the brief, but to the site itself, its orientation, its constraints, and its latent possibilities. From there, design is not imposed. It emerges.",
     image: "/images/process/architect-studio-workspace.jpg",
     imageAlt: "Architects developing a spatial concept in the studio",
-    approach: "Architectural design at Vartex is about creating intelligent, purposeful structures that harmonize with their environment. Our approach is rooted in rigorous site analysis and a deep understanding of our client's vision, allowing us to deliver buildings that perfectly balance aesthetic ambition with technical precision.",
+    approach: "We design buildings that hold their logic from the first sketch to the final inspection. Architecture, to us, is a dialogue between the land, the light, and the life that will occupy the space.",
     how: [
         ["01", "SITE & CONTEXT", "Before a line is drawn, we study the land, its topography, zoning, orientation, and the environment it will shape."],
         ["02", "DESIGN DEVELOPMENT", "Sketches evolve into precise spatial models, tested against light, structure, and how the building will actually be lived in."],
@@ -98,7 +98,7 @@ const INTERIOR: ServiceData = {
     hero: "The interior volume is where architecture is most intimately experienced. The height of a ceiling, the texture of a wall, and the quality of light at noon are spatial decisions resolved with the same rigour applied to structure.",
     image: "/projects/project-3.webp",
     imageAlt: "Interior space with considered materiality and proportion",
-    approach: "Interior design at Vartex is the art of shaping the human experience within a space. Our approach integrates rigorous spatial planning, tactile materiality, and bespoke detailing to ensure that every interior is a cohesive, functional extension of the architectural vision.",
+    approach: "We treat the interior not as decoration applied after the fact, but as the completion of a spatial idea that began the moment the building was conceived.",
     how: [
         ["01", "SPATIAL ANALYSIS", "We begin by understanding how the space is lived in: traffic, light, function, and the relationship between rooms."],
         ["02", "VISUALIZATION", "From spatial diagrams to photorealistic renders and cinematic walkthroughs, you inhabit the design before procurement begins."],
@@ -226,35 +226,64 @@ function TierCard({ tier, active, onSelect, mobile }: { tier: Tier; active: bool
     const summary = tier.phases.flatMap((phase) => phase.items).slice(0, 6);
     return <article onClick={onSelect} onKeyDown={(event) => { if (mobile && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); onSelect?.(); } }} tabIndex={mobile ? 0 : undefined} className={`relative flex min-h-[480px] flex-col overflow-hidden rounded-[3px] border p-7 shadow-[0_22px_70px_-48px_rgba(20,20,20,0.8)] transition-all duration-500 lg:p-8 ${tier.recommended ? "border-primary/40 bg-primary text-white shadow-[0_26px_90px_-42px_rgba(0,0,0,0.75)] dark:border-white/40 dark:bg-white dark:text-primary" : "border-neutral-200/80 bg-white text-primary shadow-[0_18px_60px_-45px_rgba(20,20,20,0.65)] dark:border-white/10 dark:bg-background-dark dark:text-white"} ${mobile && !active ? "bg-neutral-50 border-neutral-300 dark:bg-neutral-900 dark:border-neutral-700" : ""} ${mobile ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-white" : ""}`}>
         <div className={`pointer-events-none absolute inset-x-0 top-0 h-1 ${tier.recommended ? "bg-white/70 dark:bg-primary/70" : "bg-primary/10 dark:bg-white/15"}`} aria-hidden="true" />
-        {tier.recommended && <span className={`absolute left-1/2 top-0 -translate-x-1/2 whitespace-nowrap rounded-b-sm px-3 py-1.5 text-center font-mono text-[10px] font-bold tracking-[0.16em] ${tier.recommended ? "bg-white text-primary dark:bg-primary dark:text-white" : ""}`}>MOST OF OUR CLIENTS CHOOSE THIS</span>}
-        <div className="flex items-start justify-between gap-4"><span className={`font-mono text-[11px] tracking-[0.2em] ${tier.recommended ? "opacity-60" : "text-neutral-400"}`}>{tier.num} / 03</span><span className={`font-mono text-[10px] tracking-[0.2em] ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{tier.level}</span></div>
+        {tier.recommended && (!mobile || active) && <span className={`absolute left-1/2 top-0 -translate-x-1/2 whitespace-nowrap rounded-b-sm px-3 py-1.5 text-center font-mono text-[10px] font-bold tracking-[0.16em] ${tier.recommended ? "bg-white text-primary dark:bg-primary dark:text-white" : ""}`}>MOST OF OUR CLIENTS CHOOSE THIS</span>}
+        <div className="flex items-start justify-between gap-4"><span className={`font-mono tracking-[0.2em] ${mobile ? "text-xl font-semibold text-neutral-500 dark:text-white/55" : "text-[11px]"} ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{mobile ? tier.num : `${tier.num} / 03`}</span><span className={`font-mono text-[10px] tracking-[0.2em] ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{tier.level}</span></div>
         <h3 className="mt-12 text-3xl font-black uppercase leading-none tracking-tight">{tier.name}</h3><span className={`mt-3 font-mono text-[11px] tracking-[0.16em] ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{tier.sub}</span><div className="mt-8 border-y border-current/15 py-5"><span className="block font-mono text-[10px] tracking-[0.16em] opacity-60">STARTING PRICE</span><strong className="mt-2 block text-2xl font-bold">{tier.price}</strong></div><p className={`mt-6 text-base leading-relaxed ${tier.recommended ? "opacity-80" : "text-primary/65 dark:text-white/65"}`}>{tier.desc}</p><ul className="mt-7 flex flex-col gap-3">{summary.map((item) => <li key={item} className="flex gap-3 text-sm leading-relaxed"><span className="mt-2 h-px w-2 shrink-0 bg-current opacity-50" /><span>{item}</span></li>)}</ul>
     </article>;
 }
 
 function TierComparison({ data }: { data: ServiceData }) {
-    const [active, setActive] = useState(0);
+    const [active, setActive] = useState(1);
     const [touchStart, setTouchStart] = useState<number | null>(null);
     const [touchEnd, setTouchEnd] = useState<number | null>(null);
+    const autoPauseUntil = useRef(0);
+    const mobileDeckRef = useRef<HTMLDivElement>(null);
+    const [isDeckVisible, setIsDeckVisible] = useState(false);
     const minSwipeDistance = 50;
 
-    const onTouchStart = (e: React.TouchEvent) => {
-        setTouchEnd(null);
-        setTouchStart(e.targetTouches[0].clientX);
+    const pauseAutoPlay = () => {
+        autoPauseUntil.current = Date.now() + 6500;
     };
 
-    const onTouchMove = (e: React.TouchEvent) => {
-        setTouchEnd(e.targetTouches[0].clientX);
+    const moveBy = (direction: 1 | -1) => {
+        pauseAutoPlay();
+        setActive((current) => (current + direction + data.tiers.length) % data.tiers.length);
+    };
+
+    const onTouchStart = (event: React.TouchEvent) => {
+        pauseAutoPlay();
+        setTouchEnd(null);
+        setTouchStart(event.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (event: React.TouchEvent) => {
+        setTouchEnd(event.targetTouches[0].clientX);
     };
 
     const onTouchEnd = () => {
-        if (!touchStart || !touchEnd) return;
+        if (touchStart === null || touchEnd === null) return;
         const distance = touchStart - touchEnd;
-        const isLeftSwipe = distance > minSwipeDistance;
-        const isRightSwipe = distance < -minSwipeDistance;
-        if (isLeftSwipe) setActive((prev) => Math.min(data.tiers.length - 1, prev + 1));
-        if (isRightSwipe) setActive((prev) => Math.max(0, prev - 1));
+        if (distance > minSwipeDistance) moveBy(1);
+        if (distance < -minSwipeDistance) moveBy(-1);
+        setTouchStart(null);
+        setTouchEnd(null);
     };
+
+    useEffect(() => {
+        if (typeof window === "undefined" || !mobileDeckRef.current || window.matchMedia("(min-width: 1024px)").matches) return;
+        const observer = new IntersectionObserver(([entry]) => setIsDeckVisible(entry.isIntersecting), { threshold: 0.35 });
+        observer.observe(mobileDeckRef.current);
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        if (typeof window === "undefined" || !isDeckVisible || window.matchMedia("(min-width: 1024px)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const timer = window.setInterval(() => {
+            if (Date.now() < autoPauseUntil.current) return;
+            setActive((current) => (current + 1) % data.tiers.length);
+        }, 5000);
+        return () => window.clearInterval(timer);
+    }, [data.tiers.length, isDeckVisible]);
 
     return <section className="service-reveal border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:px-24 lg:py-32">
         <div className="max-w-3xl">
@@ -262,62 +291,42 @@ function TierComparison({ data }: { data: ServiceData }) {
             <h2 className="mt-5 text-4xl font-black uppercase leading-none tracking-tighter text-primary dark:text-white lg:text-6xl">Three scoping tiers.</h2>
             <p className="mt-7 text-base leading-relaxed text-primary/65 dark:text-white/65">Choose the level of design support that matches your project complexity. Each tier can be refined in your proposal.</p>
         </div>
-        
-        {/* Desktop Grid */}
+
         <div className="mt-14 hidden gap-5 lg:grid lg:grid-cols-3">
             {data.tiers.map((tier) => <TierCard key={tier.name} tier={tier} active={true} />)}
         </div>
 
-        {/* Mobile Stacked Deck */}
-        <div 
-            onTouchStart={onTouchStart} 
-            onTouchMove={onTouchMove} 
-            onTouchEnd={onTouchEnd} 
-            className="relative mt-24 h-[600px] w-full lg:hidden touch-pan-y" 
+        <div
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+            ref={mobileDeckRef}
+            className="relative mt-24 h-[660px] w-full lg:hidden touch-pan-y"
             aria-label={`${data.label} pricing tiers`}
+            aria-roledescription="carousel"
         >
             {data.tiers.map((tier, index) => {
-                const diff = index - active;
-                let transformClass = "";
-                let zIndex = 0;
-                let opacity = "opacity-0";
-                
-                if (diff === 0) {
-                    transformClass = "translate-y-0 scale-100";
-                    zIndex = 30;
-                    opacity = "opacity-100";
-                } else if (diff === 1) {
-                    transformClass = "-translate-y-8 scale-[0.95]";
-                    zIndex = 20;
-                    opacity = "opacity-90";
-                } else if (diff === 2) {
-                    transformClass = "-translate-y-16 scale-[0.90]";
-                    zIndex = 10;
-                    opacity = "opacity-70";
-                } else if (diff < 0) {
-                    transformClass = "-translate-x-full scale-[0.95]";
-                    zIndex = 40;
-                    opacity = "opacity-0";
-                } else {
-                    transformClass = "translate-y-0 scale-90";
-                    zIndex = 0;
-                    opacity = "opacity-0 pointer-events-none";
-                }
-
-                return (
-                    <div 
-                        key={tier.name} 
-                        style={{ zIndex }}
-                        className={`absolute left-0 right-0 top-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${transformClass} ${opacity}`}
-                    >
-                        <TierCard tier={tier} active={active === index} mobile onSelect={() => setActive(index)} />
-                    </div>
-                );
+                const distance = (index - active + data.tiers.length) % data.tiers.length;
+                const isActive = distance === 0;
+                const transform = distance === 0
+                    ? "translate-x-[-50%] translate-y-14 scale-100"
+                    : distance === 1
+                        ? "translate-x-[-50%] translate-y-0 scale-[0.95]"
+                        : "translate-x-[-50%] -translate-y-14 scale-[0.90]";
+                const visibility = isActive ? "opacity-100" : distance === 1 ? "opacity-90" : "opacity-75";
+                return <div key={tier.name} className={`absolute left-1/2 top-0 w-[88%] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${transform} ${visibility}`} style={{ zIndex: data.tiers.length - distance }}>
+                    <TierCard tier={tier} active={isActive} mobile onSelect={() => { pauseAutoPlay(); setActive(index); }} />
+                </div>;
             })}
+            <button type="button" onClick={() => moveBy(-1)} aria-label="Show previous pricing tier" className="absolute left-0 top-1/2 z-40 -translate-y-1/2 rounded-full border border-primary/15 bg-white/80 p-2 text-primary shadow-sm backdrop-blur dark:border-white/15 dark:bg-background-dark/80 dark:text-white"><ChevronLeft className="h-4 w-4" /></button>
+            <button type="button" onClick={() => moveBy(1)} aria-label="Show next pricing tier" className="absolute right-0 top-1/2 z-40 -translate-y-1/2 rounded-full border border-primary/15 bg-white/80 p-2 text-primary shadow-sm backdrop-blur dark:border-white/15 dark:bg-background-dark/80 dark:text-white"><ChevronRight className="h-4 w-4" /></button>
         </div>
-        
-        <p className="sr-only" aria-live="polite">Showing {data.tiers[active].level} tier: {data.tiers[active].name}.</p>
-        <p className="mt-8 max-w-3xl text-sm leading-relaxed text-primary/55 dark:text-white/55">{data.disclaimer}</p>
+
+        <div className="mt-3 flex items-center justify-center gap-2 lg:hidden" aria-label="Choose pricing tier">
+            {data.tiers.map((tier, index) => <button key={tier.name} type="button" onClick={() => { pauseAutoPlay(); setActive(index); }} aria-label={`Show tier ${tier.num}`} aria-current={active === index ? "true" : undefined} className={`h-1.5 rounded-full transition-all duration-300 ${active === index ? "w-8 bg-primary dark:bg-white" : "w-1.5 bg-primary/25 dark:bg-white/25"}`} />)}
+        </div>
+        <p className="sr-only" aria-live="polite">Showing tier {data.tiers[active].num}: {data.tiers[active].name}.</p>
+        <p className="mt-20 max-w-3xl text-sm leading-relaxed text-primary/55 dark:text-white/55">{data.disclaimer}</p>
     </section>;
 }
 
