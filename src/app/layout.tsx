@@ -81,7 +81,9 @@ const jsonLd = {
         "https://x.com/VartexArchitect",
         "https://www.threads.net/@vartex_architects",
         "https://www.linkedin.com/company/vartexarchitects/",
+        "https://www.pinterest.com/vartex_architects",
         "https://www.behance.net/vartex_architects",
+        "https://www.facebook.com/vartexarchitects",
         "https://www.youtube.com/@vartex_architects",
         "https://www.tiktok.com/@vartex_architects"
     ],
