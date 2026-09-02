@@ -234,69 +234,62 @@ function TierCard({ tier, active, onSelect, mobile }: { tier: Tier; active: bool
 
 function TierComparison({ data }: { data: ServiceData }) {
     const [active, setActive] = useState(1);
-    const [touchStart, setTouchStart] = useState<number | null>(null);
-    const [touchEnd, setTouchEnd] = useState<number | null>(null);
+    const [dragStart, setDragStart] = useState<number | null>(null);
     const [dragOffset, setDragOffset] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
-    const autoPauseUntil = useRef(0);
-    const mobileDeckRef = useRef<HTMLDivElement>(null);
-    const [isDeckVisible, setIsDeckVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
+    const carouselRef = useRef<HTMLDivElement>(null);
+    const interactionPauseUntil = useRef(0);
     const minSwipeDistance = 50;
 
-    const pauseAutoPlay = () => {
-        autoPauseUntil.current = Date.now() + 6500;
+    const pauseAfterInteraction = () => {
+        interactionPauseUntil.current = Date.now() + 700;
     };
 
     const moveBy = (direction: 1 | -1) => {
-        pauseAutoPlay();
+        pauseAfterInteraction();
         setActive((current) => (current + direction + data.tiers.length) % data.tiers.length);
     };
 
-    const onTouchStart = (event: React.TouchEvent) => {
-        pauseAutoPlay();
+    const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+        if (event.pointerType === "mouse" && event.button !== 0) return;
+        event.currentTarget.setPointerCapture(event.pointerId);
         setIsDragging(true);
+        setDragStart(event.clientX);
         setDragOffset(0);
-        setTouchEnd(null);
-        setTouchStart(event.targetTouches[0].clientX);
+        pauseAfterInteraction();
     };
 
-    const onTouchMove = (event: React.TouchEvent) => {
-        if (touchStart === null) return;
-        const nextX = event.targetTouches[0].clientX;
-        setTouchEnd(nextX);
-        setDragOffset(Math.max(-72, Math.min(72, nextX - touchStart)));
+    const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+        if (dragStart === null) return;
+        setDragOffset(Math.max(-140, Math.min(140, event.clientX - dragStart)));
     };
 
-    const onTouchEnd = () => {
-        if (touchStart === null || touchEnd === null) {
-            setIsDragging(false);
-            setDragOffset(0);
-            return;
+    const onPointerEnd = () => {
+        if (dragStart !== null) {
+            if (dragOffset < -minSwipeDistance) moveBy(1);
+            if (dragOffset > minSwipeDistance) moveBy(-1);
         }
-        const distance = touchStart - touchEnd;
-        if (distance > minSwipeDistance) moveBy(1);
-        if (distance < -minSwipeDistance) moveBy(-1);
-        setTouchStart(null);
-        setTouchEnd(null);
-        setIsDragging(false);
+        setDragStart(null);
         setDragOffset(0);
+        setIsDragging(false);
+        pauseAfterInteraction();
     };
 
     useEffect(() => {
-        if (typeof window === "undefined" || !mobileDeckRef.current || window.matchMedia("(min-width: 1024px)").matches) return;
-        const observer = new IntersectionObserver(([entry]) => setIsDeckVisible(entry.isIntersecting), { threshold: 0.35 });
-        observer.observe(mobileDeckRef.current);
+        if (typeof window === "undefined" || !carouselRef.current) return;
+        const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), { threshold: 0.25 });
+        observer.observe(carouselRef.current);
         return () => observer.disconnect();
     }, []);
 
     useEffect(() => {
-        if (typeof window === "undefined" || !isDeckVisible || window.matchMedia("(min-width: 1024px)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        if (!isVisible || isDragging || typeof window === "undefined" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         const timer = window.setInterval(() => {
-            if (Date.now() < autoPauseUntil.current) return;
-            setActive((current) => (current + 1) % data.tiers.length);
-        }, 5000);
+            if (Date.now() >= interactionPauseUntil.current) setActive((current) => (current + 1) % data.tiers.length);
+        }, 3000);
         return () => window.clearInterval(timer);
-    }, [data.tiers.length, isDeckVisible]);
+    }, [data.tiers.length, isDragging, isVisible]);
 
     return <section className="service-reveal border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:px-24 lg:py-32">
         <div className="max-w-3xl">
@@ -305,44 +298,33 @@ function TierComparison({ data }: { data: ServiceData }) {
             <p className="mt-7 text-base leading-relaxed text-primary/65 dark:text-white/65">Choose the level of design support that matches your project complexity. Each tier can be refined in your proposal.</p>
         </div>
 
-        <div className="mt-14 hidden gap-5 lg:grid lg:grid-cols-3">
-            {data.tiers.map((tier) => <TierCard key={tier.name} tier={tier} active={true} />)}
-        </div>
-
         <div
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-            ref={mobileDeckRef}
-            className="relative mt-24 w-full pb-14 lg:hidden touch-pan-y"
+            ref={carouselRef}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerEnd}
+            onPointerCancel={onPointerEnd}
+            className="relative mt-20 min-h-[760px] w-full touch-pan-y [perspective:1100px] sm:min-h-[700px] lg:mt-24 lg:min-h-[660px]"
             aria-label={`${data.label} pricing tiers`}
             aria-roledescription="carousel"
         >
             {data.tiers.map((tier, index) => {
-                const distance = (index - active + data.tiers.length) % data.tiers.length;
-                const isActive = distance === 0;
-                const translateY = isActive ? 56 : distance === 1 ? 0 : -56;
-                const scale = isActive ? 1 : distance === 1 ? 0.95 : 0.9;
-                const visibility = isActive ? "opacity-100" : distance === 1 ? "opacity-90" : "opacity-75";
-                const position = isActive ? "relative mx-auto" : "absolute left-1/2 top-0";
-                const horizontalOffset = isActive ? dragOffset : dragOffset * 0.35;
-                const isSliding = isDragging && touchStart !== null;
-                const sideOffset = isSliding && !isActive ? (distance === 1 ? 88 : -88) : 0;
-                const horizontalTransform = isActive
-                    ? `${horizontalOffset}px`
-                    : `calc(-50% + ${sideOffset}% + ${horizontalOffset}px)`;
-                const rotation = isSliding && isActive ? `rotate(${Math.max(-2.5, Math.min(2.5, dragOffset * 0.018))}deg)` : "rotate(0deg)";
-                const slideY = isSliding && !isActive ? 56 : translateY;
-                return <div key={tier.name} className={`w-[88%] will-change-transform ${isDragging ? "transition-none" : "transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"} ${position} ${visibility}`} style={{ zIndex: data.tiers.length - distance, transform: `translate3d(${horizontalTransform}, ${slideY}px, 0) scale(${scale}) ${rotation}` }}>
-                    <TierCard tier={tier} active={isActive} mobile onSelect={() => { pauseAutoPlay(); setActive(index); }} />
+                const offset = (index - active + data.tiers.length) % data.tiers.length;
+                const isActive = offset === 0;
+                const isNext = offset === 1;
+                const horizontal = isActive ? `calc(-50% + ${dragOffset}px)` : isNext ? `calc(-15% + ${dragOffset * 0.2}px)` : `calc(-85% + ${dragOffset * 0.2}px)`;
+                const rotation = isActive ? Math.max(-3, Math.min(3, dragOffset * 0.025)) : isNext ? -18 : 18;
+                const depth = isActive ? 0 : -100;
+                return <div key={tier.name} className={`absolute left-1/2 top-0 w-[88%] max-w-[560px] origin-center will-change-transform ${isDragging ? "transition-none" : "transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"}`} style={{ zIndex: isActive ? 10 : 5, opacity: isActive ? 1 : 0.68, transform: `translate3d(${horizontal}, ${isActive ? 0 : 28}px, ${depth}px) rotateY(${rotation}deg) scale(${isActive ? 1 : 0.88})` }}>
+                    <TierCard tier={tier} active={isActive} mobile onSelect={() => { pauseAfterInteraction(); setActive(index); }} />
                 </div>;
             })}
-            <button type="button" onClick={() => moveBy(-1)} aria-label="Show previous pricing tier" className="absolute left-0 top-1/2 z-40 -translate-y-1/2 rounded-full border border-primary/15 bg-white/80 p-2 text-primary shadow-sm backdrop-blur dark:border-white/15 dark:bg-background-dark/80 dark:text-white"><ChevronLeft className="h-4 w-4" /></button>
-            <button type="button" onClick={() => moveBy(1)} aria-label="Show next pricing tier" className="absolute right-0 top-1/2 z-40 -translate-y-1/2 rounded-full border border-primary/15 bg-white/80 p-2 text-primary shadow-sm backdrop-blur dark:border-white/15 dark:bg-background-dark/80 dark:text-white"><ChevronRight className="h-4 w-4" /></button>
+            <button type="button" onPointerDown={(event) => event.stopPropagation()} onClick={() => moveBy(-1)} aria-label="Show previous pricing tier" className="absolute left-0 top-1/2 z-40 -translate-y-1/2 rounded-full border border-primary/15 bg-white/80 p-3 text-primary shadow-sm backdrop-blur dark:border-white/15 dark:bg-background-dark/80 dark:text-white"><ChevronLeft className="h-5 w-5" /></button>
+            <button type="button" onPointerDown={(event) => event.stopPropagation()} onClick={() => moveBy(1)} aria-label="Show next pricing tier" className="absolute right-0 top-1/2 z-40 -translate-y-1/2 rounded-full border border-primary/15 bg-white/80 p-3 text-primary shadow-sm backdrop-blur dark:border-white/15 dark:bg-background-dark/80 dark:text-white"><ChevronRight className="h-5 w-5" /></button>
         </div>
 
-        <div className="mt-3 flex items-center justify-center gap-2 lg:hidden" aria-label="Choose pricing tier">
-            {data.tiers.map((tier, index) => <button key={tier.name} type="button" onClick={() => { pauseAutoPlay(); setActive(index); }} aria-label={`Show tier ${tier.num}`} aria-current={active === index ? "true" : undefined} className={`h-1.5 rounded-full transition-all duration-300 ${active === index ? "w-8 bg-primary dark:bg-white" : "w-1.5 bg-primary/25 dark:bg-white/25"}`} />)}
+        <div className="mt-3 flex items-center justify-center gap-2" aria-label="Choose pricing tier">
+            {data.tiers.map((tier, index) => <button key={tier.name} type="button" onClick={() => { pauseAfterInteraction(); setActive(index); }} aria-label={`Show tier ${tier.num}`} aria-current={active === index ? "true" : undefined} className={`h-1.5 rounded-full transition-all duration-300 ${active === index ? "w-8 bg-primary dark:bg-white" : "w-1.5 bg-primary/25 dark:bg-white/25"}`} />)}
         </div>
         <p className="sr-only" aria-live="polite">Showing tier {data.tiers[active].num}: {data.tiers[active].name}.</p>
         <p className="mt-20 max-w-3xl text-sm leading-relaxed text-primary/55 dark:text-white/55">{data.disclaimer}</p>
@@ -351,7 +333,7 @@ function TierComparison({ data }: { data: ServiceData }) {
 
 function ServicesDetail({ data, setPage }: { data: ServiceData; setPage: (p: "index" | "architecture" | "interior") => void }) {
     const [showGuide, setShowGuide] = useState(false);
-    return <div className="flex flex-col overflow-x-hidden"><div className="service-reveal flex items-center gap-3 border-b border-neutral-100 px-8 py-6 font-mono text-[11px] tracking-[0.15em] text-neutral-400 dark:border-white/5 lg:px-24"><button onClick={() => setPage("index")} className="hover:text-primary dark:hover:text-white">SERVICES</button><span>/</span><span className="text-primary dark:text-white">{data.label}</span></div><section className="service-reveal grid gap-12 border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:grid-cols-12 lg:px-24 lg:py-32"><div className="lg:col-span-8"><span className="font-mono text-[11px] tracking-[0.35em] text-neutral-400">{data.index} / SERVICE DIRECTORY</span><h1 className="mt-7 text-[clamp(2.35rem,10.4vw,7rem)] font-black uppercase leading-[0.88] tracking-tighter text-primary dark:text-white lg:text-[7rem]">{data.headline.map((line) => <span key={line} className="block">{line}</span>)}</h1><p className="mt-10 max-w-2xl text-xl leading-relaxed text-primary/70 dark:text-white/70 lg:text-2xl">{data.hero}</p></div><div className="flex flex-col gap-3 lg:col-span-4 lg:pt-8"><button onClick={() => setShowGuide(true)} className="bg-primary py-5 font-mono text-[11px] font-bold tracking-[0.2em] text-white hover:bg-black dark:bg-white dark:text-black dark:hover:bg-neutral-200">RECEIVE SERVICE GUIDE</button><Link href="/contact" className="border border-neutral-200 py-5 text-center font-mono text-[11px] font-bold tracking-[0.2em] text-primary hover:bg-neutral-50 dark:border-white/10 dark:text-white dark:hover:bg-white/5">START A PROJECT</Link></div></section><div className="service-reveal relative h-[42vh] min-h-[280px] w-full overflow-hidden bg-neutral-900"><Image src={data.image} alt={data.imageAlt} fill sizes="100vw" className="object-cover" /><div className="absolute inset-0 bg-black/20" /><span className="absolute bottom-6 left-8 font-mono text-[11px] tracking-[0.3em] text-white/80 lg:bottom-10 lg:left-24">{data.label} / MATERIAL STUDY</span></div><section className="service-reveal border-b border-neutral-100 bg-neutral-50 px-8 py-20 dark:border-white/5 dark:bg-neutral-900/10 lg:px-24 lg:py-28"><p className="max-w-4xl text-2xl font-light leading-snug text-primary/80 dark:text-white/80 lg:text-4xl">{data.approach}</p></section><TierComparison data={data} />{data.buildSection && <section className="service-reveal grid gap-12 border-b border-neutral-100 bg-neutral-50 px-8 py-20 dark:border-white/5 dark:bg-neutral-900/10 lg:grid-cols-12 lg:px-24 lg:py-28"><div className="lg:col-span-5"><h2 className="text-4xl font-black uppercase leading-none tracking-tighter text-primary dark:text-white">THE BUILD.</h2><p className="mt-4 text-lg font-medium text-primary/70 dark:text-white/70">Construction Management</p></div><div className="lg:col-span-7"><p className="max-w-xl text-base leading-relaxed text-primary/65 dark:text-white/65">If you already possess complete design blueprints, Vartex can coordinate the project as lead consultant, ensuring technical guidelines are maintained during construction.</p><ul className="mt-8 grid gap-4 sm:grid-cols-2">{["QS coordination and bill of quantities", "Contractor tendering and bid review", "Scheduled on-site verification inspections", "Material mockup approvals", "Payment certificate issuance", "Snag list and final handover packages"].map((item) => <li key={item} className="flex gap-3 text-sm"><span className="mt-3 h-px w-2 shrink-0 bg-current opacity-50" />{item}</li>)}</ul></div></section>}<section className="service-reveal border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:px-24 lg:py-28"><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">HOW WE WORK</span><div className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">{data.how.map(([num, title, desc]) => <article key={num} className="border-t border-neutral-200 pt-6 dark:border-white/10"><span className="font-mono text-[11px] tracking-[0.2em] text-neutral-400">{num}</span><h3 className="mt-5 text-xl font-bold uppercase leading-tight text-primary dark:text-white">{title}</h3><p className="mt-4 text-base leading-relaxed text-primary/65 dark:text-white/65">{desc}</p></article>)}</div></section><GridCTA className="service-reveal px-8 py-20 lg:px-24 lg:py-24"><div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between"><h2 className="text-6xl font-black uppercase leading-none tracking-tighter lg:text-[8rem]">LET&apos;S BUILD.</h2><div className="flex w-full flex-col gap-3 sm:flex-row lg:w-auto"><button onClick={() => setShowGuide(true)} className="bg-white px-8 py-5 font-mono text-[11px] font-bold tracking-[0.2em] text-primary hover:bg-neutral-100">RECEIVE SERVICE GUIDE</button><Link href="/contact" className="border border-white/50 px-8 py-5 text-center font-mono text-[11px] font-bold tracking-[0.2em] text-white hover:bg-white/10">START A PROJECT</Link></div></div></GridCTA>{showGuide && <GuideModal service={data.id} onClose={() => setShowGuide(false)} />}</div>;
+    return <div className="flex flex-col overflow-x-hidden"><div className="service-reveal flex items-center gap-3 border-b border-neutral-100 px-8 py-6 font-mono text-[11px] tracking-[0.15em] text-neutral-400 dark:border-white/5 lg:px-24"><button onClick={() => setPage("index")} className="hover:text-primary dark:hover:text-white">SERVICES</button><span>/</span><span className="text-primary dark:text-white">{data.label}</span></div><section className="service-reveal grid gap-12 border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:grid-cols-12 lg:px-24 lg:py-32"><div className="lg:col-span-8"><span className="font-mono text-[11px] tracking-[0.35em] text-neutral-400">{data.index} / SERVICE DIRECTORY</span><h1 className="mt-7 text-[clamp(2.35rem,10.4vw,7rem)] font-black uppercase leading-[0.88] tracking-tighter text-primary dark:text-white lg:text-[7rem]">{data.headline.map((line) => <span key={line} className="block">{line}</span>)}</h1><p className="mt-10 max-w-2xl text-xl leading-relaxed text-primary/70 dark:text-white/70 lg:text-2xl">{data.hero}</p></div><div className="flex flex-col gap-3 lg:col-span-4 lg:pt-8"><button onClick={() => setShowGuide(true)} className="bg-primary py-5 font-mono text-[11px] font-bold tracking-[0.2em] text-white hover:bg-black dark:bg-white dark:text-black dark:hover:bg-neutral-200">RECEIVE SERVICE GUIDE</button><Link href="/contact" className="border border-neutral-200 py-5 text-center font-mono text-[11px] font-bold tracking-[0.2em] text-primary hover:bg-neutral-50 dark:border-white/10 dark:text-white dark:hover:bg-white/5">START A PROJECT</Link></div></section><div className="service-reveal relative h-[42vh] min-h-[280px] w-full overflow-hidden bg-neutral-900"><Image src={data.image} alt={data.imageAlt} fill sizes="100vw" className="object-cover" /><div className="absolute inset-0 bg-black/20" /></div><section className="service-reveal border-b border-neutral-100 bg-neutral-50 px-8 py-20 dark:border-white/5 dark:bg-neutral-900/10 lg:px-24 lg:py-28"><p className="max-w-4xl text-2xl font-light leading-snug text-primary/80 dark:text-white/80 lg:text-4xl">{data.approach}</p></section><TierComparison data={data} />{data.buildSection && <section className="service-reveal grid gap-12 border-b border-neutral-100 bg-neutral-50 px-8 py-20 dark:border-white/5 dark:bg-neutral-900/10 lg:grid-cols-12 lg:px-24 lg:py-28"><div className="lg:col-span-5"><h2 className="text-4xl font-black uppercase leading-none tracking-tighter text-primary dark:text-white">THE BUILD.</h2><p className="mt-4 text-lg font-medium text-primary/70 dark:text-white/70">Construction Management</p></div><div className="lg:col-span-7"><p className="max-w-xl text-base leading-relaxed text-primary/65 dark:text-white/65">If you already possess complete design blueprints, Vartex can coordinate the project as lead consultant, ensuring technical guidelines are maintained during construction.</p><ul className="mt-8 grid gap-4 sm:grid-cols-2">{["QS coordination and bill of quantities", "Contractor tendering and bid review", "Scheduled on-site verification inspections", "Material mockup approvals", "Payment certificate issuance", "Snag list and final handover packages"].map((item) => <li key={item} className="flex gap-3 text-sm"><span className="mt-3 h-px w-2 shrink-0 bg-current opacity-50" />{item}</li>)}</ul></div></section>}<section className="service-reveal border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:px-24 lg:py-28"><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">HOW WE WORK</span><div className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">{data.how.map(([num, title, desc]) => <article key={num} className="border-t border-neutral-200 pt-6 dark:border-white/10"><span className="font-mono text-[11px] tracking-[0.2em] text-neutral-400">{num}</span><h3 className="mt-5 text-xl font-bold uppercase leading-tight text-primary dark:text-white">{title}</h3><p className="mt-4 text-base leading-relaxed text-primary/65 dark:text-white/65">{desc}</p></article>)}</div></section><GridCTA className="service-reveal px-8 py-20 lg:px-24 lg:py-24"><div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between"><h2 className="text-6xl font-black uppercase leading-none tracking-tighter lg:text-[8rem]">LET&apos;S BUILD.</h2><div className="flex w-full flex-col gap-3 sm:flex-row lg:w-auto"><button onClick={() => setShowGuide(true)} className="bg-white px-8 py-5 font-mono text-[11px] font-bold tracking-[0.2em] text-primary hover:bg-neutral-100">RECEIVE SERVICE GUIDE</button><Link href="/contact" className="border border-white/50 px-8 py-5 text-center font-mono text-[11px] font-bold tracking-[0.2em] text-white hover:bg-white/10">START A PROJECT</Link></div></div></GridCTA>{showGuide && <GuideModal service={data.id} onClose={() => setShowGuide(false)} />}</div>;
 }
 
 export default function ServicesClient({ initialPage = "index" }: { initialPage?: "index" | "architecture" | "interior" }) {
