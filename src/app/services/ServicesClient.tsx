@@ -235,7 +235,7 @@ function TierCard({ tier, active, onSelect, mobile }: { tier: Tier; active: bool
 function TierComparison({ data }: { data: ServiceData }) {
     const foundationIndex = data.tiers.findIndex((tier) => tier.level === "Basic");
     const standardIndex = data.tiers.findIndex((tier) => tier.level === "Standard");
-    const [active, setActive] = useState(foundationIndex >= 0 ? foundationIndex : 0);
+    const [active, setActive] = useState(standardIndex >= 0 ? standardIndex : foundationIndex >= 0 ? foundationIndex : 0);
     const [dragStart, setDragStart] = useState<number | null>(null);
     const [dragOffset, setDragOffset] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
@@ -243,7 +243,6 @@ function TierComparison({ data }: { data: ServiceData }) {
     const [showControls, setShowControls] = useState(false);
     const carouselRef = useRef<HTMLDivElement>(null);
     const controlsTimer = useRef<number | null>(null);
-    const teachingMotionShown = useRef(false);
     const minSwipeDistance = 50;
 
     const pauseAfterInteraction = () => {};
@@ -294,14 +293,12 @@ function TierComparison({ data }: { data: ServiceData }) {
     }, []);
 
     useEffect(() => {
-        if (!isVisible || teachingMotionShown.current || typeof window === "undefined" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-        const timer = window.setTimeout(() => {
-            teachingMotionShown.current = true;
-            setActive(standardIndex >= 0 ? standardIndex : 0);
-            revealControls();
+        if (!isVisible || isDragging || typeof window === "undefined" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const timer = window.setInterval(() => {
+            setActive((current) => (current + 1) % data.tiers.length);
         }, 5500);
-        return () => window.clearTimeout(timer);
-    }, [isVisible, standardIndex]);
+        return () => window.clearInterval(timer);
+    }, [data.tiers.length, isDragging, isVisible]);
 
     return <section className="service-reveal border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:px-24 lg:py-32">
         <div className="max-w-3xl">
