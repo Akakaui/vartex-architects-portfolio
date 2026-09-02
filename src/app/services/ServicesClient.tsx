@@ -224,11 +224,11 @@ function ServicesIndex({ onOpenQuiz }: { onOpenQuiz: () => void }) {
 
 function TierCard({ tier, active, onSelect, mobile }: { tier: Tier; active: boolean; onSelect?: () => void; mobile?: boolean }) {
     const summary = tier.phases.flatMap((phase) => phase.items).slice(0, 6);
-    return <article onClick={onSelect} onKeyDown={(event) => { if (mobile && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); onSelect?.(); } }} tabIndex={mobile ? 0 : undefined} className={`relative flex min-h-[480px] flex-col overflow-hidden rounded-[3px] border p-7 shadow-[0_22px_70px_-48px_rgba(20,20,20,0.8)] transition-all duration-500 lg:p-8 ${tier.recommended ? "border-primary/40 bg-primary text-white shadow-[0_26px_90px_-42px_rgba(0,0,0,0.75)] dark:border-white/40 dark:bg-white dark:text-primary" : "border-neutral-200/80 bg-white text-primary shadow-[0_18px_60px_-45px_rgba(20,20,20,0.65)] dark:border-white/10 dark:bg-background-dark dark:text-white"} ${mobile && !active ? "bg-neutral-50 border-neutral-300 dark:bg-neutral-900 dark:border-neutral-700" : ""} ${mobile ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-white" : ""} ${mobile ? "pt-12" : ""}`}>
+    return <article onClick={onSelect} onKeyDown={(event) => { if (mobile && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); onSelect?.(); } }} tabIndex={mobile ? 0 : undefined} className={`relative flex min-h-0 flex-col overflow-hidden rounded-[3px] border p-5 shadow-[0_22px_70px_-48px_rgba(20,20,20,0.8)] transition-all duration-500 lg:min-h-[480px] lg:p-8 ${tier.recommended ? "border-primary/40 bg-primary text-white shadow-[0_26px_90px_-42px_rgba(0,0,0,0.75)] dark:border-white/40 dark:bg-white dark:text-primary" : "border-neutral-200/80 bg-white text-primary shadow-[0_18px_60px_-45px_rgba(20,20,20,0.65)] dark:border-white/10 dark:bg-background-dark dark:text-white"} ${mobile && !active ? "bg-neutral-50 border-neutral-300 dark:bg-neutral-900 dark:border-neutral-700" : ""} ${mobile ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-white pt-9" : ""}`}>
         <div className={`pointer-events-none absolute inset-x-0 top-0 h-1 ${tier.recommended ? "bg-white/70 dark:bg-primary/70" : "bg-primary/10 dark:bg-white/15"}`} aria-hidden="true" />
         {tier.recommended && (!mobile || active) && <span className={`absolute left-1/2 top-0 -translate-x-1/2 whitespace-nowrap rounded-b-sm px-3 py-1.5 text-center font-mono text-[10px] font-bold tracking-[0.16em] ${tier.recommended ? "bg-white text-primary dark:bg-primary dark:text-white" : ""}`}>MOST OF OUR CLIENTS CHOOSE THIS</span>}
         <div className="flex items-start justify-between gap-4"><span className={`font-mono tracking-[0.2em] ${mobile ? "text-2xl font-semibold text-neutral-500 dark:text-white/55" : "text-[11px]"} ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{mobile ? tier.num : `${tier.num} / 03`}</span><span className={`font-mono text-[10px] tracking-[0.2em] ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{tier.level}</span></div>
-        <h3 className="mt-12 text-3xl font-black uppercase leading-none tracking-tight">{tier.name}</h3><span className={`mt-3 font-mono text-[11px] tracking-[0.16em] ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{tier.sub}</span><div className="mt-8 border-y border-current/15 py-5"><span className="block font-mono text-[10px] tracking-[0.16em] opacity-60">STARTING PRICE</span><strong className="mt-2 block text-2xl font-bold">{tier.price}</strong></div><p className={`mt-6 text-base leading-relaxed ${tier.recommended ? "opacity-80" : "text-primary/65 dark:text-white/65"}`}>{tier.desc}</p><ul className="mt-7 flex flex-col gap-3">{summary.map((item) => <li key={item} className="flex gap-3 text-sm leading-relaxed"><span className="mt-2 h-px w-2 shrink-0 bg-current opacity-50" /><span>{item}</span></li>)}</ul>
+        <h3 className="mt-7 text-2xl font-black uppercase leading-none tracking-tight lg:mt-12 lg:text-3xl">{tier.name}</h3><span className={`mt-2 font-mono text-[10px] tracking-[0.16em] lg:mt-3 lg:text-[11px] ${tier.recommended ? "opacity-70" : "text-neutral-400"}`}>{tier.sub}</span><div className="mt-5 border-y border-current/15 py-3 lg:mt-8 lg:py-5"><span className="block font-mono text-[9px] tracking-[0.16em] opacity-60">STARTING PRICE</span><strong className="mt-1 block text-xl font-bold lg:mt-2 lg:text-2xl">{tier.price}</strong></div><p className={`mt-4 text-sm leading-snug lg:mt-6 lg:text-base lg:leading-relaxed ${tier.recommended ? "opacity-80" : "text-primary/65 dark:text-white/65"}`}>{tier.desc}</p><ul className="mt-5 flex flex-col gap-2 lg:mt-7 lg:gap-3">{summary.map((item) => <li key={item} className="flex gap-2 text-[13px] leading-snug lg:gap-3 lg:text-sm lg:leading-relaxed"><span className="mt-2 h-px w-2 shrink-0 bg-current opacity-50" /><span>{item}</span></li>)}</ul>
     </article>;
 }
 
@@ -238,16 +238,25 @@ function TierComparison({ data }: { data: ServiceData }) {
     const [dragOffset, setDragOffset] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
+    const [showControls, setShowControls] = useState(false);
     const carouselRef = useRef<HTMLDivElement>(null);
     const interactionPauseUntil = useRef(0);
+    const controlsTimer = useRef<number | null>(null);
     const minSwipeDistance = 50;
 
     const pauseAfterInteraction = () => {
         interactionPauseUntil.current = Date.now() + 700;
     };
 
+    const revealControls = () => {
+        setShowControls(true);
+        if (controlsTimer.current) window.clearTimeout(controlsTimer.current);
+        controlsTimer.current = window.setTimeout(() => setShowControls(false), 1800);
+    };
+
     const moveBy = (direction: 1 | -1) => {
         pauseAfterInteraction();
+        revealControls();
         setActive((current) => (current + direction + data.tiers.length) % data.tiers.length);
     };
 
@@ -258,6 +267,7 @@ function TierComparison({ data }: { data: ServiceData }) {
         setDragStart(event.clientX);
         setDragOffset(0);
         pauseAfterInteraction();
+        revealControls();
     };
 
     const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -304,7 +314,7 @@ function TierComparison({ data }: { data: ServiceData }) {
             onPointerMove={onPointerMove}
             onPointerUp={onPointerEnd}
             onPointerCancel={onPointerEnd}
-            className="relative mt-20 min-h-[760px] w-full touch-pan-y [perspective:1100px] sm:min-h-[700px] lg:mt-24 lg:min-h-[660px]"
+            className="relative mt-16 min-h-[660px] w-full touch-pan-y [perspective:1100px] sm:min-h-[620px] lg:mt-24 lg:min-h-[660px]"
             aria-label={`${data.label} pricing tiers`}
             aria-roledescription="carousel"
         >
@@ -319,15 +329,15 @@ function TierComparison({ data }: { data: ServiceData }) {
                     <TierCard tier={tier} active={isActive} mobile onSelect={() => { pauseAfterInteraction(); setActive(index); }} />
                 </div>;
             })}
-            <button type="button" onPointerDown={(event) => event.stopPropagation()} onClick={() => moveBy(-1)} aria-label="Show previous pricing tier" className="absolute left-0 top-1/2 z-40 -translate-y-1/2 rounded-full border border-primary/15 bg-white/80 p-3 text-primary shadow-sm backdrop-blur dark:border-white/15 dark:bg-background-dark/80 dark:text-white"><ChevronLeft className="h-5 w-5" /></button>
-            <button type="button" onPointerDown={(event) => event.stopPropagation()} onClick={() => moveBy(1)} aria-label="Show next pricing tier" className="absolute right-0 top-1/2 z-40 -translate-y-1/2 rounded-full border border-primary/15 bg-white/80 p-3 text-primary shadow-sm backdrop-blur dark:border-white/15 dark:bg-background-dark/80 dark:text-white"><ChevronRight className="h-5 w-5" /></button>
+            <button type="button" onPointerDown={(event) => event.stopPropagation()} onClick={() => moveBy(-1)} aria-label="Show previous pricing tier" className={`absolute left-0 top-1/2 z-40 -translate-y-1/2 rounded-full border border-primary/15 bg-white/80 p-3 text-primary shadow-sm backdrop-blur transition-opacity duration-300 dark:border-white/15 dark:bg-background-dark/80 dark:text-white ${showControls ? "opacity-100" : "pointer-events-none opacity-0"}`}><ChevronLeft className="h-5 w-5" /></button>
+            <button type="button" onPointerDown={(event) => event.stopPropagation()} onClick={() => moveBy(1)} aria-label="Show next pricing tier" className={`absolute right-0 top-1/2 z-40 -translate-y-1/2 rounded-full border border-primary/15 bg-white/80 p-3 text-primary shadow-sm backdrop-blur transition-opacity duration-300 dark:border-white/15 dark:bg-background-dark/80 dark:text-white ${showControls ? "opacity-100" : "pointer-events-none opacity-0"}`}><ChevronRight className="h-5 w-5" /></button>
         </div>
 
         <div className="mt-3 flex items-center justify-center gap-2" aria-label="Choose pricing tier">
             {data.tiers.map((tier, index) => <button key={tier.name} type="button" onClick={() => { pauseAfterInteraction(); setActive(index); }} aria-label={`Show tier ${tier.num}`} aria-current={active === index ? "true" : undefined} className={`h-1.5 rounded-full transition-all duration-300 ${active === index ? "w-8 bg-primary dark:bg-white" : "w-1.5 bg-primary/25 dark:bg-white/25"}`} />)}
         </div>
         <p className="sr-only" aria-live="polite">Showing tier {data.tiers[active].num}: {data.tiers[active].name}.</p>
-        <p className="mt-20 max-w-3xl text-sm leading-relaxed text-primary/55 dark:text-white/55">{data.disclaimer}</p>
+        <p className="mt-10 max-w-3xl text-sm leading-relaxed text-primary/55 dark:text-white/55">{data.disclaimer}</p>
     </section>;
 }
 
