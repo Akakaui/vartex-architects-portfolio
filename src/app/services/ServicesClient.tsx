@@ -236,6 +236,8 @@ function TierComparison({ data }: { data: ServiceData }) {
     const [active, setActive] = useState(1);
     const [touchStart, setTouchStart] = useState<number | null>(null);
     const [touchEnd, setTouchEnd] = useState<number | null>(null);
+    const [dragOffset, setDragOffset] = useState(0);
+    const [isDragging, setIsDragging] = useState(false);
     const autoPauseUntil = useRef(0);
     const mobileDeckRef = useRef<HTMLDivElement>(null);
     const [isDeckVisible, setIsDeckVisible] = useState(false);
@@ -252,21 +254,32 @@ function TierComparison({ data }: { data: ServiceData }) {
 
     const onTouchStart = (event: React.TouchEvent) => {
         pauseAutoPlay();
+        setIsDragging(true);
+        setDragOffset(0);
         setTouchEnd(null);
         setTouchStart(event.targetTouches[0].clientX);
     };
 
     const onTouchMove = (event: React.TouchEvent) => {
-        setTouchEnd(event.targetTouches[0].clientX);
+        if (touchStart === null) return;
+        const nextX = event.targetTouches[0].clientX;
+        setTouchEnd(nextX);
+        setDragOffset(Math.max(-72, Math.min(72, nextX - touchStart)));
     };
 
     const onTouchEnd = () => {
-        if (touchStart === null || touchEnd === null) return;
+        if (touchStart === null || touchEnd === null) {
+            setIsDragging(false);
+            setDragOffset(0);
+            return;
+        }
         const distance = touchStart - touchEnd;
         if (distance > minSwipeDistance) moveBy(1);
         if (distance < -minSwipeDistance) moveBy(-1);
         setTouchStart(null);
         setTouchEnd(null);
+        setIsDragging(false);
+        setDragOffset(0);
     };
 
     useEffect(() => {
@@ -308,14 +321,13 @@ function TierComparison({ data }: { data: ServiceData }) {
             {data.tiers.map((tier, index) => {
                 const distance = (index - active + data.tiers.length) % data.tiers.length;
                 const isActive = distance === 0;
-                const transform = distance === 1
-                    ? "-translate-x-1/2 translate-y-0 scale-[0.95]"
-                    : "-translate-x-1/2 -translate-y-14 scale-[0.90]";
+                const translateY = isActive ? 56 : distance === 1 ? 0 : -56;
+                const scale = isActive ? 1 : distance === 1 ? 0.95 : 0.9;
                 const visibility = isActive ? "opacity-100" : distance === 1 ? "opacity-90" : "opacity-75";
-                const position = isActive
-                    ? "relative mx-auto translate-y-14 scale-100"
-                    : `absolute left-1/2 top-0 ${transform}`;
-                return <div key={tier.name} className={`w-[88%] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${position} ${visibility}`} style={{ zIndex: data.tiers.length - distance }}>
+                const position = isActive ? "relative mx-auto" : "absolute left-1/2 top-0";
+                const horizontalOffset = isActive ? dragOffset : dragOffset * 0.35;
+                const horizontalTransform = isActive ? `${horizontalOffset}px` : `calc(-50% + ${horizontalOffset}px)`;
+                return <div key={tier.name} className={`w-[88%] ${isDragging ? "transition-none" : "transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"} ${position} ${visibility}`} style={{ zIndex: data.tiers.length - distance, transform: `translate3d(${horizontalTransform}, ${translateY}px, 0) scale(${scale})` }}>
                     <TierCard tier={tier} active={isActive} mobile onSelect={() => { pauseAutoPlay(); setActive(index); }} />
                 </div>;
             })}
