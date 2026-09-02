@@ -233,7 +233,9 @@ function TierCard({ tier, active, onSelect, mobile }: { tier: Tier; active: bool
 }
 
 function TierComparison({ data }: { data: ServiceData }) {
-    const [active, setActive] = useState(0);
+    const foundationIndex = data.tiers.findIndex((tier) => tier.level === "Basic");
+    const standardIndex = data.tiers.findIndex((tier) => tier.level === "Standard");
+    const [active, setActive] = useState(foundationIndex >= 0 ? foundationIndex : 0);
     const [dragStart, setDragStart] = useState<number | null>(null);
     const [dragOffset, setDragOffset] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
@@ -295,11 +297,11 @@ function TierComparison({ data }: { data: ServiceData }) {
         if (!isVisible || teachingMotionShown.current || typeof window === "undefined" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         const timer = window.setTimeout(() => {
             teachingMotionShown.current = true;
-            setActive(1);
+            setActive(standardIndex >= 0 ? standardIndex : 0);
             revealControls();
         }, 5500);
         return () => window.clearTimeout(timer);
-    }, [isVisible]);
+    }, [isVisible, standardIndex]);
 
     return <section className="service-reveal border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:px-24 lg:py-32">
         <div className="max-w-3xl">
