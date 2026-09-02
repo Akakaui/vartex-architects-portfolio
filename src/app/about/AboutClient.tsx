@@ -82,7 +82,7 @@ export default function About() {
 
                                 {/* Technical Corner Overlay / Solid Black */}
                                 <div className="absolute bottom-4 left-4 px-5 py-3 bg-black border border-white/10 font-mono text-[9px] tracking-[0.4em] uppercase z-10 transition-colors">
-                                    <span className="relative z-10 text-white font-semibold">PRINCIPAL / MICHAEL MBAH</span>
+                                    <span className="relative z-10 text-white font-semibold">DIRECTOR / MICHAEL MBAH</span>
                                 </div>
                             </div>
                             <div className="flex flex-col gap-2 border-t border-neutral-100 dark:border-white/5 pt-6 font-mono text-[10px] tracking-widest text-primary/40 dark:text-white/40 uppercase">

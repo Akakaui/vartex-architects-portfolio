@@ -230,7 +230,7 @@ export async function sendVisitorConfirmation(data: InquiryData) {
                                     <tr>
                                         <td>
                                             <p style="font-size:14px; color:${BRAND}; margin:0 0 4px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">Warm regards,</p>
-                                            <p style="font-size:14px; color:#1a1a1a; margin:0; font-weight:600;">Michael Mbah</p>
+                                            <p style="font-size:14px; color:#1a1a1a; margin:0; font-weight:600;">Our director</p>
                                             <p style="font-size:12px; color:#999999; margin:0;">Vartex Architects</p>
                                         </td>
                                     </tr>
