@@ -326,8 +326,14 @@ function TierComparison({ data }: { data: ServiceData }) {
                 const visibility = isActive ? "opacity-100" : distance === 1 ? "opacity-90" : "opacity-75";
                 const position = isActive ? "relative mx-auto" : "absolute left-1/2 top-0";
                 const horizontalOffset = isActive ? dragOffset : dragOffset * 0.35;
-                const horizontalTransform = isActive ? `${horizontalOffset}px` : `calc(-50% + ${horizontalOffset}px)`;
-                return <div key={tier.name} className={`w-[88%] ${isDragging ? "transition-none" : "transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"} ${position} ${visibility}`} style={{ zIndex: data.tiers.length - distance, transform: `translate3d(${horizontalTransform}, ${translateY}px, 0) scale(${scale})` }}>
+                const isSliding = isDragging && touchStart !== null;
+                const sideOffset = isSliding && !isActive ? (distance === 1 ? 88 : -88) : 0;
+                const horizontalTransform = isActive
+                    ? `${horizontalOffset}px`
+                    : `calc(-50% + ${sideOffset}% + ${horizontalOffset}px)`;
+                const rotation = isSliding && isActive ? `rotate(${Math.max(-2.5, Math.min(2.5, dragOffset * 0.018))}deg)` : "rotate(0deg)";
+                const slideY = isSliding && !isActive ? 56 : translateY;
+                return <div key={tier.name} className={`w-[88%] will-change-transform ${isDragging ? "transition-none" : "transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"} ${position} ${visibility}`} style={{ zIndex: data.tiers.length - distance, transform: `translate3d(${horizontalTransform}, ${slideY}px, 0) scale(${scale}) ${rotation}` }}>
                     <TierCard tier={tier} active={isActive} mobile onSelect={() => { pauseAutoPlay(); setActive(index); }} />
                 </div>;
             })}
