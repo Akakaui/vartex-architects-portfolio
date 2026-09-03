@@ -81,10 +81,10 @@ export async function contactInquiryAction(prevState: FormState, formData: FormD
             console.log("Both emails sent successfully via Resend");
         } catch (error) {
             console.error("Email sending failed:", error);
-            // Still return success — the inquiry was received, even if email fails
+            // Still return success / the inquiry was received, even if email fails
         }
     } else {
-        console.log("Resend API Key not configured — skipping email send");
+        console.log("Resend API Key not configured / skipping email send");
     }
 
     // Log to Google Sheets
@@ -114,7 +114,7 @@ export async function contactInquiryAction(prevState: FormState, formData: FormD
             console.error("Failed to save lead to Sanity:", error);
         }
     } else {
-        console.warn("SANITY_API_TOKEN not configured — skipping Sanity log");
+        console.warn("SANITY_API_TOKEN not configured / skipping Sanity log");
     }
 
     return {

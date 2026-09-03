@@ -47,8 +47,8 @@ export const journalPosts: JournalPost[] = [
         title: "From Sketch to Structure: Inside Our Design Process",
         excerpt: "A behind-the-scenes look at how VARTEX moves from initial concept sketches through spatial studies to final architectural documentation.",
         content: [
-            "Every project begins with a conversation. Before we draw a single line, we listen — to the client's aspirations, to the site's character, to the program's functional requirements.",
-            "The first marks on paper are always loose and exploratory. We sketch by hand — quickly, freely, without commitment to any single idea. These early drawings are not about precision; they are about possibility."
+            "Every project begins with a conversation. Before we draw a single line, we listen / to the client's aspirations, to the site's character, to the program's functional requirements.",
+            "The first marks on paper are always loose and exploratory. We sketch by hand / quickly, freely, without commitment to any single idea. These early drawings are not about precision; they are about possibility."
         ],
         category: "Studio",
         date: "2026-01-18",
@@ -61,7 +61,7 @@ export const journalPosts: JournalPost[] = [
         title: "Spatial Choreography: The Art of Movement in Architecture",
         excerpt: "Designing for the human experience of time and space through intentional circulation and visual sequences.",
         content: [
-            "Architecture is not just a static object; it is an experience that unfolds over time as we move through it. This sequence of movement — the journey from the street to the interior — is what we call spatial choreography.",
+            "Architecture is not just a static object; it is an experience that unfolds over time as we move through it. This sequence of movement / the journey from the street to the interior / is what we call spatial choreography.",
             "In our Nigerian context, the transition between 'public' and 'private' is often abrupt. We seek to soften this through thresholds, courtyards, and controlled vistas that prepare the occupant for the space ahead."
         ],
         category: "Design Philosophy",

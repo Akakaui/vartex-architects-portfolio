@@ -42,11 +42,11 @@ export default function Footer() {
                     </p>
                 </div>
 
-                {/* Social Column — SVG Icons on mobile, text on desktop */}
+                {/* Social Column / SVG Icons on mobile, text on desktop */}
                 <div className="lg:col-span-2 lg:col-start-5 flex flex-col gap-4 lg:gap-8">
                     <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">SOCIALS</span>
 
-                    {/* SVG Icons — visible on both mobile and desktop */}
+                    {/* SVG Icons / visible on both mobile and desktop */}
                     <nav className="flex flex-wrap gap-4 lg:gap-5 items-center">
                         {/* Instagram */}
                         <a href="https://www.instagram.com/vartex_architects?igsh=MWsxNDJqZmJ4aXEwNA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:opacity-40 transition-opacity text-primary dark:text-white">
@@ -58,7 +58,7 @@ export default function Footer() {
                         </a>
 
                         {/* LinkedIn */}
-                        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:opacity-40 transition-opacity text-primary dark:text-white">
+                        <a href="https://www.linkedin.com/company/vartexarchitects/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:opacity-40 transition-opacity text-primary dark:text-white">
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"></path>
                                 <rect x="2" y="9" width="4" height="12"></rect>
@@ -81,10 +81,46 @@ export default function Footer() {
                         </a>
 
                         {/* WhatsApp */}
-                        <a href="https://wa.me/qr/2CY37ORA7HOII1" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="hover:opacity-40 transition-opacity text-primary dark:text-white">
+                        <a href="https://wa.me/message/WCAUBNIBDXOSF1" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="hover:opacity-40 transition-opacity text-primary dark:text-white">
                             <svg className="w-5 h-5 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path d='M9.516.012C4.206.262.017 4.652.033 9.929a9.798 9.798 0 0 0 1.085 4.465L.06 19.495a.387.387 0 0 0 .47.453l5.034-1.184a9.981 9.981 0 0 0 4.284 1.032c5.427.083 9.951-4.195 10.12-9.58C20.15 4.441 15.351-.265 9.516.011zm6.007 15.367a7.784 7.784 0 0 1-5.52 2.27 7.77 7.77 0 0 1-3.474-.808l-.701-.347-3.087.726.65-3.131-.346-.672A7.62 7.62 0 0 1 2.197 9.9c0-2.07.812-4.017 2.286-5.48a7.85 7.85 0 0 1 5.52-2.271c2.086 0 4.046.806 5.52 2.27a7.672 7.672 0 0 1 2.287 5.48c0 2.052-.825 4.03-2.287 5.481z' />
                                 <path d='M14.842 12.045l-1.931-.55a.723.723 0 0 0-.713.186l-.472.478a.707.707 0 0 1-.765.16c-.913-.367-2.835-2.063-3.326-2.912a.694.694 0 0 1 .056-.774l.412-.53a.71.71 0 0 0 .089-.726L7.38 5.553a.723.723 0 0 0-1.125-.256c-.539.453-1.179 1.14-1.256 1.903-.137 1.343.443 3.036 2.637 5.07 2.535 2.349 4.566 2.66 5.887 2.341.75-.18 1.35-.903 1.727-1.494a.713.713 0 0 0-.408-1.072z' />
+                            </svg>
+                        </a>
+
+                        {/* Pinterest */}
+                        <a href="https://www.pinterest.com/vartex_architects" target="_blank" rel="noopener noreferrer" aria-label="Pinterest" className="hover:opacity-40 transition-opacity text-primary dark:text-white">
+                            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.41 7.61 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.966 1.406-5.966s-.359-.72-.359-1.781c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.204 0 1.031.397 2.138.89 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.164 0 7.397 2.967 7.397 6.93 0 4.136-2.607 7.464-6.227 7.464-1.215 0-2.359-.631-2.75-1.378l-.748 2.853c-.27 1.029-.997 2.32-1.488 3.114 1.127.348 2.324.537 3.565.537 6.621 0 11.988-5.367 11.988-11.987C23.999 5.368 18.632 0 12.017 0z" />
+                            </svg>
+                        </a>
+
+                        {/* Behance */}
+                        <a href="https://www.behance.net/vartexarchitects" target="_blank" rel="noopener noreferrer" aria-label="Behance" className="hover:opacity-40 transition-opacity text-primary dark:text-white">
+                            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16.969 16.927a2.561 2.561 0 0 0 1.901.677 2.501 2.501 0 0 0 1.531-.475c.362-.235.636-.584.779-.99h2.585a5.091 5.091 0 0 1-1.9 2.896 5.292 5.292 0 0 1-3.091.88 5.839 5.839 0 0 1-2.284-.433 4.871 4.871 0 0 1-1.723-1.211 5.657 5.657 0 0 1-1.08-1.874 7.057 7.057 0 0 1-.383-2.393c-.005-.8.129-1.595.396-2.349a5.313 5.313 0 0 1 5.088-3.604 4.87 4.87 0 0 1 2.376.563c.661.362 1.231.87 1.668 1.485a6.2 6.2 0 0 1 .943 2.133c.194.821.263 1.666.205 2.508h-7.699c-.063.79.184 1.574.688 2.187ZM6.947 4.084a8.065 8.065 0 0 1 1.928.198 4.29 4.29 0 0 1 1.49.638c.418.303.748.711.958 1.182.241.579.357 1.203.341 1.83a3.506 3.506 0 0 1-.506 1.961 3.726 3.726 0 0 1-1.503 1.287 3.588 3.588 0 0 1 2.027 1.437c.464.747.697 1.615.67 2.494a4.593 4.593 0 0 1-.423 2.032 3.945 3.945 0 0 1-1.163 1.413 5.114 5.114 0 0 1-1.683.807 7.135 7.135 0 0 1-1.928.259H0V4.084h6.947Zm-.235 12.9c.308.004.616-.029.916-.099a2.18 2.18 0 0 0 .766-.332c.228-.158.411-.371.534-.619.142-.317.208-.663.191-1.009a2.08 2.08 0 0 0-.642-1.715 2.618 2.618 0 0 0-1.696-.505h-3.54v4.279h3.471Zm13.635-5.967a2.13 2.13 0 0 0-1.654-.619 2.336 2.336 0 0 0-1.163.259 2.474 2.474 0 0 0-.738.62 2.359 2.359 0 0 0-.396.792c-.074.239-.12.485-.137.734h4.769a3.239 3.239 0 0 0-.679-1.785l-.002-.001Zm-13.813-.648a2.254 2.254 0 0 0 1.423-.433c.399-.355.607-.88.56-1.413a1.916 1.916 0 0 0-.178-.891 1.298 1.298 0 0 0-.495-.533 1.851 1.851 0 0 0-.711-.274 3.966 3.966 0 0 0-.835-.073H3.241v3.631h3.293v-.014ZM21.62 5.122h-5.976v1.527h5.976V5.122Z" />
+                            </svg>
+                        </a>
+
+                        {/* Facebook */}
+                        <a href="https://www.facebook.com/vartexarchitects" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:opacity-40 transition-opacity text-primary dark:text-white">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                            </svg>
+                        </a>
+
+                        {/* YouTube */}
+                        <a href="https://www.youtube.com/channel/UCdISTvQJrotB6peWEKhbjRw" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="hover:opacity-40 transition-opacity text-primary dark:text-white">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17z" />
+                                <polygon points="10 9 15 12 10 15" />
+                            </svg>
+                        </a>
+
+                        {/* TikTok */}
+                        <a href="https://www.tiktok.com/@vartex_architects" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="hover:opacity-40 transition-opacity text-primary dark:text-white">
+                            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.77 0 2.89 2.89 0 0 1 2.89-2.89h.6V8.67h-.6a6.34 6.34 0 1 0 6.34 6.34V8.41a8.45 8.45 0 0 0 3.77 1.13v-3.45z" />
                             </svg>
                         </a>
                     </nav>
@@ -96,6 +132,7 @@ export default function Footer() {
                 <div className="lg:col-span-3 lg:col-start-10 flex flex-col gap-4 lg:gap-8 lg:text-right">
                     <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">CONTACT US</span>
                     <div className="flex flex-col gap-2 lg:items-end">
+                        <a href="tel:+2347049001510" className="text-lg lg:text-xl font-bold text-primary dark:text-white uppercase leading-tight tracking-widest hover:opacity-50 transition-opacity">+234 704 900 1510</a>
                         <a href="tel:+2347032697179" className="text-lg lg:text-xl font-bold text-primary dark:text-white uppercase leading-tight tracking-widest hover:opacity-50 transition-opacity">+234 703 269 7179</a>
                         <a href="mailto:info@vartexarchitects.com" className="text-lg lg:text-xl font-bold text-primary dark:text-white hover:opacity-50 transition-opacity break-words">info@vartexarchitects.com</a>
                     </div>

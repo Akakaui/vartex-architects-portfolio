@@ -76,15 +76,15 @@ const Layout = ({ children }) => {
                     <div>
                         <h4 className="mono-text text-[10px] uppercase tracking-widest text-gray-400 mb-6 font-bold">Social</h4>
                         <div className="flex flex-col gap-3 text-sm">
-                            <a href="#" className="hover:text-primary">LinkedIn</a>
-                            <a href="#" className="hover:text-primary">Instagram</a>
-                            <a href="#" className="hover:text-primary">Behance</a>
+                            <a href="https://www.linkedin.com/company/vartexarchitects/" target="_blank" rel="noopener noreferrer" className="hover:text-primary">LinkedIn</a>
+                            <a href="https://www.instagram.com/vartex_architects" target="_blank" rel="noopener noreferrer" className="hover:text-primary">Instagram</a>
+                            <a href="https://www.behance.net/vartex_architects" target="_blank" rel="noopener noreferrer" className="hover:text-primary">Behance</a>
                         </div>
                     </div>
                 </div>
 
                 <div className="w-full flex flex-col md:flex-row justify-between items-center gap-6 pt-10 border-t border-gray-50 dark:border-gray-900">
-                    <p className="mono-text text-[9px] uppercase text-gray-400 tracking-widest">© 2026 VARTEX ARCHITECTS — LAGOS / ENUGU / REMOTE</p>
+                    <p className="mono-text text-[9px] uppercase text-gray-400 tracking-widest">© 2026 VARTEX ARCHITECTS / LAGOS / ENUGU / REMOTE</p>
                     <div className="flex gap-8 mono-text text-[9px] uppercase tracking-widest text-gray-400">
                         <span className="hover:text-black dark:hover:text-white cursor-pointer">Privacy</span>
                         <span className="hover:text-black dark:hover:text-white cursor-pointer">Terms</span>

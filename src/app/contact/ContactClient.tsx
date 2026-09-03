@@ -81,7 +81,7 @@ export default function Contact() {
                     </h1>
                 </div>
 
-                {/* Form Section — Full Width */}
+                {/* Form Section / Full Width */}
                 <div className="px-8 lg:px-24 pb-24 lg:pb-32 relative bg-primary dark:bg-neutral-900/50 py-24">
 
                     {/* Success Message */}

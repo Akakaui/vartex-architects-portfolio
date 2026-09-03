@@ -101,21 +101,25 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                         start: "top 70%",
                         end: "bottom 30%",
                         onEnter: () => {
+                            card.classList.add("service-card-visible");
                             if (icon) { icon.classList.add("text-primary", "dark:text-white"); icon.classList.remove("text-primary/20", "dark:text-white/20"); }
                             if (title) { title.classList.add("text-primary", "dark:text-white"); }
                             if (text) { text.classList.add("text-primary/100", "dark:text-white/100"); text.classList.remove("text-primary/60", "dark:text-white/60"); }
                         },
                         onLeave: () => {
+                            card.classList.remove("service-card-visible");
                             if (icon) { icon.classList.remove("text-primary", "dark:text-white"); icon.classList.add("text-primary/20", "dark:text-white/20"); }
                             if (title) { title.classList.remove("text-primary", "dark:text-white"); }
                             if (text) { text.classList.remove("text-primary/100", "dark:text-white/100"); text.classList.add("text-primary/60", "dark:text-white/60"); }
                         },
                         onEnterBack: () => {
+                            card.classList.add("service-card-visible");
                             if (icon) { icon.classList.add("text-primary", "dark:text-white"); icon.classList.remove("text-primary/20", "dark:text-white/20"); }
                             if (title) { title.classList.add("text-primary", "dark:text-white"); }
                             if (text) { text.classList.add("text-primary/100", "dark:text-white/100"); text.classList.remove("text-primary/60", "dark:text-white/60"); }
                         },
                         onLeaveBack: () => {
+                            card.classList.remove("service-card-visible");
                             if (icon) { icon.classList.remove("text-primary", "dark:text-white"); icon.classList.add("text-primary/20", "dark:text-white/20"); }
                             if (title) { title.classList.remove("text-primary", "dark:text-white"); }
                             if (text) { text.classList.remove("text-primary/100", "dark:text-white/100"); text.classList.add("text-primary/60", "dark:text-white/60"); }
@@ -163,7 +167,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
     const activeProject = validFeaturedProjects[currentSlide];
 
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen overflow-x-hidden">
             <Header />
 
             <main ref={mainRef} className="flex-grow bg-white dark:bg-background-dark">
@@ -173,7 +177,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                     {/* Left: Text Content */}
                     <div className="w-full lg:w-[40%] p-8 pt-24 md:p-16 lg:p-24 flex flex-col justify-center gap-12 lg:border-r border-neutral-100 dark:border-white/5 hero-text">
                         <div className="flex flex-col gap-6">
-                            <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">00 — INTRO</span>
+                            <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">00 / INTRO</span>
                             <h1 className="text-5xl lg:text-7xl font-black tracking-tighter leading-[0.9] text-primary dark:text-white">
                                 Architecture shaped by idea, context, and precision.
                             </h1>
@@ -241,7 +245,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                             </button>
                         </div>
 
-                        {/* Featured Tag — Liquid Glass / See-through */}
+                        {/* Featured Tag / Liquid Glass / See-through */}
                         {activeProject && (
                             <Link
                                 href={activeProject.isComingSoon ? "#" : `/project/${activeProject.id || activeProject.slug}`}
@@ -271,7 +275,7 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                                     {activeProject.isComingSoon && <span className="block text-[10px] mt-2 opacity-60">COMING SOON</span>}
                                 </h3>
                                 <p className="font-mono text-[9px] tracking-widest text-white/70 uppercase relative z-10 drop-shadow-sm font-semibold">
-                                    {activeProject.location || "LAGOS"} — {activeProject.year || "2025"}
+                                    {activeProject.location || "LAGOS"} / {activeProject.year || "2025"}
                                 </p>
                             </Link>
                         )}
@@ -281,13 +285,13 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                 {/* PHILOSOPHY SECTION */}
                 <section className="px-8 lg:px-24 py-24 lg:py-32 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start border-b border-neutral-100 dark:border-white/5 bg-neutral-50 dark:bg-neutral-900/20" aria-label="Our practice philosophy">
                     <div className="lg:col-span-4 flex flex-col gap-4">
-                        <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">01 — PHILOSOPHY</span>
+                        <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">01 / PHILOSOPHY</span>
                         <h2 className="text-3xl lg:text-4xl font-black uppercase tracking-tighter text-primary dark:text-white">Negative Space as Structure</h2>
                     </div>
                     <div className="lg:col-span-1 border-r border-neutral-200 dark:border-white/10 hidden lg:block h-32 self-center"></div>
                     <div className="lg:col-span-7">
                         <p className="text-2xl lg:text-3xl font-light leading-snug text-primary/80 dark:text-white/80 max-w-3xl">
-                            We believe a building is not just a structure, but a dialogue between the inhabitant and the environment. Every line drawn serves a purpose; every void creates meaning. Simplicity is the ultimate sophistication. — Leonardo da Vinci
+                            We believe a building is not just a structure, but a dialogue between the inhabitant and the environment. Every line drawn serves a purpose; every void creates meaning. Simplicity is the ultimate sophistication. / Leonardo da Vinci
                         </p>
                     </div>
                 </section>
@@ -360,33 +364,36 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                 </section>
 
                 {/* SPECIALIZATIONS */}
-                <section className="px-8 lg:px-24 py-24 lg:py-40 bg-neutral-50 dark:bg-neutral-900/10 border-y border-neutral-100 dark:border-white/5" aria-label="Core architectural specializations">
+                <section className="px-8 lg:px-24 py-16 lg:py-24 bg-neutral-50 dark:bg-neutral-900/10 border-y border-neutral-100 dark:border-white/5" aria-label="Core architectural specializations">
+                    <div className="flex justify-between items-end border-b border-neutral-100 dark:border-white/5 pb-8 mb-8 lg:mb-12">
+                        <h2 className="text-4xl lg:text-6xl font-black uppercase tracking-tighter text-primary dark:text-white">SERVICES</h2>
+                    </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-neutral-200 dark:bg-neutral-800">
                         {/* Item 1: Architectural Design */}
-                        <div className="bg-white dark:bg-background-dark p-12 flex flex-col gap-8 group service-card">
+                        <Link href="/services?service=architecture" className="bg-white dark:bg-background-dark p-8 lg:p-10 flex flex-col gap-6 lg:gap-8 group service-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-white">
                             <HomeIcon className="w-10 h-10 text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500 icon-layer" />
                             <div className="flex flex-col gap-4">
                                 <h4 className="text-xl font-bold uppercase tracking-tight text-primary dark:text-white transition-colors duration-500 title-layer">Architectural Design</h4>
                                 <p className="text-xs text-primary/60 dark:text-white/60 leading-relaxed italic transition-colors duration-500 text-layer">Crafting spaces that balance structural integrity with openness to nature.</p>
                             </div>
-                            <span className="font-mono text-[9px] text-primary/20 dark:text-white/20">01</span>
-                        </div>
+                            <span className="font-mono text-[10px] text-primary/20 dark:text-white/20">01</span>
+                        </Link>
                         {/* Item 2: Interior Design */}
-                        <div className="bg-white dark:bg-background-dark p-12 flex flex-col gap-8 group service-card">
+                        <Link href="/services?service=interior" className="bg-white dark:bg-background-dark p-8 lg:p-10 flex flex-col gap-6 lg:gap-8 group service-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:focus-visible:ring-white">
                             <Sofa className="w-10 h-10 text-primary/20 dark:text-white/20 group-hover:text-primary dark:group-hover:text-white transition-colors duration-500 icon-layer" />
                             <div className="flex flex-col gap-4">
                                 <h4 className="text-xl font-bold uppercase tracking-tight text-primary dark:text-white transition-colors duration-500 title-layer">Interior Design</h4>
                                 <p className="text-xs text-primary/60 dark:text-white/60 leading-relaxed italic transition-colors duration-500 text-layer">Curating the inner volume through materiality, light, and proportion.</p>
                             </div>
-                            <span className="font-mono text-[9px] text-primary/20 dark:text-white/20">02</span>
-                        </div>
+                            <span className="font-mono text-[10px] text-primary/20 dark:text-white/20">02</span>
+                        </Link>
                     </div>
                 </section>
 
                 {/* PROCESS SECTION */}
                 <section className="px-8 lg:px-24 py-24 lg:py-40 flex flex-col gap-24" aria-label="Our architectural process">
                     <div className="flex flex-col gap-4">
-                        <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">02 — PROCESS</span>
+                        <span className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">02 / PROCESS</span>
                         <div className="flex justify-between items-end">
                             <h2 className="text-4xl lg:text-6xl font-black uppercase tracking-tighter text-primary dark:text-white">From Sketch to Stone</h2>
                             <Link href="/process" className="font-mono text-[10px] tracking-[0.3em] text-primary/40 dark:text-white/40 hover:text-primary dark:hover:text-white transition-colors uppercase hidden sm:block">
@@ -396,9 +403,9 @@ export default function HomeClient({ featuredProjects, selectedWorks, allProject
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-16 lg:gap-24 relative process-steps-container">
-                        {/* Connection Line — Base */}
+                        {/* Connection Line / Base */}
                         <div className="absolute top-4 left-0 w-full h-[1px] bg-neutral-100 dark:bg-white/5 hidden md:block"></div>
-                        {/* Connection Line — Progress Fill */}
+                        {/* Connection Line / Progress Fill */}
                         <div className="absolute top-4 left-0 w-full h-[1px] bg-primary dark:bg-white hidden md:block origin-left scale-x-0 progress-line"></div>
 
                         {/* Step 01 */}

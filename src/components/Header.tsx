@@ -27,9 +27,9 @@ export default function Header() {
 
     const navItems = [
         { name: "PROJECTS", href: "/portfolio" },
-        { name: "STUDIO", href: "/about" },
         { name: "SERVICES", href: "/services" },
         { name: "PROCESS", href: "/process" },
+        { name: "STUDIO", href: "/about" },
         { name: "JOURNAL", href: "/journal" },
     ];
 
@@ -82,7 +82,7 @@ export default function Header() {
                         aria-label="Start a project consultation"
                         className="bg-primary dark:bg-white text-white dark:text-primary px-6 py-3 rounded-sm font-bold uppercase tracking-widest text-[9px] hover:bg-black dark:hover:bg-neutral-200 transition-all ml-4"
                     >
-                        START PROJECT
+                        LET&apos;S BUILD
                     </Link>
                 </div>
 
@@ -127,13 +127,13 @@ export default function Header() {
                         href="/contact"
                         className="bg-primary dark:bg-white text-white dark:text-primary w-full py-5 md:py-6 text-center font-bold uppercase tracking-[0.4em] text-[10px] rounded-sm hover:opacity-80 transition-colors"
                     >
-                        START PROJECT
+                        LET&apos;S BUILD
                     </Link>
 
                     <div className="pt-12 border-t border-neutral-200 dark:border-white/10 flex flex-col gap-6">
                         <nav className="flex justify-center gap-12 font-mono text-[9px] text-primary/40 dark:text-white/40 uppercase tracking-[0.4em]">
                             <a href="https://www.instagram.com/vartex_architects" target="_blank" rel="noopener noreferrer" className="hover:text-primary dark:hover:text-white transition-colors">INSTAGRAM</a>
-                            <a href="https://www.linkedin.com/company/vartex-architects" target="_blank" rel="noopener noreferrer" className="hover:text-primary dark:hover:text-white transition-colors">LINKEDIN</a>
+                            <a href="https://www.linkedin.com/company/vartexarchitects/" target="_blank" rel="noopener noreferrer" className="hover:text-primary dark:hover:text-white transition-colors">LINKEDIN</a>
                         </nav>
                         <span className="font-mono text-[9px] tracking-[0.5em] text-primary/20 dark:text-white/20 uppercase">© 2026 VARTEX ARCHITECTS</span>
                     </div>

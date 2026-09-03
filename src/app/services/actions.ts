@@ -162,7 +162,7 @@ export async function requestGuideAction(prevState: GuideState, formData: FormDa
                                             <tr>
                                                 <td>
                                                     <p style="font-size:14px; color:${BRAND}; margin:0 0 4px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">Warm regards,</p>
-                                                    <p style="font-size:14px; color:#1a1a1a; margin:0; font-weight:600; font-family: Arial, sans-serif;">Michael Mbah</p>
+                                                    <p style="font-size:14px; color:#1a1a1a; margin:0; font-weight:600; font-family: Arial, sans-serif;">Our director</p>
                                                     <p style="font-size:12px; color:#999999; margin:0; font-family: Arial, sans-serif;">Vartex Architects</p>
                                                 </td>
                                             </tr>
@@ -259,7 +259,7 @@ export async function requestGuideAction(prevState: GuideState, formData: FormDa
                 resend.emails.send({
                     from: `Vartex Lead Center <${process.env.EMAIL_FROM || "info@vartexarchitects.com"}>`,
                     to: [process.env.EMAIL_TO || "info@vartexarchitects.com"],
-                    subject: `Guide Requested — ${name} (${serviceLabel})`,
+                    subject: `Guide Requested / ${name} (${serviceLabel})`,
                     html: studioHtml,
                 })
             ]);
@@ -423,7 +423,7 @@ export async function submitQuizAction(prevState: QuizState, formData: FormData)
                                             </tr>
                                         </table>
                                         <p style="font-size:14px; color:${BRAND}; line-height:1.6; margin:0 0 32px 0; font-family: Arial, sans-serif;">
-                                            We have attached your recommended guide overview PDF to this email. If you have any questions or are ready to schedule a direct spatial consultation with Michael Mbah, please reply directly to this email or visit our contact page.
+                                            We have attached your recommended guide overview PDF to this email. If you have any questions or are ready to schedule a direct spatial consultation with Our director, please reply directly to this email or visit our contact page.
                                         </p>
                                         <table width="100%" cellpadding="0" cellspacing="0">
                                             <tr>
@@ -440,7 +440,7 @@ export async function submitQuizAction(prevState: QuizState, formData: FormData)
                                             <tr>
                                                 <td>
                                                     <p style="font-size:14px; color:${BRAND}; margin:0 0 4px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;">Warm regards,</p>
-                                                    <p style="font-size:14px; color:#1a1a1a; margin:0; font-weight:600; font-family: Arial, sans-serif;">Michael Mbah</p>
+                                                    <p style="font-size:14px; color:#1a1a1a; margin:0; font-weight:600; font-family: Arial, sans-serif;">Our director</p>
                                                     <p style="font-size:12px; color:#999999; margin:0; font-family: Arial, sans-serif;">Vartex Architects</p>
                                                 </td>
                                             </tr>
@@ -544,7 +544,7 @@ export async function submitQuizAction(prevState: QuizState, formData: FormData)
                 resend.emails.send({
                     from: `Vartex Lead Center <${process.env.EMAIL_FROM || "info@vartexarchitects.com"}>`,
                     to: [process.env.EMAIL_TO || "info@vartexarchitects.com"],
-                    subject: `Quiz Lead — ${name} (${serviceLabel})`,
+                    subject: `Quiz Lead / ${name} (${serviceLabel})`,
                     html: studioHtml,
                 })
             ]);

@@ -129,3 +129,36 @@ body {
     scrollbar-width: none;
     /* Firefox */
 }
+
+@keyframes vartex-service-icon-pulse {
+    0% {
+        transform: scale(0.9) rotate(-4deg);
+        filter: drop-shadow(0 0 0 rgba(41, 41, 41, 0));
+    }
+    55% {
+        transform: scale(1.12) rotate(2deg);
+        filter: drop-shadow(0 0 10px rgba(41, 41, 41, 0.28));
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        filter: drop-shadow(0 0 4px rgba(41, 41, 41, 0.12));
+    }
+}
+
+@media (max-width: 1023px) {
+    .service-card-visible .icon-layer {
+        animation: vartex-service-icon-pulse 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .dark .service-card-visible .icon-layer {
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .service-card-visible .icon-layer {
+        animation: none;
+        filter: none;
+        transform: none;
+    }
+}

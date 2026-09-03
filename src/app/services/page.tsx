@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import ServicesClient from "./ServicesClient";
 
 export const metadata: Metadata = {
-    title: "Services & Capabilities | Vartex Architects",
-    description: "Explore our specialized services: Architectural Design, Interior Design, and construction consulting services. Download our service guides or schedule a spatial consultation.",
+    title: "Architecture & Interior Design Services in Nigeria",
+    description: "Explore Vartex Architects' architectural design and interior design services in Nigeria, including project scoping, visualization, technical documentation, and construction coordination.",
     keywords: [
         "Architectural Design Services",
         "Interior Design Services",
@@ -13,14 +13,16 @@ export const metadata: Metadata = {
         "Construction Documentation",
         "Vartex Architects Services",
         "Architecture Timelines",
-        "Bespoke Design Scopes"
+        "Bespoke Design Scopes",
+        "Architectural Design Lagos",
+        "Interior Design Nigeria"
     ],
     alternates: {
         canonical: "https://vartexarchitects.com/services"
     },
     openGraph: {
-        title: "Services & Capabilities | Vartex Architects",
-        description: "Explore our specialized services: Architectural Design, Interior Design, and construction consulting services. Download our service guides or schedule a spatial consultation.",
+        title: "Architecture & Interior Design Services in Nigeria | Vartex Architects",
+        description: "Explore Vartex Architects' architectural design and interior design services in Nigeria, including project scoping, visualization, technical documentation, and construction coordination.",
         url: "https://vartexarchitects.com/services",
         type: "website",
         images: [
@@ -34,8 +36,8 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "Services & Capabilities | Vartex Architects",
-        description: "Explore our specialized services: Architectural Design, Interior Design, and construction consulting services. Download our service guides or schedule a spatial consultation.",
+        title: "Architecture & Interior Design Services in Nigeria | Vartex Architects",
+        description: "Explore Vartex Architects' architectural design and interior design services in Nigeria, including project scoping, visualization, technical documentation, and construction coordination.",
         images: ["/og-image.jpg"]
     }
 };

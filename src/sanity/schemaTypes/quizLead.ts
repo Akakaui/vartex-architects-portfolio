@@ -25,12 +25,12 @@ export default defineType({
         }),
         defineField({
             name: 'q1',
-            title: 'Q1 — What are you planning?',
+            title: 'Q1 / What are you planning?',
             type: 'string',
         }),
         defineField({
             name: 'q2',
-            title: 'Q2 — What is the scale?',
+            title: 'Q2 / What is the scale?',
             type: 'string',
         }),
         defineField({
