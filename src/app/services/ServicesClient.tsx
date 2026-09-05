@@ -357,16 +357,15 @@ export default function ServicesClient({ initialPage = "index" }: { initialPage?
         window.scrollTo(0, 0);
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         const ctx = gsap.context(() => {
-            gsap.utils.toArray<HTMLElement>(".service-reveal").forEach((element, index) => {
+            gsap.utils.toArray<HTMLElement>(".service-reveal:not(.service-card)").forEach((element, index) => {
                 gsap.from(element, { y: 28, duration: 0.9, delay: Math.min(index * 0.03, 0.25), ease: "power3.out", scrollTrigger: { trigger: element, start: "top 88%", once: true } });
             });
             gsap.utils.toArray<HTMLElement>(".service-card-image-stage").forEach((stage) => {
                 const image = stage.querySelector<HTMLElement>(".service-card-image");
                 if (!image) return;
-                gsap.fromTo(image, { clipPath: "inset(100% 0 0 0)", yPercent: 12 }, {
-                    clipPath: "inset(0% 0 0 0)",
-                    yPercent: 0,
-                    duration: 1.3,
+                gsap.from(image, {
+                    clipPath: "inset(100% 0 0 0)",
+                    duration: 1.5,
                     ease: "power4.out",
                     scrollTrigger: { trigger: stage, start: "top 78%", once: true }
                 });
@@ -374,9 +373,8 @@ export default function ServicesClient({ initialPage = "index" }: { initialPage?
             gsap.utils.toArray<HTMLElement>(".service-image-stage").forEach((stage) => {
                 const image = stage.querySelector<HTMLElement>(".service-detail-image");
                 if (!image) return;
-                gsap.fromTo(image, { clipPath: "inset(100% 0 0 0)", scale: 1.12 }, {
-                    clipPath: "inset(0% 0 0 0)",
-                    scale: 1,
+                gsap.from(image, {
+                    clipPath: "inset(100% 0 0 0)",
                     duration: 1.5,
                     ease: "power4.out",
                     scrollTrigger: { trigger: stage, start: "top 70%", once: true }
