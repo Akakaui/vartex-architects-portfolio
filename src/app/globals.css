@@ -162,3 +162,32 @@ body {
         transform: none;
     }
 }
+
+/* Service imagery follows the active page background instead of a fixed gray fill. */
+.service-card-image-stage,
+.service-image-stage {
+    background-color: var(--background);
+}
+
+/* Touch layouts use native scrolling and a stable first paint. */
+@media (max-width: 1024px) {
+    .service-reveal,
+    .service-approach-text,
+    .service-card-image,
+    .service-detail-image {
+        opacity: 1 !important;
+        transform: none !important;
+        clip-path: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .service-reveal,
+    .service-approach-text,
+    .service-card-image,
+    .service-detail-image {
+        opacity: 1 !important;
+        transform: none !important;
+        clip-path: none !important;
+    }
+}
