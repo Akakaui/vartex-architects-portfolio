@@ -363,8 +363,9 @@ export default function ServicesClient({ initialPage = "index" }: { initialPage?
             gsap.utils.toArray<HTMLElement>(".service-card-image-stage").forEach((stage) => {
                 const image = stage.querySelector<HTMLElement>(".service-card-image");
                 if (!image) return;
-                gsap.from(image, {
-                    clipPath: "inset(100% 0 0 0)",
+                gsap.fromTo(image, { clipPath: "inset(100% 0 0 0)", yPercent: 12 }, {
+                    clipPath: "inset(0% 0 0 0)",
+                    yPercent: 0,
                     duration: 1.5,
                     ease: "power4.out",
                     scrollTrigger: { trigger: stage, start: "top 78%", once: true }
@@ -373,8 +374,9 @@ export default function ServicesClient({ initialPage = "index" }: { initialPage?
             gsap.utils.toArray<HTMLElement>(".service-image-stage").forEach((stage) => {
                 const image = stage.querySelector<HTMLElement>(".service-detail-image");
                 if (!image) return;
-                gsap.from(image, {
-                    clipPath: "inset(100% 0 0 0)",
+                gsap.fromTo(image, { clipPath: "inset(100% 0 0 0)", scale: 1.12 }, {
+                    clipPath: "inset(0% 0 0 0)",
+                    scale: 1,
                     duration: 1.5,
                     ease: "power4.out",
                     scrollTrigger: { trigger: stage, start: "top 70%", once: true }
