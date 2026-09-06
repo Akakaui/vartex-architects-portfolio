@@ -217,8 +217,8 @@ function FAQSection() {
 }
 
 function ServicesIndex({ onOpenQuiz }: { onOpenQuiz: () => void }) {
-    return <div className="flex flex-col"><section className="service-reveal service-motion-copy border-b border-neutral-100 px-8 py-24 dark:border-white/5 lg:px-24 lg:py-36"><span className="font-mono text-[11px] tracking-[0.4em] text-neutral-400">03 / SERVICES</span><h1 className="mt-7 max-w-3xl text-6xl font-black uppercase leading-[0.86] tracking-tighter text-primary dark:text-white lg:text-[8rem]">Every line<br />serves<br />a purpose.</h1><p className="mt-10 max-w-xl text-lg leading-relaxed text-primary/65 dark:text-white/65 lg:text-xl">Vartex operates across two specialized architectural disciplines. In both fields, our commitment is absolute: resolving structural voids and interior proportions through systematic rigour.</p></section>
-        <section className="grid grid-cols-1 lg:grid-cols-2">{([{ id: "architecture", number: "01", title: "Architectural Design", description: "We design structures from the inside out, beginning with site context, solar orientation, and structural integrity.", image: "/images/services/architectural-design.jpeg", icon: HomeIcon }, { id: "interior", number: "02", title: "Interior Design", description: "Proportion, surface finishes, and custom millwork are integrated seamlessly to complete architectural spaces.", image: "/images/services/interior-design.webp", icon: Sofa }] as const).map((service) => { const Icon = service.icon; return <Link key={service.id} href={`/services/${service.id}`} className="service-reveal service-card group border-b border-r border-neutral-100 bg-[var(--background)] p-8 text-left transition-colors hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:border-white/5 dark:hover:bg-neutral-900 lg:p-16"><div className="service-card-image-stage relative mb-10 aspect-[16/9] overflow-hidden bg-[var(--background)]"><Image src={service.image} alt={`${service.title} service`} fill sizes="(max-width: 1024px) 100vw, 50vw" className="service-card-image service-motion-image object-cover transition-transform duration-700 group-hover:scale-105" /><div className="service-motion-image-overlay absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" /></div><div className="flex items-start justify-between gap-6 service-motion-copy"><div><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">{service.number}</span><h2 className="mt-4 text-3xl font-black uppercase leading-none tracking-tight text-primary dark:text-white lg:text-5xl">{service.title}</h2><p className="mt-6 max-w-md text-base leading-relaxed text-primary/65 dark:text-white/65 text-layer transition-colors duration-500">{service.description}</p></div><Icon className="icon-layer mt-1 h-8 w-8 shrink-0 text-primary/25 transition-colors group-hover:text-primary dark:text-white/25 dark:group-hover:text-white duration-500" aria-hidden="true" /></div><span className="mt-10 inline-flex items-center gap-3 font-mono text-[11px] font-bold tracking-[0.2em] text-primary dark:text-white">EXPLORE THIS SERVICE <ArrowUpRight className="h-4 w-4" /></span></Link>; })}</section>
+    return <div className="flex flex-col"><section className="service-reveal border-b border-neutral-100 px-8 py-24 dark:border-white/5 lg:px-24 lg:py-36"><span className="font-mono text-[11px] tracking-[0.4em] text-neutral-400">03 / SERVICES</span><h1 className="mt-7 max-w-3xl text-6xl font-black uppercase leading-[0.86] tracking-tighter text-primary dark:text-white lg:text-[8rem]">Every line<br />serves<br />a purpose.</h1><p className="mt-10 max-w-xl text-lg leading-relaxed text-primary/65 dark:text-white/65 lg:text-xl">Vartex operates across two specialized architectural disciplines. In both fields, our commitment is absolute: resolving structural voids and interior proportions through systematic rigour.</p></section>
+        <section className="grid grid-cols-1 lg:grid-cols-2">{([{ id: "architecture", number: "01", title: "Architectural Design", description: "We design structures from the inside out, beginning with site context, solar orientation, and structural integrity.", image: "/images/services/architectural-design.jpeg", icon: HomeIcon }, { id: "interior", number: "02", title: "Interior Design", description: "Proportion, surface finishes, and custom millwork are integrated seamlessly to complete architectural spaces.", image: "/images/services/interior-design.webp", icon: Sofa }] as const).map((service) => { const Icon = service.icon; return <Link key={service.id} href={`/services/${service.id}`} className="service-reveal service-card group border-b border-r border-neutral-100 bg-white p-8 text-left transition-colors hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:border-white/5 dark:bg-background-dark dark:hover:bg-neutral-900 lg:p-16"><div className="service-card-image-stage relative mb-10 aspect-[16/9] overflow-hidden bg-neutral-100 dark:bg-neutral-900"><Image src={service.image} alt={`${service.title} service`} fill sizes="(max-width: 1024px) 100vw, 50vw" className="service-card-image object-cover transition-transform duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-black/10" /></div><div className="flex items-start justify-between gap-6"><div><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">{service.number}</span><h2 className="mt-4 text-3xl font-black uppercase leading-none tracking-tight text-primary dark:text-white lg:text-5xl">{service.title}</h2><p className="mt-6 max-w-md text-base leading-relaxed text-primary/65 dark:text-white/65 text-layer transition-colors duration-500">{service.description}</p></div><Icon className="icon-layer mt-1 h-8 w-8 shrink-0 text-primary/25 transition-colors group-hover:text-primary dark:text-white/25 dark:group-hover:text-white duration-500" aria-hidden="true" /></div><span className="mt-10 inline-flex items-center gap-3 font-mono text-[11px] font-bold tracking-[0.2em] text-primary dark:text-white">EXPLORE THIS SERVICE <ArrowUpRight className="h-4 w-4" /></span></Link>; })}</section>
         <section className="service-reveal bg-neutral-50 px-8 py-20 dark:bg-neutral-900/10 lg:px-24 lg:py-28"><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">COORDINATED ENGAGEMENT</span><h2 className="mt-5 text-3xl font-black uppercase tracking-tight text-primary dark:text-white lg:text-5xl">Some projects require both.</h2><p className="mt-6 max-w-2xl text-base leading-relaxed text-primary/65 dark:text-white/65">The highest design outcomes are achieved when exterior volumes and interior staging are resolved concurrently. If your project is still open in scope, begin with a coordinated design consultation.</p><button onClick={onOpenQuiz} className="mt-10 bg-primary px-8 py-5 font-mono text-[11px] font-bold tracking-[0.2em] text-white transition-colors hover:bg-black dark:bg-white dark:text-black dark:hover:bg-neutral-200">HELP ME DECIDE</button></section><FAQSection /></div>;
 }
 
@@ -345,7 +345,7 @@ function TierComparison({ data }: { data: ServiceData }) {
 
 function ServicesDetail({ data, setPage }: { data: ServiceData; setPage: (p: "index" | "architecture" | "interior") => void }) {
     const [showGuide, setShowGuide] = useState(false);
-    return <div className="flex flex-col overflow-x-hidden bg-[var(--background)]"><div className="service-reveal flex items-center gap-3 border-b border-neutral-100 px-8 py-6 font-mono text-[11px] tracking-[0.15em] text-neutral-400 dark:border-white/5 lg:px-24"><button onClick={() => setPage("index")} className="hover:text-primary dark:hover:text-white">SERVICES</button><span>/</span><span className="text-primary dark:text-white">{data.label}</span></div><section className="service-reveal grid gap-12 border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:grid-cols-12 lg:px-24 lg:py-32"><div className="lg:col-span-8 service-motion-copy"><span className="font-mono text-[11px] tracking-[0.35em] text-neutral-400">{data.index} / SERVICE DIRECTORY</span><h1 className="mt-7 text-[clamp(2.35rem,10.4vw,7rem)] font-black uppercase leading-[0.88] tracking-tighter text-primary dark:text-white lg:text-[7rem]">{data.headline.map((line) => <span key={line} className="block">{line}</span>)}</h1><p className="mt-10 max-w-2xl text-xl leading-relaxed text-primary/70 dark:text-white/70 lg:text-2xl">{data.hero}</p></div><div className="flex flex-col gap-3 lg:col-span-4 lg:pt-8"><button onClick={() => setShowGuide(true)} className="bg-primary py-5 font-mono text-[11px] font-bold tracking-[0.2em] text-white hover:bg-black dark:bg-white dark:text-black dark:hover:bg-neutral-200">RECEIVE SERVICE GUIDE</button><Link href="/contact" className="border border-neutral-200 py-5 text-center font-mono text-[11px] font-bold tracking-[0.2em] text-primary hover:bg-neutral-50 dark:border-white/10 dark:text-white dark:hover:bg-white/5">START A PROJECT</Link></div></section><div className="service-reveal service-image-stage relative h-[42vh] min-h-[280px] w-full overflow-hidden bg-[var(--background)]"><Image src={data.image} alt={data.imageAlt} fill sizes="100vw" className="service-detail-image service-motion-image object-cover" /><div className="service-motion-image-overlay absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" /></div><section className="service-reveal border-b border-neutral-100 bg-neutral-50 px-8 py-20 dark:border-white/5 dark:bg-neutral-900/10 lg:px-24 lg:py-28"><p className="service-approach-text service-motion-copy max-w-4xl text-2xl font-light leading-snug text-primary/80 dark:text-white/80 lg:text-4xl">{data.approach}</p></section><TierComparison data={data} />{data.buildSection && <section className="service-reveal grid gap-12 border-b border-neutral-100 bg-neutral-50 px-8 py-20 dark:border-white/5 dark:bg-neutral-900/10 lg:grid-cols-12 lg:px-24 lg:py-28"><div className="lg:col-span-5"><h2 className="text-4xl font-black uppercase leading-none tracking-tighter text-primary dark:text-white">THE BUILD.</h2><p className="mt-4 text-lg font-medium text-primary/70 dark:text-white/70">Construction Management</p></div><div className="lg:col-span-7"><p className="max-w-xl text-base leading-relaxed text-primary/65 dark:text-white/65">If you already possess complete design blueprints, Vartex can coordinate the project as lead consultant, ensuring technical guidelines are maintained during construction.</p><ul className="mt-8 grid gap-4 sm:grid-cols-2">{["QS coordination and bill of quantities", "Contractor tendering and bid review", "Scheduled on-site verification inspections", "Material mockup approvals", "Payment certificate issuance", "Snag list and final handover packages"].map((item) => <li key={item} className="flex gap-3 text-sm"><span className="mt-3 h-px w-2 shrink-0 bg-current opacity-50" />{item}</li>)}</ul></div></section>}<section className="service-reveal max-lg:hidden border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:px-24 lg:py-28"><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">HOW WE WORK</span><div className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">{data.how.map(([num, title, desc]) => <article key={num} className="border-t border-neutral-200 pt-6 dark:border-white/10"><span className="font-mono text-[11px] tracking-[0.2em] text-neutral-400">{num}</span><h3 className="mt-5 text-xl font-bold uppercase leading-tight text-primary dark:text-white">{title}</h3><p className="mt-4 text-base leading-relaxed text-primary/65 dark:text-white/65">{desc}</p></article>)}</div></section><GridCTA className="service-reveal px-8 py-20 lg:px-24 lg:py-24"><div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between"><h2 className="text-6xl font-black uppercase leading-none tracking-tighter lg:text-[8rem]">LET&apos;S BUILD.</h2><div className="flex w-full flex-col gap-3 sm:flex-row lg:w-auto"><button onClick={() => setShowGuide(true)} className="bg-white px-8 py-5 font-mono text-[11px] font-bold tracking-[0.2em] text-primary hover:bg-neutral-100">RECEIVE SERVICE GUIDE</button><Link href="/contact" className="border border-white/50 px-8 py-5 text-center font-mono text-[11px] font-bold tracking-[0.2em] text-white hover:bg-white/10">START A PROJECT</Link></div></div></GridCTA>{showGuide && <GuideModal service={data.id} onClose={() => setShowGuide(false)} />}</div>;
+    return <div className="flex flex-col overflow-x-hidden"><div className="service-reveal flex items-center gap-3 border-b border-neutral-100 px-8 py-6 font-mono text-[11px] tracking-[0.15em] text-neutral-400 dark:border-white/5 lg:px-24"><button onClick={() => setPage("index")} className="hover:text-primary dark:hover:text-white">SERVICES</button><span>/</span><span className="text-primary dark:text-white">{data.label}</span></div><section className="service-reveal grid gap-12 border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:grid-cols-12 lg:px-24 lg:py-32"><div className="lg:col-span-8"><span className="font-mono text-[11px] tracking-[0.35em] text-neutral-400">{data.index} / SERVICE DIRECTORY</span><h1 className="mt-7 text-[clamp(2.35rem,10.4vw,7rem)] font-black uppercase leading-[0.88] tracking-tighter text-primary dark:text-white lg:text-[7rem]">{data.headline.map((line) => <span key={line} className="block">{line}</span>)}</h1><p className="mt-10 max-w-2xl text-xl leading-relaxed text-primary/70 dark:text-white/70 lg:text-2xl">{data.hero}</p></div><div className="flex flex-col gap-3 lg:col-span-4 lg:pt-8"><button onClick={() => setShowGuide(true)} className="bg-primary py-5 font-mono text-[11px] font-bold tracking-[0.2em] text-white hover:bg-black dark:bg-white dark:text-black dark:hover:bg-neutral-200">RECEIVE SERVICE GUIDE</button><Link href="/contact" className="border border-neutral-200 py-5 text-center font-mono text-[11px] font-bold tracking-[0.2em] text-primary hover:bg-neutral-50 dark:border-white/10 dark:text-white dark:hover:bg-white/5">START A PROJECT</Link></div></section><div className="service-reveal service-image-stage relative h-[42vh] min-h-[280px] w-full overflow-hidden bg-neutral-900"><Image src={data.image} alt={data.imageAlt} fill sizes="100vw" className="service-detail-image object-cover" /><div className="absolute inset-0 bg-black/20" /></div><section className="service-reveal border-b border-neutral-100 bg-neutral-50 px-8 py-20 dark:border-white/5 dark:bg-neutral-900/10 lg:px-24 lg:py-28"><p className="service-approach-text max-w-4xl text-2xl font-light leading-snug text-primary/80 dark:text-white/80 lg:text-4xl">{data.approach}</p></section><TierComparison data={data} />{data.buildSection && <section className="service-reveal grid gap-12 border-b border-neutral-100 bg-neutral-50 px-8 py-20 dark:border-white/5 dark:bg-neutral-900/10 lg:grid-cols-12 lg:px-24 lg:py-28"><div className="lg:col-span-5"><h2 className="text-4xl font-black uppercase leading-none tracking-tighter text-primary dark:text-white">THE BUILD.</h2><p className="mt-4 text-lg font-medium text-primary/70 dark:text-white/70">Construction Management</p></div><div className="lg:col-span-7"><p className="max-w-xl text-base leading-relaxed text-primary/65 dark:text-white/65">If you already possess complete design blueprints, Vartex can coordinate the project as lead consultant, ensuring technical guidelines are maintained during construction.</p><ul className="mt-8 grid gap-4 sm:grid-cols-2">{["QS coordination and bill of quantities", "Contractor tendering and bid review", "Scheduled on-site verification inspections", "Material mockup approvals", "Payment certificate issuance", "Snag list and final handover packages"].map((item) => <li key={item} className="flex gap-3 text-sm"><span className="mt-3 h-px w-2 shrink-0 bg-current opacity-50" />{item}</li>)}</ul></div></section>}<section className="service-reveal max-lg:hidden border-b border-neutral-100 px-8 py-20 dark:border-white/5 lg:px-24 lg:py-28"><span className="font-mono text-[11px] tracking-[0.3em] text-neutral-400">HOW WE WORK</span><div className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">{data.how.map(([num, title, desc]) => <article key={num} className="border-t border-neutral-200 pt-6 dark:border-white/10"><span className="font-mono text-[11px] tracking-[0.2em] text-neutral-400">{num}</span><h3 className="mt-5 text-xl font-bold uppercase leading-tight text-primary dark:text-white">{title}</h3><p className="mt-4 text-base leading-relaxed text-primary/65 dark:text-white/65">{desc}</p></article>)}</div></section><GridCTA className="service-reveal px-8 py-20 lg:px-24 lg:py-24"><div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between"><h2 className="text-6xl font-black uppercase leading-none tracking-tighter lg:text-[8rem]">LET&apos;S BUILD.</h2><div className="flex w-full flex-col gap-3 sm:flex-row lg:w-auto"><button onClick={() => setShowGuide(true)} className="bg-white px-8 py-5 font-mono text-[11px] font-bold tracking-[0.2em] text-primary hover:bg-neutral-100">RECEIVE SERVICE GUIDE</button><Link href="/contact" className="border border-white/50 px-8 py-5 text-center font-mono text-[11px] font-bold tracking-[0.2em] text-white hover:bg-white/10">START A PROJECT</Link></div></div></GridCTA>{showGuide && <GuideModal service={data.id} onClose={() => setShowGuide(false)} />}</div>;
 }
 
 export default function ServicesClient({ initialPage = "index" }: { initialPage?: "index" | "architecture" | "interior" }) {
@@ -354,73 +354,76 @@ export default function ServicesClient({ initialPage = "index" }: { initialPage?
     const rootRef = useRef<HTMLDivElement>(null);
     useEffect(() => { const requested = new URLSearchParams(window.location.search).get("service"); if (requested === "architecture" || requested === "interior") setPage(requested); }, []);
     useEffect(() => {
-        // Reset the page synchronously when switching between service views. This keeps
-        // the first touch gesture available to the browser instead of a reveal refresh.
-        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-
-        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        const touchLayout = window.matchMedia("(pointer: coarse)").matches || window.matchMedia("(max-width: 1024px)").matches;
-
-        if (reducedMotion) return;
-
-        let observer: IntersectionObserver | null = null;
+        window.scrollTo(0, 0);
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         const ctx = gsap.context(() => {
-            // The Process page motion language: text enters from the side while each
-            // image reveals upward from its clipped frame. Touch layouts use a one-time
-            // observer so elements remain readable before entry and native scrolling is
-            // never held by scrubbed or class-mutating scroll work.
-            if (touchLayout) {
-                observer = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (!entry.isIntersecting) return;
-                        entry.target.classList.add("service-motion-active");
-                        observer?.unobserve(entry.target);
-                    });
-                }, { rootMargin: "0px 0px 12% 0px", threshold: 0.01 });
-
-                gsap.utils.toArray<HTMLElement>(".service-motion-copy, .service-motion-image, .service-motion-image-overlay").forEach((element) => observer?.observe(element));
-                return;
-            }
-
-            gsap.utils.toArray<HTMLElement>(".service-motion-copy").forEach((element) => {
-                gsap.from(element, {
-                    x: -50,
-                    opacity: 0,
-                    duration: 0.75,
-                    ease: "power3.out",
-                    clearProps: "transform,opacity",
-                    scrollTrigger: { trigger: element, start: "top 78%", once: true }
-                });
+            gsap.utils.toArray<HTMLElement>(".service-reveal:not(.service-card)").forEach((element, index) => {
+                gsap.from(element, { y: 28, duration: 0.9, delay: Math.min(index * 0.03, 0.25), ease: "power3.out", scrollTrigger: { trigger: element, start: "top 88%", once: true } });
             });
-
-            gsap.utils.toArray<HTMLElement>(".service-motion-image").forEach((image) => {
-                gsap.from(image, {
-                    clipPath: "inset(100% 0 0 0)",
+            gsap.utils.toArray<HTMLElement>(".service-card-image-stage").forEach((stage) => {
+                const image = stage.querySelector<HTMLElement>(".service-card-image");
+                if (!image) return;
+                gsap.fromTo(image, { clipPath: "inset(100% 0 0 0)", yPercent: 12 }, {
+                    clipPath: "inset(0% 0 0 0)",
+                    yPercent: 0,
                     duration: 1.5,
                     ease: "power4.out",
-                    clearProps: "clipPath,transform",
-                    scrollTrigger: { trigger: image, start: "top 70%", once: true }
+                    scrollTrigger: { trigger: stage, start: "top 78%", once: true }
                 });
             });
-
-            // Match the Process-page emphasis without doing updates on every touch
-            // frame. Service cards remain native links while entering.
-            gsap.utils.toArray<HTMLElement>(".service-card").forEach((card) => {
-                const icon = card.querySelector<HTMLElement>(".icon-layer");
-                if (!icon) return;
-                gsap.fromTo(icon, { opacity: 0.25 }, {
-                    opacity: 1,
-                    duration: 0.8,
+            gsap.utils.toArray<HTMLElement>(".service-image-stage").forEach((stage) => {
+                const image = stage.querySelector<HTMLElement>(".service-detail-image");
+                if (!image) return;
+                gsap.fromTo(image, { clipPath: "inset(100% 0 0 0)", scale: 1.12 }, {
+                    clipPath: "inset(0% 0 0 0)",
+                    scale: 1,
+                    duration: 1.5,
+                    ease: "power4.out",
+                    scrollTrigger: { trigger: stage, start: "top 70%", once: true }
+                });
+            });
+            gsap.utils.toArray<HTMLElement>(".service-approach-text").forEach((text) => {
+                gsap.from(text, {
+                    x: -50,
+                    opacity: 0,
+                    duration: 1,
                     ease: "power3.out",
-                    scrollTrigger: { trigger: card, start: "top 78%", once: true }
+                    scrollTrigger: { trigger: text, start: "top 70%", once: true }
                 });
             });
+            if (window.matchMedia("(max-width: 1024px)").matches) {
+                gsap.utils.toArray<HTMLElement>(".service-card").forEach((card) => {
+                    const icon = card.querySelector(".icon-layer");
+                    const text = card.querySelector(".text-layer");
+                    ScrollTrigger.create({
+                        trigger: card,
+                        start: "top 70%",
+                        end: "bottom 30%",
+                        onEnter: () => {
+                            card.classList.add("service-card-visible");
+                            if (icon) { icon.classList.add("text-primary", "dark:text-white"); icon.classList.remove("text-primary/25", "dark:text-white/25"); }
+                            if (text) { text.classList.add("text-primary/100", "dark:text-white/100"); text.classList.remove("text-primary/65", "dark:text-white/65"); }
+                        },
+                        onLeave: () => {
+                            card.classList.remove("service-card-visible");
+                            if (icon) { icon.classList.remove("text-primary", "dark:text-white"); icon.classList.add("text-primary/25", "dark:text-white/25"); }
+                            if (text) { text.classList.remove("text-primary/100", "dark:text-white/100"); text.classList.add("text-primary/65", "dark:text-white/65"); }
+                        },
+                        onEnterBack: () => {
+                            card.classList.add("service-card-visible");
+                            if (icon) { icon.classList.add("text-primary", "dark:text-white"); icon.classList.remove("text-primary/25", "dark:text-white/25"); }
+                            if (text) { text.classList.add("text-primary/100", "dark:text-white/100"); text.classList.remove("text-primary/65", "dark:text-white/65"); }
+                        },
+                        onLeaveBack: () => {
+                            card.classList.remove("service-card-visible");
+                            if (icon) { icon.classList.remove("text-primary", "dark:text-white"); icon.classList.add("text-primary/25", "dark:text-white/25"); }
+                            if (text) { text.classList.remove("text-primary/100", "dark:text-white/100"); text.classList.add("text-primary/65", "dark:text-white/65"); }
+                        }
+                    });
+                });
+            }
         });
-
-        return () => {
-            observer?.disconnect();
-            ctx.revert();
-        };
+        return () => ctx.revert();
     }, [page]);
-    return <div ref={rootRef} className="flex min-h-screen flex-col bg-[var(--background)] pt-20 text-primary dark:text-white"><Header /><main className="flex-grow">{page === "index" && <ServicesIndex onOpenQuiz={() => setShowQuiz(true)} />}{page === "architecture" && <ServicesDetail data={ARCHITECTURE} setPage={setPage} />}{page === "interior" && <ServicesDetail data={INTERIOR} setPage={setPage} />}</main>{showQuiz && <DecisionQuizModal onClose={() => setShowQuiz(false)} />}<Footer /></div>;
+    return <div ref={rootRef} className="flex min-h-screen flex-col bg-white pt-20 text-primary dark:bg-background-dark dark:text-white"><Header /><main className="flex-grow">{page === "index" && <ServicesIndex onOpenQuiz={() => setShowQuiz(true)} />}{page === "architecture" && <ServicesDetail data={ARCHITECTURE} setPage={setPage} />}{page === "interior" && <ServicesDetail data={INTERIOR} setPage={setPage} />}</main>{showQuiz && <DecisionQuizModal onClose={() => setShowQuiz(false)} />}<Footer /></div>;
 }
