@@ -163,12 +163,6 @@ body {
     }
 }
 
-/* Service imagery follows the active page background instead of a fixed gray fill. */
-.service-card-image-stage,
-.service-image-stage {
-    background-color: var(--background);
-}
-
 /* Touch layouts use a lightweight Process-style reveal without intercepting scroll. */
 @media (max-width: 1024px) {
     .service-motion-copy {
