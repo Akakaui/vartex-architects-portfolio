@@ -354,7 +354,6 @@ export default function ServicesClient({ initialPage = "index" }: { initialPage?
     const rootRef = useRef<HTMLDivElement>(null);
     useEffect(() => { const requested = new URLSearchParams(window.location.search).get("service"); if (requested === "architecture" || requested === "interior") setPage(requested); }, []);
     useEffect(() => {
-        window.scrollTo(0, 0);
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         const ctx = gsap.context(() => {
             gsap.utils.toArray<HTMLElement>(".service-reveal:not(.service-card)").forEach((element, index) => {
