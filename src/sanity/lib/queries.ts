@@ -78,7 +78,7 @@ export const projectBySlugQuery = groq`
 
 // Fetch blog posts
 export const allBlogsQuery = groq`
-  *[_type == "blog"] | order(publishedAt desc) {
+  *[_type == "blog" && (!defined(isComingSoon) || isComingSoon == false)] | order(publishedAt desc) {
     title,
     "slug": slug.current,
     publishedAt,
@@ -93,7 +93,7 @@ export const allBlogsQuery = groq`
 `
 // Fetch single blog post by slug
 export const blogBySlugQuery = groq`
-  *[_type == "blog" && slug.current == $slug][0] {
+  *[_type == "blog" && slug.current == $slug && (!defined(isComingSoon) || isComingSoon == false)][0] {
     title,
     "slug": slug.current,
     publishedAt,

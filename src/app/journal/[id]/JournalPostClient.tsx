@@ -175,7 +175,7 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
                         <div className="max-w-4xl">
                             <div className="flex items-center gap-4 mb-6">
                                 <span className="font-mono text-[10px] tracking-[0.3em] text-white/80 uppercase" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>
-                                    {post.category || "Journal"}
+                                    Vartex Architects
                                 </span>
                                 <span className="w-1 h-1 rounded-full bg-white/50" />
                                 <span className="font-mono text-[10px] tracking-[0.3em] text-white/80 uppercase" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>
@@ -209,11 +209,11 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
                                     </div>
                                     <div>
                                         <p className="text-sm font-semibold">{post.author}</p>
-                                        <p className="font-mono text-[9px] tracking-wider opacity-40 uppercase">{post.category || "Journal"}</p>
+                                        <p className="font-mono text-[9px] tracking-wider opacity-40 uppercase">Vartex Architects</p>
                                     </div>
                                 </div>
                             ) : (
-                                <span className="font-mono text-[9px] tracking-wider opacity-40 uppercase">{post.category || "Journal"}</span>
+                                <span className="font-mono text-[9px] tracking-wider opacity-40 uppercase">Vartex Architects</span>
                             )}
                         </div>
 

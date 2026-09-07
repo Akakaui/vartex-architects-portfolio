@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         post = mockPosts.find(p => p.id === id);
     }
     
-    if (!post) {
+    if (!post || post.isComingSoon) {
         return {
             title: "Post Not Found | Vartex Journal",
         };
@@ -46,13 +46,13 @@ export default async function JournalPostPage({ params }: Props) {
         post = mockPosts.find(p => p.id === id);
     }
 
-    if (!post) {
+    if (!post || post.isComingSoon) {
         notFound();
     }
 
     // Get all posts for navigation and related
     const sanityPosts = await getBlogs();
-    const activePosts = sanityPosts.length > 0 ? sanityPosts : mockPosts;
+    const activePosts = (sanityPosts.length > 0 ? sanityPosts : mockPosts).filter((p: any) => !p.isComingSoon);
 
     // Related posts (same category, excluding current)
     const relatedPosts = activePosts

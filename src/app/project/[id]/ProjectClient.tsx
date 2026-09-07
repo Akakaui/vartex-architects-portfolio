@@ -3,7 +3,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -44,6 +44,7 @@ interface ProjectClientProps {
 export default function ProjectClient({ project, prevProject, nextProject, relatedWorks,
 }: ProjectClientProps) {
     const mainRef = useRef(null);
+    const [descriptionExpanded, setDescriptionExpanded] = useState(false);
 
     // Category-based related works logic
     const matchingCategory = project.categories?.[0] || project.category;
@@ -165,9 +166,12 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
                         <section className="px-8 lg:px-24 py-32 flex flex-col gap-24 relative z-10 bg-white dark:bg-[#0a0a0a]">
                             <div className="flex flex-col gap-8 w-full">
                                 <h2 className="text-4xl font-black uppercase tracking-tight text-primary dark:text-white">Design Intelligence.</h2>
-                                <div className="text-xl lg:text-3xl font-light leading-relaxed text-primary/80 dark:text-white/80 italic">
+                                <div className={`text-xl lg:text-3xl font-light leading-relaxed text-primary/80 dark:text-white/80 italic ${descriptionExpanded ? "" : "line-clamp-4 lg:line-clamp-none"}`}>
                                     "{project.description}"
                                 </div>
+                                <button type="button" onClick={() => setDescriptionExpanded((expanded) => !expanded)} className="mt-2 self-start font-mono text-[10px] font-bold tracking-[0.25em] text-primary dark:text-white underline underline-offset-4 lg:hidden">
+                                    {descriptionExpanded ? "SHOW LESS" : "READ MORE"}
+                                </button>
                             </div>
 
                             {/* Full-Width Image Scroll */}

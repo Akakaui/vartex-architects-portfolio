@@ -186,7 +186,7 @@ export default function JournalClient({ initialPosts, isGlobalComingSoon }: Jour
                                     <div className="p-8 lg:p-16 flex flex-col justify-center gap-6">
                                         <div className="flex items-center gap-4">
                                             <span className="font-mono text-[10px] tracking-[0.3em] text-primary/40 dark:text-white/40 uppercase">
-                                                {featuredPost.category || "Journal"}
+                                                Vartex Architects
                                             </span>
                                             <span className="w-1 h-1 rounded-full bg-primary/20 dark:bg-white/20" />
                                             <span className="font-mono text-[10px] tracking-[0.3em] text-primary/40 dark:text-white/40 uppercase">
@@ -256,7 +256,7 @@ export default function JournalClient({ initialPosts, isGlobalComingSoon }: Jour
                                         {/* Meta */}
                                         <div className="flex items-center gap-3 mb-4">
                                             <span className="font-mono text-[9px] tracking-[0.3em] text-primary/40 dark:text-white/40 uppercase">
-                                                {post.category || "Journal"}
+                                                Vartex Architects
                                             </span>
                                             <span className="w-1 h-1 rounded-full bg-primary/20 dark:bg-white/20" />
                                             <span className="font-mono text-[9px] tracking-[0.3em] text-primary/40 dark:text-white/40 uppercase">
