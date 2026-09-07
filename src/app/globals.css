@@ -36,6 +36,35 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* Hide scrollbars site-wide while keeping scroll functionality */
+html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+* {
+    scrollbar-width: none;
+}
+
+/* Restore scrollbars inside the Sanity Studio admin (/admin) */
+.sanity-admin,
+.sanity-admin * {
+    scrollbar-width: auto;
+    -ms-overflow-style: auto;
+}
+
+.sanity-admin ::-webkit-scrollbar {
+    display: block;
+}
+
 .mono-text {
     font-family: var(--font-mono);
 }

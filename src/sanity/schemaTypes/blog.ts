@@ -26,6 +26,12 @@ export default {
             initialValue: (new Date()).toISOString(),
         },
         {
+            name: 'author',
+            title: 'Author name',
+            description: 'Shown on the journal article page, e.g. "John Doe".',
+            type: 'string',
+        },
+        {
             name: 'isComingSoon',
             title: 'Coming Soon',
             description: 'If toggled, the blog post will show a "Coming Soon" tag and will not be clickable.',

@@ -202,15 +202,19 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
                     <div className="max-w-3xl mx-auto">
                         {/* Author & Share */}
                         <div className="flex items-center justify-between pb-8 mb-12 border-b border-neutral-100 dark:border-white/5 fade-in">
-                            <div className="flex items-center gap-4 text-primary dark:text-white">
-                                <div className="w-10 h-10 bg-primary dark:bg-white rounded-full flex items-center justify-center">
-                                    <span className="text-white dark:text-primary text-xs font-bold">{post.author?.charAt(0) || 'V'}</span>
+                            {post.author ? (
+                                <div className="flex items-center gap-4 text-primary dark:text-white">
+                                    <div className="w-10 h-10 bg-primary dark:bg-white rounded-full flex items-center justify-center">
+                                        <span className="text-white dark:text-primary text-xs font-bold">{post.author.trim().charAt(0).toUpperCase()}</span>
+                                    </div>
+                                    <div>
+                                        <p className="text-sm font-semibold">{post.author}</p>
+                                        <p className="font-mono text-[9px] tracking-wider opacity-40 uppercase">{post.category || "Journal"}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-sm font-semibold">{post.author || "VARTEX Studio"}</p>
-                                    <p className="font-mono text-[9px] tracking-wider opacity-40 uppercase">Architecture & Design</p>
-                                </div>
-                            </div>
+                            ) : (
+                                <span className="font-mono text-[9px] tracking-wider opacity-40 uppercase">{post.category || "Journal"}</span>
+                            )}
                         </div>
 
                         {/* Lead paragraph / excerpt */}

@@ -87,6 +87,7 @@ export const allBlogsQuery = groq`
     "image": mainImage.asset->url,
     category,
     readTime,
+    author,
     body
   }
 `
@@ -99,6 +100,7 @@ export const blogBySlugQuery = groq`
     featured,
     isComingSoon,
     "image": mainImage.asset->url,
+    category,
     readTime,
     body,
     author
