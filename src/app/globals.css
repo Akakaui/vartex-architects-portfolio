@@ -22,16 +22,6 @@
     --foreground: #292929;
 }
 
-.service-card-image-stage,
-.service-image-stage {
-    background-color: #FFFFFF !important;
-}
-
-.dark .service-card-image-stage,
-.dark .service-image-stage {
-    background-color: #191919 !important;
-}
-
 @media (prefers-color-scheme: dark) {
     :root {
         --background: #191919;
