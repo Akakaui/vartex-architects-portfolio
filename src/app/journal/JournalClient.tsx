@@ -21,6 +21,7 @@ interface Post {
     publishedAt?: string;
     readTime: string | number;
     image: string;
+    author?: string;
     featured?: boolean;
     isComingSoon?: boolean;
 }
@@ -28,6 +29,18 @@ interface Post {
 interface JournalClientProps {
     initialPosts: Post[];
     isGlobalComingSoon?: boolean;
+}
+
+function AuthorBadge({ author }: { author?: string }) {
+    const name = author?.trim() || "Vartex Architects";
+    return (
+        <div className="flex items-center gap-2 text-primary dark:text-white">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-white dark:bg-white dark:text-primary" aria-hidden="true">
+                {name.charAt(0).toUpperCase()}
+            </span>
+            <span className="text-xs font-semibold">{name}</span>
+        </div>
+    );
 }
 
 export default function JournalClient({ initialPosts, isGlobalComingSoon }: JournalClientProps) {
@@ -198,6 +211,8 @@ export default function JournalClient({ initialPosts, isGlobalComingSoon }: Jour
                                             {featuredPost.title}
                                         </h2>
 
+                                        <AuthorBadge author={featuredPost.author} />
+
                                         <p className="text-primary/70 dark:text-white/70 font-normal text-lg lg:text-xl leading-relaxed line-clamp-3">
                                             {featuredPost.excerpt || "Dive into our latest discourse on contemporary architectural practice."}
                                         </p>
@@ -268,6 +283,7 @@ export default function JournalClient({ initialPosts, isGlobalComingSoon }: Jour
                                         <h3 className="text-xl lg:text-3xl font-black tracking-tight leading-tight text-primary dark:text-white group-hover:text-primary/80 dark:group-hover:text-white/80 transition-colors duration-300 mb-3">
                                             {post.title}
                                         </h3>
+                                        <AuthorBadge author={post.author} />
 
                                         {/* Excerpt */}
                                         <p className="text-sm lg:text-base text-primary/70 dark:text-white/70 font-normal leading-relaxed flex-grow mb-6 line-clamp-3">
