@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import AboutClient from "./AboutClient";
+import { getSiteSettings } from "@/sanity/lib/service";
 
 export const metadata: Metadata = {
     title: "About Vartex Architects | Architecture Studio Nigeria",
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
     keywords: ["Michael Mbah", "Vartex Architects Team", "Architecture Philosophy", "Lagos Architects", "Enugu Design Studio", "Vertex Architects", "Vortex Architects"],
 };
 
-export default function AboutPage() {
-    return <AboutClient />;
+export default async function AboutPage() {
+    const settings = await getSiteSettings();
+    return <AboutClient founderImage={settings?.founderImage} />;
 }

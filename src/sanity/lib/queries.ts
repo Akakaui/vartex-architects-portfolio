@@ -113,6 +113,7 @@ export const siteSettingsQuery = groq`
     title,
     description,
     keywords,
-    journalComingSoon
+    journalComingSoon,
+    "founderImage": founderImage.asset->url
   }
 `

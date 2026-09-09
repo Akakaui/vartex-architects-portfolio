@@ -197,7 +197,7 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
                         <div className="max-w-4xl">
                             <div className="flex items-center gap-4 mb-6">
                                 <span className="font-mono text-[10px] tracking-[0.3em] text-white/80 uppercase" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>
-                                    Vartex Architects
+                                    {post.category || "Journal"}
                                 </span>
                                 <span className="w-1 h-1 rounded-full bg-white/50" />
                                 <span className="font-mono text-[10px] tracking-[0.3em] text-white/80 uppercase" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>
@@ -224,19 +224,15 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
                     <div className="max-w-3xl mx-auto">
                         {/* Author & Share */}
                         <div className="flex items-center justify-between pb-8 mb-12 border-b border-neutral-100 dark:border-white/5 fade-in">
-                            {post.author ? (
-                                <div className="flex items-center gap-4 text-primary dark:text-white">
-                                    <div className="w-10 h-10 bg-primary dark:bg-white rounded-full flex items-center justify-center">
-                                        <span className="text-white dark:text-primary text-xs font-bold">{post.author.trim().charAt(0).toUpperCase()}</span>
-                                    </div>
-                                    <div>
-                                        <p className="text-sm font-semibold">{post.author}</p>
-                                        <p className="font-mono text-[9px] tracking-wider opacity-40 uppercase">Vartex Architects</p>
-                                    </div>
+                            <div className="flex items-center gap-4 text-primary dark:text-white">
+                                <div className="w-10 h-10 bg-primary dark:bg-white rounded-full flex items-center justify-center">
+                                    <span className="text-white dark:text-primary text-xs font-bold">{post.author?.trim().charAt(0).toUpperCase() || 'V'}</span>
                                 </div>
-                            ) : (
-                                <span className="font-mono text-[9px] tracking-wider opacity-40 uppercase">Vartex Architects</span>
-                            )}
+                                <div>
+                                    <p className="text-sm font-semibold">{post.author?.trim() || "VARTEX Studio"}</p>
+                                    <p className="font-mono text-[9px] tracking-wider opacity-40 uppercase">Vartex Architects</p>
+                                </div>
+                            </div>
                         </div>
 
                         {/* Lead paragraph / excerpt */}

@@ -15,7 +15,7 @@ const AWARDS = [
     { year: "2025", title: "AD 30/30VISION DESIGN COMPETITION", project: "AD Consulting LTD", status: "2nd Prize" },
 ];
 
-export default function About() {
+export default function About({ founderImage }: { founderImage?: string }) {
     const mainRef = useRef(null);
 
     useEffect(() => {
@@ -69,7 +69,7 @@ export default function About() {
                             {/* Right Column: Hero Image */}
                             <div className="w-full relative aspect-[3/4] bg-neutral-100 dark:bg-white/5 overflow-hidden">
                                 <Image
-                                    src="/about-hero.webp"
+                                    src={founderImage || "/about-hero.webp"}
                                     alt="VARTEX Studio Philosophy"
                                     fill
                                     priority

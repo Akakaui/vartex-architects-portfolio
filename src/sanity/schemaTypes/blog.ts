@@ -59,6 +59,16 @@ export default {
             title: 'Category',
             type: 'string',
             initialValue: 'Journal',
+            options: {
+                list: [
+                    'Design Philosophy',
+                    'Materials',
+                    'Studio',
+                    'Urbanism',
+                    'Process',
+                    'Journal',
+                ],
+            },
         },
         {
             name: 'readTime',
