@@ -10,11 +10,16 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { id } = await params;
-    
+
     // Fetch post details to populate metadata
     let post: any = await getBlogBySlug(id);
     if (!post) {
-        post = mockPosts.find(p => p.id === id);
+        // Only use mock content when Sanity has no posts at all; a post that is
+        // locked (coming soon) or missing in a live dataset must stay hidden.
+        const allPosts = await getBlogs();
+        if (allPosts.length === 0) {
+            post = mockPosts.find(p => p.id === id);
+        }
     }
     
     if (!post || post.isComingSoon) {
@@ -41,8 +46,10 @@ export default async function JournalPostPage({ params }: Props) {
     // Try fetching from Sanity first
     let post: any = await getBlogBySlug(id);
 
-    // Fallback to mock data if not found in Sanity
-    if (!post) {
+    // Fallback to mock data only if Sanity is empty/unconfigured — otherwise a
+    // locked or deleted Sanity post would leak its mock twin and stay accessible.
+    const sanityPosts = await getBlogs();
+    if (!post && sanityPosts.length === 0) {
         post = mockPosts.find(p => p.id === id);
     }
 
@@ -51,7 +58,6 @@ export default async function JournalPostPage({ params }: Props) {
     }
 
     // Get all posts for navigation and related
-    const sanityPosts = await getBlogs();
     const activePosts = (sanityPosts.length > 0 ? sanityPosts : mockPosts).filter((p: any) => !p.isComingSoon);
 
     // Related posts (same category, excluding current)

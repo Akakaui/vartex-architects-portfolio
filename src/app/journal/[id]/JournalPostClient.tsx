@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ArrowLeft, Clock, ArrowUpRight } from "lucide-react";
 import { PortableText } from "@portabletext/react";
@@ -33,6 +33,28 @@ interface JournalPostClientProps {
 
 export default function JournalPostClient({ post, relatedPosts, prevPost, nextPost }: JournalPostClientProps) {
     const mainRef = useRef(null);
+    const [bodyExpanded, setBodyExpanded] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // On mobile the article body is clamped after the fifth block behind a
+    // "Read More" toggle (same pattern as the project description).
+    useEffect(() => {
+        const media = window.matchMedia("(max-width: 1023px)");
+        const update = () => {
+            setIsMobile(media.matches);
+            if (!media.matches) setBodyExpanded(true);
+        };
+        update();
+        media.addEventListener("change", update);
+        return () => media.removeEventListener("change", update);
+    }, []);
+
+    const bodyBlocks = post.body ?? [];
+    const contentParagraphs = post.content ?? [];
+    const collapsed = isMobile && !bodyExpanded;
+    const visibleBody = collapsed ? bodyBlocks.slice(0, 5) : bodyBlocks;
+    const visibleContent = collapsed ? contentParagraphs.slice(0, 5) : contentParagraphs;
+    const showReadMore = isMobile && (bodyBlocks.length > 5 || contentParagraphs.length > 5);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -184,7 +206,7 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
                                 <span className="w-1 h-1 rounded-full bg-white/50" />
                                 <div className="flex items-center gap-1.5 text-white/80" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>
                                     <Clock size={11} />
-                                    <span className="font-mono text-[10px] tracking-wider uppercase">{post.readTime} min read</span>
+                                    <span className="font-mono text-[10px] tracking-wider uppercase">{typeof post.readTime === "number" ? `${post.readTime} min read` : post.readTime}</span>
                                 </div>
                             </div>
                             <h1
@@ -228,10 +250,10 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
                         <div className="prose prose-xl lg:prose-2xl dark:prose-invert max-w-none">
                             {post.body ? (
                                 <div className="text-primary/90 dark:text-white/80 font-medium leading-relaxed journal-portable-text">
-                                    <PortableText value={post.body} components={ptComponents} />
+                                    <PortableText value={visibleBody} components={ptComponents} />
                                 </div>
                             ) : (
-                                post.content?.map((paragraph, i) => (
+                                visibleContent.map((paragraph, i) => (
                                     <p
                                         key={i}
                                         className="text-lg lg:text-2xl leading-[1.8] text-primary/90 dark:text-white/80 font-medium mb-10 content-para"
@@ -239,6 +261,15 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
                                         {paragraph}
                                     </p>
                                 ))
+                            )}
+                            {showReadMore && (
+                                <button
+                                    type="button"
+                                    onClick={() => setBodyExpanded((expanded) => !expanded)}
+                                    className="mt-2 self-start font-mono text-[10px] font-bold tracking-[0.25em] text-primary dark:text-white underline underline-offset-4"
+                                >
+                                    {bodyExpanded ? "SHOW LESS" : "READ MORE"}
+                                </button>
                             )}
                         </div>
                     </div>
