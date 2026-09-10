@@ -22,9 +22,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         }
     }
     
-    if (!post || post.isComingSoon) {
+    if (!post) {
         return {
             title: "Post Not Found | Vartex Journal",
+        };
+    }
+
+    if (post.isComingSoon) {
+        return {
+            title: `${post.title} (Coming Soon) | Vartex Architects Journal`,
+            description: post.excerpt || `This article is coming soon on the Vartex Architects Journal.`,
+            robots: { index: false, follow: false },
         };
     }
     
@@ -53,7 +61,7 @@ export default async function JournalPostPage({ params }: Props) {
         post = mockPosts.find(p => p.id === id);
     }
 
-    if (!post || post.isComingSoon) {
+    if (!post) {
         notFound();
     }
 

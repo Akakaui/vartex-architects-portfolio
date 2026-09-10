@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 export default async function JournalPage() {
     const sanityPosts = await getBlogs();
     const settings = await getSiteSettings();
-    const posts = (sanityPosts.length > 0 ? sanityPosts : mockPosts).filter((post: any) => !post.isComingSoon);
+    const posts = sanityPosts.length > 0 ? sanityPosts : mockPosts;
 
     return <JournalClient initialPosts={posts} isGlobalComingSoon={settings?.journalComingSoon} />;
 }

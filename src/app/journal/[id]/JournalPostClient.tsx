@@ -22,6 +22,7 @@ interface Post {
     image: string;
     author: string;
     body?: any;
+    isComingSoon?: boolean;
 }
 
 interface JournalPostClientProps {
@@ -203,6 +204,14 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
                                 <span className="font-mono text-[10px] tracking-[0.3em] text-white/80 uppercase" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>
                                     {formatDate(post.date || post.publishedAt)}
                                 </span>
+                                {post.isComingSoon && (
+                                    <>
+                                        <span className="w-1 h-1 rounded-full bg-white/50" />
+                                        <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-white border border-white/40 px-3 py-1">
+                                            Coming Soon
+                                        </span>
+                                    </>
+                                )}
                                 <span className="w-1 h-1 rounded-full bg-white/50" />
                                 <div className="flex items-center gap-1.5 text-white/80" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>
                                     <Clock size={11} />
@@ -222,6 +231,23 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
                 {/* Article Content */}
                 <article className="px-8 lg:px-24 py-16 lg:py-24">
                     <div className="max-w-3xl mx-auto">
+                        {post.isComingSoon ? (
+                            <div className="flex flex-col items-center justify-center min-h-[45vh] text-center">
+                                <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter leading-none text-primary dark:text-white mb-8">
+                                    COMING SOON.
+                                </h2>
+                                <p className="text-lg lg:text-xl font-light text-primary/60 dark:text-white/60 max-w-lg leading-relaxed mb-10">
+                                    This article is currently being prepared. Stay tuned — we're finalizing it and will publish soon.
+                                </p>
+                                <Link
+                                    href="/journal"
+                                    className="bg-primary dark:bg-white text-white dark:text-primary px-10 py-5 rounded-sm font-bold uppercase tracking-widest text-xs hover:bg-black dark:hover:bg-neutral-200 transition-all duration-300"
+                                >
+                                    Back to Journal
+                                </Link>
+                            </div>
+                        ) : (
+                            <>
                         {/* Author & Share */}
                         <div className="flex items-center justify-between pb-8 mb-12 border-b border-neutral-100 dark:border-white/5 fade-in">
                             <div className="flex items-center gap-4 text-primary dark:text-white">
@@ -258,7 +284,7 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
                                     </p>
                                 ))
                             )}
-                            {showReadMore && (
+{showReadMore && (
                                 <button
                                     type="button"
                                     onClick={() => setBodyExpanded((expanded) => !expanded)}
@@ -268,6 +294,8 @@ export default function JournalPostClient({ post, relatedPosts, prevPost, nextPo
                                 </button>
                             )}
                         </div>
+                            </>
+                        )}
                     </div>
                 </article>
 
