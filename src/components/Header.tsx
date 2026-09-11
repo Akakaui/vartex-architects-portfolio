@@ -80,9 +80,9 @@ export default function Header() {
                     <Link
                         href="/contact"
                         aria-label="Start a project consultation"
-                        className="bg-primary dark:bg-white text-white dark:text-primary px-6 py-3 rounded-sm font-bold uppercase tracking-widest text-[9px] hover:bg-black dark:hover:bg-neutral-200 transition-all ml-4"
+                        className="bg-primary dark:bg-white text-white dark:text-primary px-6 py-3 rounded-sm font-bold uppercase tracking-[0.2em] text-xs hover:bg-black dark:hover:bg-neutral-200 transition-all ml-4 whitespace-nowrap"
                     >
-                        LET&apos;S BUILD
+                        START A PROJECT
                     </Link>
                 </div>
 
@@ -125,9 +125,9 @@ export default function Header() {
                 <div className="w-full max-w-sm flex flex-col gap-8">
                     <Link
                         href="/contact"
-                        className="bg-primary dark:bg-white text-white dark:text-primary w-full py-5 md:py-6 text-center font-bold uppercase tracking-[0.4em] text-[10px] rounded-sm hover:opacity-80 transition-colors"
+                        className="bg-primary dark:bg-white text-white dark:text-primary w-full py-5 md:py-6 text-center font-bold uppercase tracking-[0.25em] text-sm rounded-sm hover:opacity-80 transition-colors"
                     >
-                        LET&apos;S BUILD
+                        START A PROJECT
                     </Link>
 
                     <div className="pt-12 border-t border-neutral-200 dark:border-white/10 flex flex-col gap-6">

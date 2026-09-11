@@ -126,7 +126,7 @@ export default function Contact() {
                                         id="email"
                                         name="email"
                                         type="email"
-                                        placeholder="you@example.com"
+                                        placeholder="johndoe@example.com"
                                         autoComplete="email"
                                         required
                                         className={`bg-transparent border-b ${state.errors?.email ? 'border-red-500/50' : 'border-white/10'} py-4 focus:border-white outline-none transition-colors text-xl font-light text-white placeholder:text-white/20`}
