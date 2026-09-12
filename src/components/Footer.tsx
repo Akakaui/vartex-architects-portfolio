@@ -38,7 +38,7 @@ export default function Footer() {
                         </div>
                     </div>
                     <p className="text-sm font-light text-primary/60 dark:text-white/60 max-w-xs leading-relaxed italic">
-                        Shaping the modern landscape through mathematical rigor and artistic intuition.
+                        Architecture built on precision and purpose.
                     </p>
                 </div>
 

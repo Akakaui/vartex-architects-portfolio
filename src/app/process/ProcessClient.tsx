@@ -11,8 +11,8 @@ const STEPS = [
     {
         id: "01",
         title: "Conception & Strategy.",
-        subtitle: "DEFINING THE ARCHITECTURAL DNA",
-        description: "Every project begins as a dialogue. We work closely with our clients to define the core DNA of the structure, considering site constraints, cultural context, and functional requirements.",
+        subtitle: "UNDERSTANDING YOUR PROJECT",
+        description: "Every project starts with a conversation. We work closely with you to define your goals, your site, and how the building will be used.",
         details: [
             "Site Analysis & Contextual Mapping",
             "Conceptual Sketching",
@@ -24,8 +24,8 @@ const STEPS = [
     {
         id: "02",
         title: "Design Development.",
-        subtitle: "TRANSFORMATION INTO FORM",
-        description: "In this phase, sketches evolve into rigorous technical drawings and 3D models. We refine the geometry, light penetration, and structural logic of the building.",
+        subtitle: "SHAPING THE DESIGN",
+        description: "In this phase, we turn sketches into detailed drawings and 3D models, refining the shape, lighting, and structure of the building.",
         details: [
             "3D Volumetric Modeling",
             "Material Research & Sourcing",
@@ -36,9 +36,9 @@ const STEPS = [
     },
     {
         id: "03",
-        title: "Technical Documentation.",
-        subtitle: "THE BLUEPRINT FOR REALITY",
-        description: "Precision is paramount. We produce exhaustive construction documents that guide the builders, ensuring every joint, surface, and system is executed according to the vision.",
+        title: "Construction Drawings.",
+        subtitle: "DETAILED PLANNING",
+        description: "Accuracy matters most here. We create detailed drawings and documents that guide the construction team through every part of the build.",
         details: [
             "Detailed Construction Drawings",
             "Engineering Integration",
@@ -49,9 +49,9 @@ const STEPS = [
     },
     {
         id: "04",
-        title: "Realization & Oversight.",
-        subtitle: "FROM VISION TO STONE",
-        description: "The final phase involves on-site management and meticulous quality control. We oversee the construction to ensure the purity of the design is maintained through every stage of build.",
+        title: "Construction & Oversight.",
+        subtitle: "OVERSEEING CONSTRUCTION",
+        description: "In the final phase, we manage the site and check quality closely, making sure the finished building matches the design at every stage.",
         details: [
             "Construction Administration",
             "On-site Quality Control",
@@ -144,11 +144,11 @@ export default function ProcessPage() {
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
                         <p className="text-xl lg:text-3xl font-light text-primary/60 dark:text-white/60 leading-snug italic">
-                            A rigorous technical approach to architectural creation, balancing artistic vision with structural discipline.
+                            A structured approach to architecture, combining creative design with technical precision.
                         </p>
                         <div className="flex flex-col gap-4 font-mono text-[10px] tracking-[0.2em] text-primary dark:text-white uppercase items-start lg:items-end">
                             <span>TOTAL PHASES: 04</span>
-                            <span>PRECISION SCALE: 1:1</span>
+                            <span>ATTENTION TO DETAIL: 100%</span>
                         </div>
                     </div>
                 </div>
@@ -205,7 +205,7 @@ export default function ProcessPage() {
                         <h3 className="text-4xl lg:text-7xl font-black tracking-tighter text-primary dark:text-white uppercase">Architectural Excellence.</h3>
                     </div>
                     <Link href="/contact" className="bg-primary dark:bg-white text-white dark:text-primary px-16 py-6 rounded-sm font-bold uppercase tracking-[0.4em] text-xs hover:bg-black dark:hover:bg-neutral-200 transition-all shadow-xl">
-                        START YOUR JOURNEY
+                        START A PROJECT
                     </Link>
                 </div>
 

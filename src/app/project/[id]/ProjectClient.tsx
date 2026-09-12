@@ -123,7 +123,7 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
                                     className="inline-flex items-center gap-3 text-white/60 hover:text-white transition-all duration-300 group cursor-pointer relative z-30 py-2"
                                 >
                                     <ArrowLeft size={14} className="group-hover:-translate-x-1.5 transition-transform duration-300 shrink-0 text-white/40 group-hover:text-white" />
-                                    <span className="font-mono text-[10px] tracking-[0.4em] uppercase hover:underline underline-offset-4 decoration-white/20 hover:decoration-white transition-all">PROJECT ARCHIVE // {project.title}</span>
+                                    <span className="font-mono text-[10px] tracking-[0.4em] uppercase hover:underline underline-offset-4 decoration-white/20 hover:decoration-white transition-all">PROJECTS // {project.title}</span>
                                 </Link>
                             </div>
 
@@ -165,7 +165,7 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
                         {/* Content Section */}
                         <section className="px-8 lg:px-24 py-32 flex flex-col gap-24 relative z-10 bg-white dark:bg-[#0a0a0a]">
                             <div className="flex flex-col gap-8 w-full">
-                                <h2 className="text-4xl font-black uppercase tracking-tight text-primary dark:text-white">Design Intelligence.</h2>
+                                <h2 className="text-4xl font-black uppercase tracking-tight text-primary dark:text-white">Project Overview.</h2>
                                 <div className={`text-xl lg:text-3xl font-light leading-relaxed text-primary/80 dark:text-white/80 italic ${descriptionExpanded ? "" : "line-clamp-4 lg:line-clamp-none"}`}>
                                     "{project.description}"
                                 </div>
@@ -252,7 +252,7 @@ export default function ProjectClient({ project, prevProject, nextProject, relat
                         {/* Related Works */}
                         <section id="related-architecture" className="px-8 lg:px-24 py-24 bg-white dark:bg-background-dark border-t border-neutral-100 dark:border-white/5 relative z-10">
                             <div className="mb-16">
-                                <h3 className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">Related Architecture</h3>
+                                <h3 className="font-mono text-[10px] tracking-[0.4em] text-primary/40 dark:text-white/40 uppercase">Related Projects</h3>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">

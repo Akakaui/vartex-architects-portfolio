@@ -82,7 +82,7 @@ export default function About({ founderImage }: { founderImage?: string }) {
 
                                 {/* Technical Corner Overlay / Solid Black */}
                                 <div className="absolute bottom-4 left-4 px-5 py-3 bg-black border border-white/10 font-mono text-[9px] tracking-[0.4em] uppercase z-10 transition-colors">
-                                    <span className="relative z-10 text-white font-semibold">DIRECTOR / MICHAEL MBAH</span>
+                                    <span className="relative z-10 text-white font-semibold">MICHAEL MBAH — DIRECTOR</span>
                                 </div>
                             </div>
                             <div className="flex flex-col gap-2 border-t border-neutral-100 dark:border-white/5 pt-6 font-mono text-[10px] tracking-widest text-primary/40 dark:text-white/40 uppercase">
@@ -109,10 +109,10 @@ export default function About({ founderImage }: { founderImage?: string }) {
                             </div>
                             <div className="flex flex-col gap-6 text-base font-light leading-relaxed text-primary/60 dark:text-white/60 max-w-xl">
                                 <p>
-                                    Michael Mbah established VARTEX in 2025 after years of refining his craft in both commercial and residential sectors across Nigeria. His approach is deeply mathematical, treating every project as an equation where light, volume, and material are solved through architectural rigor.
+                                    VARTEX was founded in 2025 to bring thoughtful, well-engineered architecture to commercial and residential projects across Nigeria. Our mission is to design spaces that balance function, budget, and beauty.
                                 </p>
                                 <p>
-                                    Today, the studio operates as a multidisciplinary hub, collaborating with engineers, landscape architects, and digital fabricators to deliver projects that are as technically sound as they are aesthetically profound.
+                                    Our team collaborates with engineers, landscape architects, and other specialists to deliver buildings that are structurally sound and beautifully designed.
                                 </p>
                             </div>
                             <div className="pt-12">
